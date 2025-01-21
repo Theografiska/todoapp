@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    width: 100vw;
+    height: 100vh;
+}
+
+p {
+}
+
+/* sidebar */ 
+#sidebar {
+    background-color: rgb(246, 242, 242);
+    padding: .75rem;
+}
+
+#profile-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+#name-section {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    font-weight: 600;
+}
+
+.icon {
+    width: 1rem;
+}
+
+.round-pic {
+    width: 1.5rem;
+    border-radius: .75rem;
+}
+
+/* task styling */
+
+#task-section {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#task {
+    background-color: lightblue;
+    padding: 1rem;
+    width: 33%;
+    border-radius: 1rem;
+}
