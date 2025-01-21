@@ -7,12 +7,20 @@
 
 body {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 3fr;
     width: 100vw;
     height: 100vh;
 }
 
+h2 {
+    font-size: 1.5rem;
+}
+
 p {
+}
+
+button {
+    cursor: pointer;
 }
 
 /* sidebar */ 
@@ -44,18 +52,41 @@ p {
     border-radius: .75rem;
 }
 
-/* task styling */
-
-#task-section {
+#projects-sidebar {
     margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
 }
 
-#task {
+#my-projects-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+#projects-sidebar div, #tasks-sidebar div {
+    display: flex;
+    gap: .5rem;
+}
+
+/* task styling */
+
+#task-section, #projects-section {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+}
+
+.task {
     background-color: lightblue;
     padding: 1rem;
-    width: 33%;
+    width: 15rem;
     border-radius: 1rem;
+}
+
+.task p {
+    margin: 1rem 0;
 }
