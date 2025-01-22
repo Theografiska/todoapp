@@ -19,6 +19,10 @@ h2 {
 p {
 }
 
+.icon {
+    cursor: pointer;
+}
+
 button {
     cursor: pointer;
 }
