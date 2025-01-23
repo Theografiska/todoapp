@@ -16,6 +16,10 @@ h2 {
     font-size: 1.5rem;
 }
 
+h3 {
+    margin: 1rem 0;
+}
+
 p {
 }
 
@@ -31,6 +35,16 @@ button {
 #sidebar {
     background-color: rgb(246, 242, 242);
     padding: .75rem;
+}
+
+.sidebar-heading {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+#sidebar h4 {
+    margin-bottom: .25rem;
 }
 
 #profile-row {
@@ -60,12 +74,6 @@ button {
     margin-top: 2rem;
 }
 
-#my-projects-row {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-}
-
 #projects-sidebar div, #tasks-sidebar div {
     display: flex;
     gap: .5rem;
@@ -81,7 +89,7 @@ button {
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
-    padding: 2rem;
+    padding: 1rem 2rem;
 }
 
 .task {
@@ -89,8 +97,22 @@ button {
     padding: 1rem;
     width: 15rem;
     border-radius: 1rem;
+    margin: 1rem 0rem;
 }
 
 .task p {
     margin: 1rem 0;
+}
+
+/* project styiling */
+
+.project {
+    background-color: lightgray;
+    padding: 2rem;
+    min-width: 25rem;
+    border-radius: 1rem;
+}
+
+.mini {
+    width: 10rem;
 }

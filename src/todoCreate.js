@@ -3,8 +3,8 @@ import todoRender from "./todoRender.js";
 
 const todoCreate = () => {
     // opening up the dialog to get input for tasks
-    const dialog = document.querySelector("dialog");
-    dialog.showModal();
+    const taskDialog = document.querySelector("#task-dialog");
+    taskDialog.showModal();
 
     // resetting the form
     const inputClass = document.querySelectorAll(".input-class");
@@ -13,16 +13,16 @@ const todoCreate = () => {
     })
 
     // close button to close the dialog
-    const closeButton = document.querySelector("#close-btn");
-    closeButton.addEventListener("click", () => {
-        dialog.close();
+    const taskDialogCloseButton = document.querySelector("#task-dialog-close-btn");
+    taskDialogCloseButton.addEventListener("click", () => {
+        taskDialog.close();
     });
 
     // submiting the dialog
-    const confirmBtn = document.querySelector("#confirm-btn");
+    const taskDialogConfirmBtn = document.querySelector("#task-dialog-confirm-btn");
 
-    if (!confirmBtn.dataset.listener) { // Checks if the listener already exists to avoid duplicates
-        confirmBtn.addEventListener("click", (event) => {
+    if (!taskDialogConfirmBtn.dataset.listener) { // Checks if the listener already exists to avoid duplicates
+        taskDialogConfirmBtn.addEventListener("click", (event) => {
             // preventing information sending event
             event.preventDefault(); 
     
@@ -42,11 +42,11 @@ const todoCreate = () => {
             todoRender(newTask); 
 
             // closing the dialog
-            dialog.close();
+            taskDialog.close();
         });
 
         // Mark the listener as added
-        confirmBtn.dataset.listener = "true";
+        taskDialogConfirmBtn.dataset.listener = "true";
     }
 }
 
