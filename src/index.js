@@ -13,19 +13,33 @@ const allTasks = [];
 // all active projects
 const allProjects = [];
 
-// sample task
-const newTodo = new Todo("Pick up trash", "Take the trash bag to the curb and leave it there", "31 Jan 2025", "High", "Not started", "general");
-todoRender(newTodo);
-console.log(newTodo);
+// sample task #1
+const finishTodoApp = new Todo("Finish todo list app", "Complete all the minimum requirements and publish the solution to Github", "27 Jan 2025", "Medium", "Ongoing", "JavaScript Course");
+allTasks.push(finishTodoApp);
+todoRender(finishTodoApp);
+console.log(finishTodoApp);
 
+// sample task #2
+const goToGym = new Todo("Go to the gym", "Do a strength workout", "24 Jan 2025", "Low", "Not started", "Starting Strength");
+allTasks.push(goToGym);
+todoRender(goToGym);
+console.log(goToGym);
+
+// add new tasks button and listener: 
 const addTaskButton = document.querySelector("#add-task-btn");
 addTaskButton.addEventListener("click", todoCreate);
 
-// sample project
-const tasks = [newTodo, newTodo];
-const newProject = new Project("JavaScript Course", "Just the description", "31st January", "High", "Ongoing", tasks, "Notes");
-projectRender(newProject);
+// sample project #1
+const tasks = [finishTodoApp];
+const javaScriptProject = new Project("JavaScript Course", "The Odin Project's course for Intermediate JavaScript skills", "31st January", "High", "Ongoing", tasks, "So far so good, a bit tought to keep up my 20+ hours weekly practice goal.");
+projectRender(javaScriptProject);
 
+// sample project #2
+const gymTasks = [goToGym];
+const startingStrengthProject = new Project("Starting Strength", "The gym program for linear progression", "31st March", "Medium", "Not started", gymTasks, "Current progress is minimal");
+projectRender(startingStrengthProject);
+
+// add new project button and listner:
 const addProjectButton = document.querySelector("#add-project-btn");
 addProjectButton.addEventListener("click", projectCreate);
 

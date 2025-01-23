@@ -7,12 +7,13 @@ const todoRender = (todo) => {
 
     // adding a title
     const newTaskTitle = document.createElement("h3");
+    newTaskTitle.className = "task-title"
     newTaskTitle.textContent = todo.title;
     newTaskDiv.appendChild(newTaskTitle);
 
     // adding a description
     const newTaskDescription = document.createElement("p");
-    newTaskDescription.textContent = `Description: ${todo.description}`;
+    newTaskDescription.textContent = `${todo.description}`;
     newTaskDiv.appendChild(newTaskDescription);
 
     // adding a due date

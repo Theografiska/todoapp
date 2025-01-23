@@ -100,6 +100,10 @@ button {
     margin: 1rem 0rem;
 }
 
+.task-title {
+    font-size: 1.2rem;
+}
+
 .task p {
     margin: 1rem 0;
 }
@@ -109,8 +113,12 @@ button {
 .project {
     background-color: lightgray;
     padding: 2rem;
-    min-width: 25rem;
+    width: 25rem;
     border-radius: 1rem;
+}
+
+.project-title {
+    font-size: 1.2rem;
 }
 
 .mini {
