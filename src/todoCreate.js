@@ -43,9 +43,6 @@ const todoCreate = (taskArray, project) => {
                 // rendering the new task
 /*                 todoRender(newTask, taskArray, project);
  */ 
-                // adding the task under relevant project
-
-
                 // closing the dialog
                 taskDialog.close();
             });

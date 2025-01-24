@@ -1,6 +1,9 @@
 import todoCreate from "./todoCreate";
+import todoRender from "./todoRender";
+import Todo from "./todoClass";
+import taskDialog from "./taskDialog";
 
-const projectRender = (project, projectArray, taskarray) => {
+const projectRender = (project, projectArray, taskArray) => {
     const projectsSection = document.querySelector("#projects-section");
 
     // creating a new project
@@ -41,13 +44,12 @@ const projectRender = (project, projectArray, taskarray) => {
     // button to add (or create) tasks inside a project card
     const addTasksInProject = document.createElement("button");
     addTasksInProject.textContent = "Add task";
-
-    addTasksInProject.addEventListener("click", async () => {
-        const newTask = await todoCreate(taskarray, project);
-        project.addTask(newTask);
-    })
-
     taskArea.appendChild(addTasksInProject);
+
+    // Attach the event listener to the "Add task" button
+    addTasksInProject.addEventListener("click", () => {
+        taskDialog(project, taskArray);
+    });
 
     newProjectDiv.appendChild(taskArea);
 
@@ -68,7 +70,6 @@ const projectRender = (project, projectArray, taskarray) => {
 
         newProjectDiv.appendChild(miniTask);
     }
-
 
     // appending the Project to the general Project section
     projectsSection.appendChild(newProjectDiv);

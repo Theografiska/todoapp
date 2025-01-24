@@ -20,11 +20,11 @@ addProjectButton.addEventListener("click", () => projectCreate(allProjects));
 
 // default project
 const defaultProject = new Project("General tasks", "Tasks go here by default", "N/A", "N/A", "N/A", "N/A", []);
-projectRender(defaultProject, allProjects)
+projectRender(defaultProject, allProjects, allTasks)
 
 // sample project #1
 const javaScriptProject = new Project("JavaScript Course", "The Odin Project's course for Intermediate JavaScript skills", "31st January", "High", "Ongoing", "So far so good, a bit tought to keep up my 20+ hours weekly practice goal.", []);
-projectRender(javaScriptProject, allProjects);
+projectRender(javaScriptProject, allProjects, allTasks);
 
 // sample project #2
 const startingStrengthProject = new Project("Starting Strength", "The gym program for linear progression", "31st March", "Medium", "Not started", "Current progress is minimal", []);
