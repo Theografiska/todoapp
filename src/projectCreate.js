@@ -1,7 +1,7 @@
 import Project from "./projectClass.js";
 import projectRender from "./projectRender.js";
 
-const projectCreate = () => {
+const projectCreate = (projectArray, taskArray) => {
     // opening up the dialog to get input for tasks
     const projectDialog = document.querySelector("#project-dialog");
     projectDialog.showModal();
@@ -40,7 +40,7 @@ const projectCreate = () => {
             console.log(newProject);
             
             // rendering the new task
-            projectRender(newProject); 
+            projectRender(newProject, projectArray, taskArray); 
 
             // closing the dialog
             projectDialog.close();

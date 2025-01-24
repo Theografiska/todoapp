@@ -1,39 +1,55 @@
-const projectRender = (project) => {
+import todoCreate from "./todoCreate";
+
+const projectRender = (project, projectArray, taskarray) => {
     const projectsSection = document.querySelector("#projects-section");
 
     // creating a new project
     const newProjectDiv = document.createElement("div");
     newProjectDiv.className = "project";
 
-    // adding a title
-    const newProjectTitle = document.createElement("h3");
-    newProjectTitle.textContent = project.title;
-    newProjectDiv.appendChild(newProjectTitle);
+    // adding the title, description, date, priority, status, notes
+    const projectTitle = document.createElement("h3");
+    projectTitle.textContent = project.title;
+    newProjectDiv.appendChild(projectTitle);
 
-    // adding a description
-    const newProjectDescription = document.createElement("p");
-    newProjectDescription.textContent = `Description: ${project.description}`;
-    newProjectDiv.appendChild(newProjectDescription);
+    const projectDescription = document.createElement("p");
+    projectDescription.textContent = `Description: ${project.description}`;
+    newProjectDiv.appendChild(projectDescription);
 
-    // adding a due date
-    const newProjectDueDate = document.createElement("p");
-    newProjectDueDate.textContent = `Due date: ${project.dueDate}`;
-    newProjectDiv.appendChild(newProjectDueDate);
+    const projectDueDate = document.createElement("p");
+    projectDueDate.textContent = `Due date: ${project.dueDate}`;
+    newProjectDiv.appendChild(projectDueDate);
 
-    // adding a priority
-    const newProjectPriority = document.createElement("p");
-    newProjectPriority.textContent = `Priority: ${project.priority}`;
-    newProjectDiv.appendChild(newProjectPriority);
+    const projectPriority = document.createElement("p");
+    projectPriority.textContent = `Priority: ${project.priority}`;
+    newProjectDiv.appendChild(projectPriority);
 
-    // adding a status
-    const newProjectStatus = document.createElement("p");
-    newProjectStatus.textContent = `Status: ${project.status}`;
-    newProjectDiv.appendChild(newProjectStatus);
+    const projectStatus = document.createElement("p");
+    projectStatus.textContent = `Status: ${project.status}`;
+    newProjectDiv.appendChild(projectStatus);
 
-    // adding tasks
-    const newProjectTasks = document.createElement("h3");
-    newProjectTasks.textContent = `Tasks:`;
-    newProjectDiv.appendChild(newProjectTasks);
+    const projectNotes = document.createElement("p");
+    projectNotes.textContent = `Notes: ${project.notes}`;
+    newProjectDiv.appendChild(projectNotes);
+
+    // task area
+    const taskArea = document.createElement("div");
+    const projectTasksTitle = document.createElement("h3");
+    projectTasksTitle.textContent = `Tasks:`;
+    taskArea.appendChild(projectTasksTitle);
+
+    // button to add (or create) tasks inside a project card
+    const addTasksInProject = document.createElement("button");
+    addTasksInProject.textContent = "Add task";
+
+    addTasksInProject.addEventListener("click", async () => {
+        const newTask = await todoCreate(taskarray, project);
+        project.addTask(newTask);
+    })
+
+    taskArea.appendChild(addTasksInProject);
+
+    newProjectDiv.appendChild(taskArea);
 
     for (let i = 0; i < project.tasks.length; i++) {
         // creating small versions of tasks
@@ -53,13 +69,14 @@ const projectRender = (project) => {
         newProjectDiv.appendChild(miniTask);
     }
 
-    // adding notes
-    const newProjectNotes = document.createElement("p");
-    newProjectNotes.textContent = `Notes: ${project.notes}`;
-    newProjectDiv.appendChild(newProjectNotes);
 
     // appending the Project to the general Project section
     projectsSection.appendChild(newProjectDiv);
+
+    // Store reference to newProjectDiv in the Project instance
+    project.newProjectDiv = newProjectDiv;
+
+    projectArray.push(project);
 }
 
 export default projectRender;

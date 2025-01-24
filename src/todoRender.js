@@ -1,43 +1,48 @@
-const todoRender = (todo) => {
-    const taskSection = document.querySelector("#task-section");
+const todoRender = (todo, taskArray, project) => {
+    project.addTask(todo);
+    taskArray.push(todo);
+
+    /* const taskSection = document.querySelector("#task-section");
 
     // creating a new task
-    const newTaskDiv = document.createElement("div");
-    newTaskDiv.className = "task";
+    const taskDiv = document.createElement("div");
+    taskDiv.className = "task";
 
     // adding a title
-    const newTaskTitle = document.createElement("h3");
-    newTaskTitle.className = "task-title"
-    newTaskTitle.textContent = todo.title;
-    newTaskDiv.appendChild(newTaskTitle);
+    const taskTitle = document.createElement("h3");
+    taskTitle.className = "task-title"
+    taskTitle.textContent = todo.title;
+    taskDiv.appendChild(taskTitle);
 
     // adding a description
-    const newTaskDescription = document.createElement("p");
-    newTaskDescription.textContent = `${todo.description}`;
-    newTaskDiv.appendChild(newTaskDescription);
+    const taskDescription = document.createElement("p");
+    taskDescription.textContent = `${todo.description}`;
+    taskDiv.appendChild(taskDescription);
 
     // adding a due date
-    const newTaskDueDate = document.createElement("p");
-    newTaskDueDate.textContent = `Due date: ${todo.dueDate}`;
-    newTaskDiv.appendChild(newTaskDueDate);
+    const taskDueDate = document.createElement("p");
+    taskDueDate.textContent = `Due date: ${todo.dueDate}`;
+    taskDiv.appendChild(taskDueDate);
 
     // adding a priority
-    const newTaskPriority = document.createElement("p");
-    newTaskPriority.textContent = `Priority: ${todo.priority}`;
-    newTaskDiv.appendChild(newTaskPriority);
+    const taskPriority = document.createElement("p");
+    taskPriority.textContent = `Priority: ${todo.priority}`;
+    taskDiv.appendChild(taskPriority);
 
     // adding a status
-    const newTaskStatus = document.createElement("p");
-    newTaskStatus.textContent = `Status: ${todo.status}`;
-    newTaskDiv.appendChild(newTaskStatus);
+    const taskStatus = document.createElement("p");
+    taskStatus.textContent = `Status: ${todo.status}`;
+    taskDiv.appendChild(taskStatus);
 
-    // adding labels
-    const newTaskLabels = document.createElement("p");
-    newTaskLabels.textContent = `Labels: ${todo.labels}`;
-    newTaskDiv.appendChild(newTaskLabels);
+    // adding project
+    const taskProject = document.createElement("p");
+    taskProject.textContent = `Project: ${todo.project}`;
+    taskDiv.appendChild(taskProject);
 
     // appending the task to the general task section
-    taskSection.appendChild(newTaskDiv);
+    taskSection.appendChild(taskDiv);
+ */
+
 }
 
 export default todoRender;

@@ -7,46 +7,42 @@ import Project from "./projectClass.js";
 import projectRender from "./projectRender.js";
 import projectCreate from "./projectCreate.js";
 
-// all active tasks
+// all active tasks and projects
 const allTasks = [];
-
-// all active projects
 const allProjects = [];
+
+// create tasks/projects bbuttons and listeners: 
+const addTaskButton = document.querySelector("#add-task-btn");
+addTaskButton.addEventListener("click", () => todoCreate(allTasks, defaultProject)); 
+
+const addProjectButton = document.querySelector("#add-project-btn");
+addProjectButton.addEventListener("click", () => projectCreate(allProjects));
+
+// default project
+const defaultProject = new Project("General tasks", "Tasks go here by default", "N/A", "N/A", "N/A", "N/A", []);
+projectRender(defaultProject, allProjects)
+
+// sample project #1
+const javaScriptProject = new Project("JavaScript Course", "The Odin Project's course for Intermediate JavaScript skills", "31st January", "High", "Ongoing", "So far so good, a bit tought to keep up my 20+ hours weekly practice goal.", []);
+projectRender(javaScriptProject, allProjects);
+
+// sample project #2
+const startingStrengthProject = new Project("Starting Strength", "The gym program for linear progression", "31st March", "Medium", "Not started", "Current progress is minimal", []);
+projectRender(startingStrengthProject, allProjects);
 
 // sample task #1
 const finishTodoApp = new Todo("Finish todo list app", "Complete all the minimum requirements and publish the solution to Github", "27 Jan 2025", "Medium", "Ongoing", "JavaScript Course");
-allTasks.push(finishTodoApp);
-todoRender(finishTodoApp);
-console.log(finishTodoApp);
+todoRender(finishTodoApp, allTasks, javaScriptProject);
 
 // sample task #2
 const goToGym = new Todo("Go to the gym", "Do a strength workout", "24 Jan 2025", "Low", "Not started", "Starting Strength");
-allTasks.push(goToGym);
-todoRender(goToGym);
-console.log(goToGym);
+todoRender(goToGym, allTasks, startingStrengthProject);
 
-// add new tasks button and listener: 
-const addTaskButton = document.querySelector("#add-task-btn");
-addTaskButton.addEventListener("click", todoCreate);
+// adding a new task to a project
+startingStrengthProject.addTask(goToGym);
 
-// sample project #1
-const tasks = [finishTodoApp];
-const javaScriptProject = new Project("JavaScript Course", "The Odin Project's course for Intermediate JavaScript skills", "31st January", "High", "Ongoing", tasks, "So far so good, a bit tought to keep up my 20+ hours weekly practice goal.");
-projectRender(javaScriptProject);
-
-// sample project #2
-const gymTasks = [goToGym];
-const startingStrengthProject = new Project("Starting Strength", "The gym program for linear progression", "31st March", "Medium", "Not started", gymTasks, "Current progress is minimal");
-projectRender(startingStrengthProject);
-
-// add new project button and listner:
-const addProjectButton = document.querySelector("#add-project-btn");
-addProjectButton.addEventListener("click", projectCreate);
-
-
-
-
-
+console.log(allTasks);
+console.log(allProjects);
 
 
 

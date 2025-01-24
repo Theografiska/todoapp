@@ -14,6 +14,8 @@ body {
 
 h2 {
     font-size: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
 }
 
 h3 {
@@ -82,11 +84,8 @@ button {
 /* task styling */
 
 #task-section, #projects-section {
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
     padding: 1rem 2rem;
@@ -96,6 +95,7 @@ button {
     background-color: lightblue;
     padding: 1rem;
     width: 15rem;
+    height: 20rem;
     border-radius: 1rem;
     margin: 1rem 0rem;
 }
@@ -115,6 +115,7 @@ button {
     padding: 2rem;
     width: 25rem;
     border-radius: 1rem;
+    margin: 1rem 0rem;
 }
 
 .project-title {
@@ -123,4 +124,6 @@ button {
 
 .mini {
     width: 10rem;
+    height: 10rem;
+    cursor: pointer;
 }

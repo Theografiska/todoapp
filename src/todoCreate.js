@@ -1,53 +1,59 @@
 import Todo from "./todoClass.js";
 import todoRender from "./todoRender.js";
 
-const todoCreate = () => {
-    // opening up the dialog to get input for tasks
-    const taskDialog = document.querySelector("#task-dialog");
-    taskDialog.showModal();
+const todoCreate = (taskArray, project) => {
+    return new Promise((resolve) => {
+        const taskDialog = document.querySelector("#task-dialog");
+        taskDialog.showModal();
 
-    // resetting the form
-    const inputClass = document.querySelectorAll(".input-class");
-    inputClass.forEach((item) => {
-        item.value = "";
-    })
+        // resetting the form
+        const inputClass = document.querySelectorAll(".input-class");
+        inputClass.forEach((item) => {
+            item.value = "";
+        })
 
-    // close button to close the dialog
-    const taskDialogCloseButton = document.querySelector("#task-dialog-close-btn");
-    taskDialogCloseButton.addEventListener("click", () => {
-        taskDialog.close();
-    });
-
-    // submiting the dialog
-    const taskDialogConfirmBtn = document.querySelector("#task-dialog-confirm-btn");
-
-    if (!taskDialogConfirmBtn.dataset.listener) { // Checks if the listener already exists to avoid duplicates
-        taskDialogConfirmBtn.addEventListener("click", (event) => {
-            // preventing information sending event
-            event.preventDefault(); 
-    
-            // capturing user inputs from dialog
-            const newTitle = document.querySelector("#title-input").value;
-            const newDescription = document.querySelector("#description-input").value;
-            const newDueDate = document.querySelector("#due-date-input").value;
-            const newPriority = document.querySelector("#priority-input").value;
-            const newStatus = document.querySelector("#status-input").value;
-            const newLabels = document.querySelector("#labels-input").value;
-    
-            // creating a new task or todo
-            const newTask = new Todo(newTitle, newDescription, newDueDate, newPriority, newStatus, newLabels);
-            console.log(newTask);
-            
-            // rendering the new task
-            todoRender(newTask); 
-
-            // closing the dialog
+        // close button to close the dialog
+        const taskDialogCloseButton = document.querySelector("#task-dialog-close-btn");
+        taskDialogCloseButton.addEventListener("click", () => {
             taskDialog.close();
         });
 
-        // Mark the listener as added
-        taskDialogConfirmBtn.dataset.listener = "true";
-    }
+        // submiting the dialog
+        const taskDialogConfirmBtn = document.querySelector("#task-dialog-confirm-btn");
+
+        if (!taskDialogConfirmBtn.dataset.listener) { // Checks if the listener already exists to avoid duplicates
+            taskDialogConfirmBtn.addEventListener("click", (event) => {
+                // preventing information sending event
+                event.preventDefault(); 
+        
+                // capturing user inputs from dialog
+                const title = document.querySelector("#task-title-input").value;
+                const description = document.querySelector("#task-description-input").value;
+                const dueDate = document.querySelector("#task-due-date-input").value;
+                const priority = document.querySelector("#task-priority-input").value;
+                const status = document.querySelector("#task-status-input").value;
+                const taskProject = document.querySelector("#task-project-input").value;
+        
+                // creating a new task object
+                const newTask = new Todo(title, description, dueDate, priority, status, taskProject);
+                
+                // Resolve the promise with the new task
+                resolve(newTask);
+
+                // rendering the new task
+/*                 todoRender(newTask, taskArray, project);
+ */ 
+                // adding the task under relevant project
+
+
+                // closing the dialog
+                taskDialog.close();
+            });
+
+            // Mark the listener as added
+            taskDialogConfirmBtn.dataset.listener = "true";
+        }
+    })
 }
 
 export default todoCreate;
