@@ -4,13 +4,25 @@ const expandTask = (taskDiv, taskObj) => {
     taskDiv.appendChild(taskTitle);
 
     const taskDueDate = document.createElement("p");
-    taskDueDate.textContent = `Due date: ${taskObj.dueDate}`;
+    taskDueDate.textContent = `Deadline: ${taskObj.dueDate}`;
     taskDiv.appendChild(taskDueDate);
 
     const taskCharacteristics = document.createElement("div");
-    taskCharacteristics.className = "task-characteristics"
-
+    taskCharacteristics.className = "task-characteristics";
     taskDiv.appendChild(taskCharacteristics);
+
+    // changing taskDiv color based on task status
+    switch(taskObj.status) {
+        case 'Not started':
+            taskDiv.style.backgroundColor = "lightgray";
+            break;
+        case 'Ongoing':
+            taskDiv.style.backgroundColor = "#FFFFC2";
+            break;
+        case 'Completed':
+            taskDiv.style.backgroundColor = "#B3C981";
+            break;
+    }
 
     const expandButton = document.createElement("button");
     expandButton.textContent = "Detailed view";
@@ -27,6 +39,7 @@ const expandTask = (taskDiv, taskObj) => {
 
             const taskPriority = document.createElement("p");
             taskPriority.textContent = `Priority: ${taskObj.priority}`;
+            
             taskCharacteristics.appendChild(taskPriority);
 
             const taskStatus = document.createElement("p");
@@ -34,7 +47,7 @@ const expandTask = (taskDiv, taskObj) => {
             taskCharacteristics.appendChild(taskStatus);
 
             const taskProject = document.createElement("p");
-            taskProject.textContent = `Project: ${taskObj.project}`;
+            taskProject.textContent = `Project: #${taskObj.project}`;
             taskCharacteristics.appendChild(taskProject);
 
             expandButton.textContent = "Shrink";
