@@ -1,83 +1,87 @@
-import todoCreate from "./todoCreate";
-import todoRender from "./todoRender";
-import Todo from "./todoClass";
-import taskDialog from "./taskDialog";
+import expandTask from "./expandTask";
 
-const projectRender = (project, projectArray, taskArray) => {
+const projectRender = (project) => {
     const projectsSection = document.querySelector("#projects-section");
 
-    // creating a new project
-    const newProjectDiv = document.createElement("div");
-    newProjectDiv.className = "project";
+    // general tasks project (displayed as just general tasks):
+    if (project.title === "General tasks") {
+        const tasksSection = document.querySelector("#tasks-section");
+        const taskArea = document.createElement("div");
+        taskArea.className = "task-area";
 
-    // adding the title, description, date, priority, status, notes
-    const projectTitle = document.createElement("h3");
-    projectTitle.textContent = project.title;
-    newProjectDiv.appendChild(projectTitle);
+        for (let i = 0; i < project.tasks.length; i++) {
+            const taskDiv = document.createElement("div");
+            taskDiv.className = "task mini";
 
-    const projectDescription = document.createElement("p");
-    projectDescription.textContent = `Description: ${project.description}`;
-    newProjectDiv.appendChild(projectDescription);
+            const currentTask = project.tasks[i];
+            /* add module here taking into account task div, plus task object */
 
-    const projectDueDate = document.createElement("p");
-    projectDueDate.textContent = `Due date: ${project.dueDate}`;
-    newProjectDiv.appendChild(projectDueDate);
+            expandTask(taskDiv, currentTask);
+            
+            // delete button functionality
+            const taskDeleteButton = document.createElement("button");
+            taskDeleteButton.textContent = "Delete task";
+            taskDiv.appendChild(taskDeleteButton);
 
-    const projectPriority = document.createElement("p");
-    projectPriority.textContent = `Priority: ${project.priority}`;
-    newProjectDiv.appendChild(projectPriority);
+            taskDeleteButton.addEventListener("click", () => {
+                const taskIndex = project.tasks.indexOf(currentTask);
+                project.tasks.splice(taskIndex, 1);
+                taskDiv.remove();
+            })
 
-    const projectStatus = document.createElement("p");
-    projectStatus.textContent = `Status: ${project.status}`;
-    newProjectDiv.appendChild(projectStatus);
+            taskArea.appendChild(taskDiv);
+        }
 
-    const projectNotes = document.createElement("p");
-    projectNotes.textContent = `Notes: ${project.notes}`;
-    newProjectDiv.appendChild(projectNotes);
+        tasksSection.appendChild(taskArea);
 
-    // task area
-    const taskArea = document.createElement("div");
-    const projectTasksTitle = document.createElement("h3");
-    projectTasksTitle.textContent = `Tasks:`;
-    taskArea.appendChild(projectTasksTitle);
+    // other projects are displayed properly 
+    } else {
+        const newProjectDiv = document.createElement("div");
+        newProjectDiv.className = "project";
 
-    // button to add (or create) tasks inside a project card
-    const addTasksInProject = document.createElement("button");
-    addTasksInProject.textContent = "Add task";
-    taskArea.appendChild(addTasksInProject);
+        // adding the title, description, date, priority, status, notes
+        const projectTitle = document.createElement("h3");
+        projectTitle.textContent = project.title;
+        newProjectDiv.appendChild(projectTitle);
 
-    // Attach the event listener to the "Add task" button
-    addTasksInProject.addEventListener("click", () => {
-        taskDialog(project, taskArray);
-    });
+        const projectDescription = document.createElement("p");
+        projectDescription.textContent = `Description: ${project.description}`;
+        newProjectDiv.appendChild(projectDescription);
 
-    newProjectDiv.appendChild(taskArea);
+        const projectStatus = document.createElement("p");
+        projectStatus.textContent = `Status: ${project.status}`;
+        newProjectDiv.appendChild(projectStatus);
 
-    for (let i = 0; i < project.tasks.length; i++) {
-        // creating small versions of tasks
-        const miniTask = document.createElement("div");
-        miniTask.className = "mini task";
+        const projectNotes = document.createElement("p");
+        projectNotes.textContent = `Notes: ${project.notes}`;
+        newProjectDiv.appendChild(projectNotes);
 
-        // adding a title
-        const miniTaskTitle = document.createElement("h3");
-        miniTaskTitle.textContent = project.tasks[i].title;
-        miniTask.appendChild(miniTaskTitle);
+        // task area
+        const taskArea = document.createElement("div");
+        const projectTasksTitle = document.createElement("h3");
+        projectTasksTitle.textContent = `Tasks:`;
+        taskArea.appendChild(projectTasksTitle);
+        for (let i = 0; i < project.tasks.length; i++) {
+            // creating small versions of tasks
+            const task = document.createElement("div");
+            task.className = "mini task";
+    
+            // adding a title
+            const taskTitle = document.createElement("h3");
+            taskTitle.textContent = project.tasks[i].title;
+            task.appendChild(taskTitle);
+    
+            // adding a status
+            const taskStatus = document.createElement("p");
+            taskStatus.textContent = `Status: ${project.tasks[i].status}`;
+            task.appendChild(taskStatus);
+    
+            taskArea.appendChild(task);
+        }
 
-        // adding a status
-        const miniTaskStatus = document.createElement("p");
-        miniTaskStatus.textContent = `Status: ${project.tasks[i].status}`;
-        miniTask.appendChild(miniTaskStatus);
-
-        newProjectDiv.appendChild(miniTask);
+        newProjectDiv.appendChild(taskArea);
+        projectsSection.appendChild(newProjectDiv);
     }
-
-    // appending the Project to the general Project section
-    projectsSection.appendChild(newProjectDiv);
-
-    // Store reference to newProjectDiv in the Project instance
-    project.newProjectDiv = newProjectDiv;
-
-    projectArray.push(project);
 }
 
 export default projectRender;

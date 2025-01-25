@@ -6,9 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+
     <div id="sidebar">
         <div id="profile-row">
-            <div id="name-section">
+            <div>
                 <img class="round-pic" src="assets/Theo.png" alt="" width="24 px" height="24px"> <!--24px = 1.5rem-->
                 <p>Theodor</p>
             </div>
@@ -19,7 +20,7 @@
         </div>
         <div id="tasks-sidebar">
             <div>
-                <h4 class="sidebar-heading">My Tasks</h4>
+                <h3>My Tasks</h3>
             </div>
             <div>
                 <h4>Today</h4>
@@ -34,7 +35,7 @@
         </div>
         <div id="projects-sidebar">
             <div>
-                <h4 class="sidebar-heading">My Projects</h4>
+                <h3>My Projects</h3>
             </div>
             <div>
                 <h4>General Tasks</h4>
@@ -51,9 +52,11 @@
             </div>
         </div>
     </div>
+
     <div id="main-content">
-        <!--<h2>Tasks</h2>-->
-        <div id="task-section">
+        <h2>General Tasks</h2>
+        <!--add the general project here already-->
+        <div id="tasks-section">
         </div>
         <h2>Projects</h2>
         <div id="projects-section">
@@ -77,18 +80,24 @@
                         </div>
                         <div class="form-row">
                             <label for="task-priority-input">Priority: </label>
-                            <input class="input-class" id="task-priority-input" name="task-priority-input" placeholder="Priority" type="text" required>
+                            <select name="task-priority-input" id="task-priority-input">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
                         </div>
                         <div class="form-row">
                             <label for="task-status-input">Status: </label>
-                            <input class="input-class" id="task-status-input" name="task-status-input" placeholder="Status" type="text" required>
+                            <select name="task-status-input" id="task-status-input">
+                                <option value="task-not-started">Not started</option>
+                                <option value="task-ongoing">Ongoing</option>
+                                <option value="task-completed">Completed</option>
+                            </select>
                         </div>
                         <div class="form-row">
                             <label for="task-project-input">Project: </label>
                             <select class="input-class" id="task-project-input" name="task-project-input" placeholder="Project" type="text" required>
                                 <option value="general">General tasks</option>
-                                <option value="javascript-course">JavaScript Course</option>
-                                <option value="starting-strength">Starting Strength</option>
                             </select>
                         </div>
                     </form>
@@ -113,20 +122,33 @@
                         <input class="input-class" id="project-due-date-input" name="project-due-date-input" placeholder="Due date" type="text" required>
                     </div>
                     <div class="form-row">
-                        <label for="project-priority-input">Priority: </label>
-                        <input class="input-class" id="project-priority-input" name="project-priority-input" placeholder="Priority" type="text" required>
-                    </div>
-                    <div class="form-row">
                         <label for="project-status-input">Status: </label>
-                        <input class="input-class" id="project-status-input" name="project-status-input" placeholder="Status" type="text" required>
+                        <select name="project-status-input" id="project-status-input">
+                            <option value="project-not-started">Not started</option>
+                            <option value="project-ongoing">Ongoing</option>
+                            <option value="project-completed">Completed</option>
+                        </select>
                     </div>
                     <div class="form-row">
                         <label for="project-notes-input">Add notes: </label>
-                        <input class="input-class" id="project-notes-input" name="project-notes-input" placeholder="Notes" type="text" required>
+                        <textarea class="input-class" id="project-notes-input" name="project-notes-input" placeholder="Notes" type="text" rows="5" cols="33" required>
                     </div>
                 </form>
                 <button class="form-button" id="project-dialog-confirm-btn" value="default">Confirm</button>
         </dialog>
+
+        <!--task modal-->
+        <div id="task-modal" class="modal hidden">
+            <div class="task-modal-content">
+                <span id="task-modal-close-btn">&times;</span>
+                <h2 id="task-modal-title"></h2>
+                <p id="task-modal-description"></p>
+                <p id="task-modal-due-date"></p>
+                <p id="task-modal-priority"></p>
+                <p id="task-modal-status"></p>
+                <p id="task-modal-project"></p>
+            </div>
+        </div>
         
     </div>
 </body>

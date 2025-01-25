@@ -39,7 +39,7 @@ button {
     padding: .75rem;
 }
 
-.sidebar-heading {
+#sidebar h3 {
     font-size: 1.2rem;
     text-transform: uppercase;
     margin-bottom: 1rem;
@@ -56,7 +56,7 @@ button {
     margin-bottom: 2rem;
 }
 
-#name-section {
+#profile-row div {
     display: flex;
     gap: .5rem;
     align-items: center;
@@ -83,7 +83,7 @@ button {
 
 /* task styling */
 
-#task-section, #projects-section {
+#tasks-section, #projects-section {
     margin-top: 1rem;
     display: flex;
     gap: 1rem;
@@ -91,22 +91,70 @@ button {
     padding: 1rem 2rem;
 }
 
+.task-area {
+    display: flex;
+    gap: 1rem;
+}
+
 .task {
     background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     padding: 1rem;
     width: 15rem;
-    height: 20rem;
     border-radius: 1rem;
     margin: 1rem 0rem;
 }
 
 .task-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+}
+
+.task-characteristics p {
+    margin: 1rem 0;
 }
 
 .task p {
-    margin: 1rem 0;
 }
+
+/* task modal */
+
+.task-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+  
+.hidden {
+    display: none;
+}
+
+.task-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+.task-modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 
 /* project styiling */
 
@@ -122,8 +170,13 @@ button {
     font-size: 1.2rem;
 }
 
-.mini {
+.mini { /* small task inside a project */
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    justify-content: space-between;
     width: 10rem;
-    height: 10rem;
+    min-height: 8rem;
+    max-height: 12rem;
     cursor: pointer;
 }
+
