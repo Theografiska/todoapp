@@ -3,6 +3,11 @@ import expandTask from "./expandTask";
 import deleteTask from "./deleteTask";
 
 const createTask = (taskArray, projectArray) => {
+    // populating the select items through JavaScript
+    let taskProjectSelect = document.querySelector("#task-project-input");
+    let options = projectArray.map(item => `<option value=${item.title}>${item.title}</option>`).join(`\n`);
+    taskProjectSelect.innerHTML = options;
+
     const taskDialog = document.querySelector("#task-dialog");
     taskDialog.showModal();
     taskDialog.style.display = "flex";

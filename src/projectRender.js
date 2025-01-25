@@ -42,7 +42,7 @@ const projectRender = (project, projectArray, taskArray) => {
         newProjectDiv.appendChild(projectTitle);
 
         const projectDescription = document.createElement("p");
-        projectDescription.textContent = `Description: ${project.description}`;
+        projectDescription.textContent = `${project.description}`;
         newProjectDiv.appendChild(projectDescription);
 
         const projectStatus = document.createElement("p");

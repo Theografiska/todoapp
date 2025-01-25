@@ -1,6 +1,12 @@
+import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
+
+
 const deleteTask = (taskDiv, taskObj, project, taskArray) => {
     const taskDeleteButton = document.createElement("button");
-    taskDeleteButton.textContent = "Delete task";
+    taskDeleteButton.className = "task-delete-btn";
+    taskDeleteButton.style.background = `url(${deleteImage})`;
+
+    taskDiv.style.position = "relative"; // this is necessary in order to properly position the delete and expand elements
     taskDiv.appendChild(taskDeleteButton);
 
     taskDeleteButton.addEventListener("click", () => {

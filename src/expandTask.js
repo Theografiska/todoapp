@@ -1,7 +1,21 @@
+import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
+import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
+
 const expandTask = (taskDiv, taskObj) => {
     const taskTitle = document.createElement("h3");
+    taskTitle.className = "task-title";
     taskTitle.textContent = taskObj.title;
     taskDiv.appendChild(taskTitle);
+
+    const taskStatus = document.createElement("div");
+    taskStatus.className = "task-status";
+    const taskStatusText = document.createElement("p");
+    taskStatusText.textContent = `Status: ${taskObj.status}`;
+    taskStatus.appendChild(taskStatusText);
+    const taskStatusSymbol = document.createElement("div");
+    taskStatusSymbol.className = "task-status-symbol";
+    taskStatus.appendChild(taskStatusSymbol);
+    taskDiv.appendChild(taskStatus);
 
     const taskDueDate = document.createElement("p");
     taskDueDate.textContent = `Deadline: ${taskObj.dueDate}`;
@@ -14,18 +28,20 @@ const expandTask = (taskDiv, taskObj) => {
     // changing taskDiv color based on task status
     switch(taskObj.status) {
         case 'Not started':
-            taskDiv.style.backgroundColor = "lightgray";
+            taskStatusSymbol.style.backgroundColor = "lightgray";
             break;
         case 'Ongoing':
-            taskDiv.style.backgroundColor = "#FFFFC2";
+            taskStatusSymbol.style.backgroundColor = "yellow";
             break;
         case 'Completed':
-            taskDiv.style.backgroundColor = "#B3C981";
+            taskStatusSymbol.style.backgroundColor = "green";
             break;
     }
 
     const expandButton = document.createElement("button");
-    expandButton.textContent = "Detailed view";
+    expandButton.style.background = `url(${fullScreen})`;
+    expandButton.className = "task-expand-btn";
+
     taskDiv.appendChild(expandButton);
 
     // listener for opening the full task view
@@ -42,18 +58,14 @@ const expandTask = (taskDiv, taskObj) => {
             
             taskCharacteristics.appendChild(taskPriority);
 
-            const taskStatus = document.createElement("p");
-            taskStatus.textContent = `Status: ${taskObj.status}`;
-            taskCharacteristics.appendChild(taskStatus);
-
             const taskProject = document.createElement("p");
             taskProject.textContent = `Project: #${taskObj.project}`;
             taskCharacteristics.appendChild(taskProject);
 
-            expandButton.textContent = "Shrink";
+            expandButton.style.background = `url(${minimize})`;
         } else {
             taskDiv.classList.add("mini");
-            expandButton.textContent = "Detailed view";
+            expandButton.style.background = `url(${fullScreen})`;
             taskCharacteristics.textContent = "";
         }
     })
