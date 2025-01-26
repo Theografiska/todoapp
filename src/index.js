@@ -36,13 +36,19 @@ const startingStrengthFiltered = allTasks.filter(task => task.project === "start
 const startingStrengthProject = new Project("starting-strength", "Keeping up my gym NLP progress", "Ongoing", "Wrist pain has decreased", startingStrengthFiltered);
 projectRender(startingStrengthProject, allProjects, allTasks);
 
-// create tasks/projects buttons and listeners: 
-const addTaskButton = document.querySelector("#add-task-btn");
-addTaskButton.addEventListener("click", () => {
-    createTask(allTasks, allProjects);
+// event listeners
+const addTaskButtons = document.querySelectorAll(".add-task-btn-class");
+addTaskButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        createTask(allTasks, allProjects);
+    })
 })
 
 const addProjectButton = document.querySelector("#add-project-btn");
 addProjectButton.addEventListener("click", () => {
     createProject(allProjects, allTasks);
 })
+
+
+/* add many of such buttons */
+

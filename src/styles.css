@@ -125,13 +125,25 @@ button {
 }
 
 
-#add-task-btn {
+.add-task-btn-class {
     display: flex;
     gap: 0.5rem;
     margin: 0 2rem;
     padding: 0.5rem 1rem;
     border-radius: .75rem;
     border: 1px solid lightgray;
+}
+
+.project .add-task-btn-class {
+    margin: 0;    
+}
+
+.task-plus {
+    width: 16px;
+    height: 16px;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .task-delete-btn {
@@ -289,6 +301,7 @@ form textarea {
     min-width: 25rem;
     border-radius: 1rem;
     margin: 1rem 0rem;
+    position: relative;
 }
 
 .project p {

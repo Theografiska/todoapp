@@ -1,5 +1,6 @@
 import expandTask from "./expandTask";
 import deleteTask from "./deleteTask";
+import taskPlus from "./assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
 const projectRender = (project, projectArray, taskArray) => {
     // adding the project to all projects array
@@ -72,6 +73,18 @@ const projectRender = (project, projectArray, taskArray) => {
             taskArea.appendChild(taskDiv);
         }
         newProjectDiv.appendChild(taskArea);
+
+        const addTaskBtn = document.createElement("button");
+        addTaskBtn.className = "add-task-btn-class";
+        const taskImg = document.createElement("img");
+        taskImg.className = "task-plus";
+        taskImg.style.background = `url(${taskPlus})`;
+        addTaskBtn.appendChild(taskImg);
+        const taskText = document.createElement("h4");
+        taskText.textContent = "Add task";
+        addTaskBtn.appendChild(taskText);
+        newProjectDiv.appendChild(addTaskBtn);
+
         projectsSection.appendChild(newProjectDiv);
 
         console.log(project);
