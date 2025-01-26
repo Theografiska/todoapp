@@ -1,5 +1,7 @@
+import createTask from "./createTask.js";
 import expandTask from "./expandTask";
 import deleteTask from "./deleteTask";
+import deleteProject from "./deleteProject";
 import taskPlus from "./assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
 const projectRender = (project, projectArray, taskArray) => {
@@ -30,8 +32,8 @@ const projectRender = (project, projectArray, taskArray) => {
         tasksSection.appendChild(taskArea);
         console.log(project);
 
-    // other projects are displayed as a project card 
-    } else {
+
+    } else {  // other projects are displayed as a project card 
         const newProjectDiv = document.createElement("div");
         newProjectDiv.className = "project";
         newProjectDiv.id = `${project.title}-div`;
@@ -54,12 +56,16 @@ const projectRender = (project, projectArray, taskArray) => {
         projectNotes.textContent = `Notes: ${project.notes}`;
         newProjectDiv.appendChild(projectNotes);
 
-        // task area
-        const taskArea = document.createElement("div");
-        taskArea.id = `${project.title}-task-area`
         const projectTasksTitle = document.createElement("h3");
         projectTasksTitle.textContent = `Tasks:`;
-        taskArea.appendChild(projectTasksTitle);
+        newProjectDiv.appendChild(projectTasksTitle);
+
+        // task area
+        const taskArea = document.createElement("div");
+        taskArea.className = "task-area";
+        taskArea.id = `${project.title}-task-area`
+        
+
         for (let i = 0; i < project.tasks.length; i++) {
             // creating small versions of tasks
             const taskDiv = document.createElement("div");
@@ -74,16 +80,24 @@ const projectRender = (project, projectArray, taskArray) => {
         }
         newProjectDiv.appendChild(taskArea);
 
+        // add task button inside project view
         const addTaskBtn = document.createElement("button");
         addTaskBtn.className = "add-task-btn-class";
-        const taskImg = document.createElement("img");
-        taskImg.className = "task-plus";
-        taskImg.style.background = `url(${taskPlus})`;
-        addTaskBtn.appendChild(taskImg);
+        const taskPlusImg = document.createElement("div");
+        taskPlusImg.className = "task-plus";
+        taskPlusImg.style.background = `url(${taskPlus})`;
+        addTaskBtn.appendChild(taskPlusImg);
         const taskText = document.createElement("h4");
         taskText.textContent = "Add task";
         addTaskBtn.appendChild(taskText);
         newProjectDiv.appendChild(addTaskBtn);
+
+        addTaskBtn.addEventListener("click", () => {
+            createTask(taskArray, projectArray);
+        })
+
+        // edit and delete button functionality
+        deleteProject(newProjectDiv, project, projectArray, taskArray);
 
         projectsSection.appendChild(newProjectDiv);
 

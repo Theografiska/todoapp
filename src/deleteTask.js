@@ -1,6 +1,5 @@
 import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
-
 const deleteTask = (taskDiv, taskObj, project, taskArray) => {
     const taskDeleteButton = document.createElement("button");
     taskDeleteButton.className = "task-delete-btn";

@@ -1,5 +1,6 @@
 import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
+import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg"
 
 const expandTask = (taskDiv, taskObj) => {
     const taskTitle = document.createElement("h3");
@@ -41,13 +42,19 @@ const expandTask = (taskDiv, taskObj) => {
     const expandButton = document.createElement("button");
     expandButton.style.background = `url(${fullScreen})`;
     expandButton.className = "task-expand-btn";
-
     taskDiv.appendChild(expandButton);
+
+    const taskEditButton = document.createElement("button");
+    taskEditButton.className = "task-edit-btn hidden";
+    taskEditButton.style.background = `url(${edit})`;
+    taskDiv.appendChild(taskEditButton);
+
 
     // listener for opening the full task view
     expandButton.addEventListener("click", () => {
         if (taskDiv.className === "task mini") {
             taskDiv.classList.remove("mini");
+            taskEditButton.classList.remove("hidden");
 
             const taskDescription = document.createElement("p");
             taskDescription.textContent = taskObj.description;
@@ -65,6 +72,7 @@ const expandTask = (taskDiv, taskObj) => {
             expandButton.style.background = `url(${minimize})`;
         } else {
             taskDiv.classList.add("mini");
+            taskEditButton.classList.add("hidden");
             expandButton.style.background = `url(${fullScreen})`;
             taskCharacteristics.textContent = "";
         }

@@ -11,17 +11,19 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgb(255, 255, 255);
+    overflow: hidden;
 }
 
 h2 {
     font-size: 1.5rem;
-    text-align: center;
+    text-align: left;
     margin-top: 2rem;
+    margin-left: 2rem;
 }
 
 h3 {
-    margin: 1rem 0;
-}
+/*     margin: 1rem 0;
+ */}
 
 p {
 }
@@ -83,6 +85,11 @@ button {
     gap: .5rem;
 }
 
+/* main content */
+
+#main-content {
+}
+
 /* task styling */
 
 #tasks-section, #projects-section {
@@ -109,12 +116,6 @@ button {
     margin: 1rem 0rem;
 }
 
-.task button {
-    max-width: 8rem;
-    margin: 0.25rem 0;
-    padding: .2rem .5rem;
-}
-
 .task-title {
     margin-top: 1.5rem;
     text-transform: uppercase;
@@ -124,26 +125,10 @@ button {
     margin: 1rem 0;
 }
 
-
-.add-task-btn-class {
-    display: flex;
-    gap: 0.5rem;
-    margin: 0 2rem;
-    padding: 0.5rem 1rem;
-    border-radius: .75rem;
-    border: 1px solid lightgray;
-}
-
-.project .add-task-btn-class {
-    margin: 0;    
-}
-
-.task-plus {
-    width: 16px;
-    height: 16px;
-    border: none;
-    background-size: contain;
-    background-repeat: no-repeat;
+.task button {
+    max-width: 8rem;
+    margin: 0.25rem 0;
+    padding: .2rem .5rem;
 }
 
 .task-delete-btn {
@@ -154,7 +139,7 @@ button {
     border: none;
     position: absolute;
     top: .5rem;
-    right: 2.5rem;
+    right: .5rem;
 }
 
 .task-expand-btn {
@@ -165,7 +150,19 @@ button {
     border: none;
     position: absolute;
     top: .5rem;
-    right: .5rem;
+    right: 2.5rem;
+}
+
+.task-edit-btn {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    border: none;
+    position: absolute;
+    top: .5rem;
+    right: 4.5rem;
 }
 
 .task-status {
@@ -183,6 +180,28 @@ button {
     border: none;
 }
 
+/* add task btn */
+.add-task-btn-class {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: .75rem;
+    border: 1px solid lightgray;
+}
+
+.project .add-task-btn-class {
+    margin: 0;    
+}
+
+.task-plus { /* 'plus' icon for adding a task */
+    width: 16px;
+    height: 16px;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 /* task modal */
 
 #task-dialog {
@@ -190,11 +209,11 @@ button {
     gap: 1rem;
     justify-content: center;
     align-items: center;
+    align-self: center;
+    justify-self: center;
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 50vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
@@ -213,6 +232,10 @@ button {
     align-items: center;
     position: relative;
     animation: fadeIn 0.3s;
+}
+
+form h2 {
+    margin: 2rem 0;
 }
 
 .form-row {
@@ -241,6 +264,45 @@ button {
     cursor: pointer;
 }
  
+
+/* project styiling */
+
+.project {
+    background-color: rgb(241, 242, 255);
+    padding: 2rem;
+    min-width: 20rem;
+    max-width: 40rem;
+    border-radius: 1rem;
+    margin: 1rem 0rem;
+    position: relative;
+}
+
+.project p {
+    margin-bottom: 1rem;
+}
+
+.project-title {
+    font-size: 1.4rem;
+}
+
+.mini { /* small task inside a project */
+    width: 12rem;
+    min-height: 8rem;
+    max-height: 12rem;
+}
+
+.project-delete-btn {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    border: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+
 /* project modal */
 
 #project-dialog {
@@ -249,10 +311,10 @@ button {
     justify-content: center;
     align-items: center;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    align-self: center;
+    justify-self: center;
+    width: 100vw;
+    height: 50vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
@@ -292,28 +354,3 @@ form textarea {
     border-radius: .25rem;
     border: none;
 }
-
-/* project styiling */
-
-.project {
-    background-color: rgb(241, 242, 255);
-    padding: 2rem;
-    min-width: 25rem;
-    border-radius: 1rem;
-    margin: 1rem 0rem;
-    position: relative;
-}
-
-.project p {
-    margin-bottom: 1rem;
-}
-
-.project-title {
-    font-size: 1.4rem;
-}
-
-.mini { /* small task inside a project */
-    width: 12rem;
-    min-height: 8rem;
-}
-

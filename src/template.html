@@ -18,6 +18,9 @@
                 <img class="icon" src="assets/thumbnail_bar_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg" alt="">
             </div>
         </div>
+        <div>
+            <h3>Home</h3>
+        </div>
         <div id="tasks-sidebar">
             <div>
                 <h3>My Tasks</h3>
@@ -65,11 +68,12 @@
         <div id="projects-section">
         </div>
             <dialog id="task-dialog" class="hidden">
-                    <div>
-                        <button class="form-button" id="task-dialog-close-btn" autofocus>X</button>
-                    </div>
+                    
                     <form>
-                        <h3>Add a new task</h3>
+                        <div>
+                            <button class="form-button" id="task-dialog-close-btn" autofocus>X</button>
+                        </div>
+                        <h2>Add a new task</h2>
                         <div class="form-row">
                             <label for="task-title-input">Task title: </label>
                             <input class="input-class" id="task-title-input" name="task-title-input" placeholder="Task" type="text" required>
@@ -115,6 +119,7 @@
                     <div>
                         <button class="form-button" id="project-dialog-close-btn" autofocus>X</button>
                     </div>
+                    <h2>Add a new project</h2>
                     <div class="form-row">
                         <label for="project-title-input">Project title: </label>
                         <input class="input-class" id="project-title-input" name="project-title-input" placeholder="Studying Spanish" type="text" required>
