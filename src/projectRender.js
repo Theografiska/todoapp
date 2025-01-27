@@ -1,8 +1,11 @@
-import createTask from "./createTask.js";
+import createTask from "./createTask";
+import renderTask from "./renderTask"
 import expandTask from "./expandTask";
 import deleteTask from "./deleteTask";
 import deleteProject from "./deleteProject";
 import taskPlus from "./assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
+import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg"
+
 
 const projectRender = (project, projectArray, taskArray) => {
     // adding the project to all projects array
@@ -23,7 +26,7 @@ const projectRender = (project, projectArray, taskArray) => {
 
             const currentTask = project.tasks[i];
 
-            expandTask(taskDiv, currentTask);  // populates the task div and adds event listener for more detailed view button functionality 
+            renderTask(taskDiv, currentTask);
             deleteTask(taskDiv, currentTask, project, taskArray) // event listener to remove task div from the DOM and allTasks array
 
             taskArea.appendChild(taskDiv);
@@ -73,7 +76,7 @@ const projectRender = (project, projectArray, taskArray) => {
 
             const currentTask = project.tasks[i];
     
-            expandTask(taskDiv, currentTask);   
+            renderTask(taskDiv, currentTask);   
             deleteTask(taskDiv, currentTask, project, taskArray)     
     
             taskArea.appendChild(taskDiv);
@@ -96,7 +99,13 @@ const projectRender = (project, projectArray, taskArray) => {
             createTask(taskArray, projectArray);
         })
 
-        // edit and delete button functionality
+        // edit button functionality
+        const editProjectBtn = document.createElement("button");
+        editProjectBtn.className = "edit-project-btn";
+        editProjectBtn.style.background = `url(${edit})`;
+        newProjectDiv.appendChild(editProjectBtn);
+        
+        /// delete button functionality
         deleteProject(newProjectDiv, project, projectArray, taskArray);
 
         projectsSection.appendChild(newProjectDiv);

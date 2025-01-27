@@ -1,5 +1,5 @@
 import Task from "./task";
-import expandTask from "./expandTask";
+import renderTask from "./renderTask";
 import deleteTask from "./deleteTask";
 
 const createTask = (taskArray, projectArray) => {
@@ -50,7 +50,7 @@ const createTask = (taskArray, projectArray) => {
 
             // adding the task to a project
             const projectTaskArea = document.querySelector(`#${taskProject}-task-area`);
-            expandTask(taskDiv, newTask);
+            renderTask(taskDiv, newTask);
             deleteTask(taskDiv, newTask, currentProject);
             currentProject.addTask(newTask);
                     

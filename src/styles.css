@@ -8,10 +8,10 @@
 body {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    width: 100vw;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     background-color: rgb(255, 255, 255);
-    overflow: hidden;
+    overflow: auto;
 }
 
 h2 {
@@ -165,6 +165,11 @@ button {
     right: 4.5rem;
 }
 
+.task-edit-confirm-section {
+    display: flex;
+    gap: .5rem;
+}
+
 .task-status {
     display: flex;
     flex-wrap: nowrap;
@@ -213,7 +218,7 @@ button {
     justify-self: center;
     position: fixed;
     width: 100vw;
-    height: 50vh;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
@@ -300,6 +305,18 @@ form h2 {
     position: absolute;
     top: 1rem;
     right: 1rem;
+}
+
+.edit-project-btn {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    border: none;
+    position: absolute;
+    top: 1rem;
+    right: 3rem;
 }
 
 
