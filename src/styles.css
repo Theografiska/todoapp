@@ -111,7 +111,7 @@ button {
     justify-content: space-between;
     align-items: start;
     padding: 1rem;
-    width: 15rem;
+    width: 25rem;
     border-radius: 1rem;
     margin: 1rem 0rem;
 }
@@ -168,6 +168,25 @@ button {
 .task-edit-confirm-section {
     display: flex;
     gap: .5rem;
+}
+
+.edit-row {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: none;
+    align-items: center;
+}
+
+.edit-row p {
+    width: 4rem;
+    font-weight: 600;
+}
+
+.edit-row input, .edit-row select {
+    padding: .3rem;
+    height: 1.75rem;
+    width: 15rem;
+    font-size: .9rem;
 }
 
 .task-status {

@@ -4,7 +4,7 @@ import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg";
 
 import editTask from "./editTask";
 
-const expandTask = (taskDiv, taskObj, expandBtn, editBtn, taskCharacteristicsDiv) => {
+const expandTask = (taskDiv, taskObj, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     // listener for opening the full task view
     if (taskDiv.className === "task mini") {
         taskDiv.classList.remove("mini");
@@ -12,22 +12,22 @@ const expandTask = (taskDiv, taskObj, expandBtn, editBtn, taskCharacteristicsDiv
 
         const taskDescription = document.createElement("p");
         taskDescription.textContent = taskObj.description;
-        taskCharacteristicsDiv.appendChild(taskDescription);
+        taskExpandedCharacteristics.appendChild(taskDescription);
 
         const taskPriority = document.createElement("p");
         taskPriority.textContent = `Priority: ${taskObj.priority}`;
-        taskCharacteristicsDiv.appendChild(taskPriority);
+        taskExpandedCharacteristics.appendChild(taskPriority);
 
         const taskProject = document.createElement("p");
         taskProject.textContent = `Project: #${taskObj.project}`;
-        taskCharacteristicsDiv.appendChild(taskProject);
+        taskExpandedCharacteristics.appendChild(taskProject);
 
         expandBtn.style.background = `url(${minimize})`;
 
         // add functionality for editing data
         if (!editBtn.dataset.listener) {
             editBtn.addEventListener("click", () => {
-                editTask(taskDiv, taskObj, editBtn)
+                editTask(taskDiv, taskObj, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics)
             })
 
             editBtn.dataset.listener = "true";
@@ -37,7 +37,7 @@ const expandTask = (taskDiv, taskObj, expandBtn, editBtn, taskCharacteristicsDiv
         taskDiv.classList.add("mini");
         editBtn.classList.add("hidden");
         expandBtn.style.background = `url(${fullScreen})`;
-        taskCharacteristicsDiv.textContent = "";
+        taskExpandedCharacteristics.textContent = "";
     }
 }
 
