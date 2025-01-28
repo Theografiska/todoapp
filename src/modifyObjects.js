@@ -1,6 +1,7 @@
-import initialTaskCharacteristics from "./initialTaskCharacteristics";
+import { initialTaskCharacteristics } from "./task.js";
+import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
-const editTask = (taskDiv, taskObj, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
+export const editTask = (taskDiv, taskObj, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     console.log(`Hi there`);
     editBtn.classList.add("hidden");
     expandBtn.classList.add("hidden");
@@ -24,9 +25,10 @@ const editTask = (taskDiv, taskObj, editBtn, expandBtn, taskInitialCharacteristi
         const statusLabel = document.createElement("p");
         statusLabel.textContent = "Status: ";
         statusDiv.appendChild(statusLabel);
+        const previousStatus = taskObj.status; // selecting the previous choice as default option
         const statusSelect = document.createElement("select");
         const statusArray = ["Not started", "Ongoing", "Completed"];
-        let options = statusArray.map(item => `<option value="${item}">${item}</option>`).join(`\n`);
+        let options = statusArray.map(item => `<option value="${item}" ${item === previousStatus ? 'selected' : ''}>${item}</option>`)/* .join(`\n`) */;
         statusSelect.innerHTML = options;        
         statusDiv.appendChild(statusSelect);
         taskInitialCharacteristics.appendChild(statusDiv); 
@@ -90,4 +92,49 @@ const editTask = (taskDiv, taskObj, editBtn, expandBtn, taskInitialCharacteristi
 
 }
 
-export default editTask;
+export const deleteTask = (taskDiv, taskObj, project, taskArray) => {
+    const taskDeleteButton = document.createElement("button");
+    taskDeleteButton.className = "task-delete-btn";
+    taskDeleteButton.style.background = `url(${deleteImage})`;
+
+    taskDiv.style.position = "relative"; // this is necessary in order to properly position the delete and expand elements
+    taskDiv.appendChild(taskDeleteButton);
+
+    taskDeleteButton.addEventListener("click", () => {
+        // removing task from project and the DOM
+        const taskIndex = project.tasks.indexOf(taskObj);
+        project.tasks.splice(taskIndex, 1);
+        taskDiv.remove();
+
+        // removing task from all tasks array
+        const allTasksIndex = taskArray.indexOf(taskObj);
+        taskArray.splice(allTasksIndex, 1);
+        console.log(taskArray);
+    })
+}
+
+export const deleteProject = (projectDiv, projectObj, projectArray, taskArray) => {
+    const projectDeleteButton = document.createElement("button");
+    projectDeleteButton.className = "project-delete-btn";
+    projectDeleteButton.style.background = `url(${deleteImage})`;
+
+    projectDiv.style.position = "relative"; // this is necessary in order to properly position the delete and expand elements
+    projectDiv.appendChild(projectDeleteButton);
+
+    projectDeleteButton.addEventListener("click", () => {
+        // removing all tasks from "all tasks" array
+        const allProjectTasks = projectObj.tasks;
+        allProjectTasks.forEach((task) => {
+            const allTasksIndex = taskArray.indexOf(task);
+            taskArray.splice(allTasksIndex, 1);
+        })
+
+        // removing project from project array and the DOM
+        const projectIndex = projectArray.indexOf(projectObj);
+        projectArray.splice(projectIndex, 1);
+        projectDiv.remove();
+    
+        console.log(projectArray);
+        console.log(taskArray);
+    })
+}

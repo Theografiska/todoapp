@@ -1,7 +1,7 @@
 import "./styles.css";
-import createTask from "./createTask";
-import createProject from "./createProject";
-import initialExamples from "./initialExamples";
+import { createTask } from "./task.js";
+import {  createProject } from "./project.js";
+import { initialExamples } from "./initialExamples.js";
 
 const allTasks = [];
 const allProjects = [];

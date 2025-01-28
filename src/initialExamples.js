@@ -1,8 +1,8 @@
-import Task from "./task";
-import Project from "./project";
-import projectRender from "./projectRender";
+import { Task } from "./task.js";
+import { Project } from "./project.js";
+import { projectRender } from "./project.js";
 
-const initialExamples = (taskArray, projectArray) => {
+export const initialExamples = (taskArray, projectArray) => {
     // create a few sample tasks
     const makeFire = new Task ("Make fire in the fireplace", "Take wood form the shed", "24.01.2025", "High", "Completed", "general-tasks");
     const takeOutTrash = new Task ("Take out trash", "Take the trash to the curb", "25.01.2025", "Medium", "Not started", "general-tasks");
@@ -19,6 +19,4 @@ const initialExamples = (taskArray, projectArray) => {
 
     const startingStrengthProject = new Project("starting-strength", "Keeping up my gym NLP progress", "Ongoing", "Wrist pain has decreased", taskArray.filter(task => task.project === "starting-strength"));
     projectRender(startingStrengthProject, projectArray, taskArray);
-    }
-
-export default initialExamples;
+}
