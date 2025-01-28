@@ -19,6 +19,11 @@ export class Project {
     addTask(task) {
         this.tasks.push(task);
     }
+
+    removeTask(task) {
+        const taskIndex = this.tasks.indexOf(task);
+        this.tasks.splice(taskIndex, 1);
+    }
 }
 
 export const createProject = (projectArray, taskArray) => {
@@ -71,56 +76,56 @@ export const createProject = (projectArray, taskArray) => {
     }
 }
 
-export const projectRender = (project, projectArray, taskArray) => {
+export const projectRender = (projectObj, projectArray, taskArray) => {
     // adding the project to all projects array
-    projectArray.push(project);
+    projectArray.push(projectObj);
     console.log(projectArray);
 
     const projectsSection = document.querySelector("#projects-section");
     // general tasks project (displayed as just general tasks):
-    if (project.title === "general-tasks") {
+    if (projectObj.title === "general-tasks") {
         const tasksSection = document.querySelector("#tasks-section");
         const taskArea = document.createElement("div");
-        taskArea.id = `${project.title}-task-area`
+        taskArea.id = `${projectObj.title}-task-area`
         taskArea.className = "task-area";
 
-        for (let i = 0; i < project.tasks.length; i++) {
+        for (let i = 0; i < projectObj.tasks.length; i++) {
             const taskDiv = document.createElement("div");
             taskDiv.className = "task mini";
 
-            const currentTask = project.tasks[i];
+            const currentTask = projectObj.tasks[i];
 
-            renderTask(taskDiv, currentTask, projectArray);
-            deleteTask(taskDiv, currentTask, project, taskArray) // event listener to remove task div from the DOM and allTasks array
+            renderTask(taskDiv, currentTask, taskArray, projectArray);
+            deleteTask(taskDiv, currentTask, projectObj, taskArray) // event listener to remove task div from the DOM and allTasks array
 
             taskArea.appendChild(taskDiv);
         }
 
         tasksSection.appendChild(taskArea);
-        console.log(project);
+        console.log(projectObj);
 
 
     } else {  // other projects are displayed as a project card 
         const newProjectDiv = document.createElement("div");
         newProjectDiv.className = "project";
-        newProjectDiv.id = `${project.title}-div`;
+        newProjectDiv.id = `${projectObj.title}-div`;
 
         // adding the title, description, date, priority, status, notes
         const projectTitle = document.createElement("h3");
         projectTitle.className = "project-title";
-        projectTitle.textContent = `#${project.title}`;
+        projectTitle.textContent = `#${projectObj.title}`;
         newProjectDiv.appendChild(projectTitle);
 
         const projectDescription = document.createElement("p");
-        projectDescription.textContent = `${project.description}`;
+        projectDescription.textContent = `${projectObj.description}`;
         newProjectDiv.appendChild(projectDescription);
 
         const projectStatus = document.createElement("p");
-        projectStatus.textContent = `Status: ${project.status}`;
+        projectStatus.textContent = `Status: ${projectObj.status}`;
         newProjectDiv.appendChild(projectStatus);
 
         const projectNotes = document.createElement("p");
-        projectNotes.textContent = `Notes: ${project.notes}`;
+        projectNotes.textContent = `Notes: ${projectObj.notes}`;
         newProjectDiv.appendChild(projectNotes);
 
         const projectTasksTitle = document.createElement("h3");
@@ -130,18 +135,18 @@ export const projectRender = (project, projectArray, taskArray) => {
         // task area
         const taskArea = document.createElement("div");
         taskArea.className = "task-area";
-        taskArea.id = `${project.title}-task-area`
+        taskArea.id = `${projectObj.title}-task-area`
         
 
-        for (let i = 0; i < project.tasks.length; i++) {
+        for (let i = 0; i < projectObj.tasks.length; i++) {
             // creating small versions of tasks
             const taskDiv = document.createElement("div");
             taskDiv.className = "task mini";
 
-            const currentTask = project.tasks[i];
+            const currentTask = projectObj.tasks[i];
     
-            renderTask(taskDiv, currentTask, projectArray);   
-            deleteTask(taskDiv, currentTask, project, taskArray)     
+            renderTask(taskDiv, currentTask, taskArray, projectArray);   
+            deleteTask(taskDiv, currentTask, projectObj, taskArray)     
     
             taskArea.appendChild(taskDiv);
         }
@@ -170,10 +175,10 @@ export const projectRender = (project, projectArray, taskArray) => {
         newProjectDiv.appendChild(editProjectBtn);
         
         /// delete button functionality
-        deleteProject(newProjectDiv, project, projectArray, taskArray);
+        deleteProject(newProjectDiv, projectObj, projectArray, taskArray);
 
         projectsSection.appendChild(newProjectDiv);
 
-        console.log(project);
+        console.log(projectObj);
     }
 }

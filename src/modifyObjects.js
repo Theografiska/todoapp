@@ -1,7 +1,8 @@
-import { initialTaskCharacteristics, expandTask } from "./task.js";
+import { initialTaskCharacteristics, expandTask, renderTask } from "./task.js";
+import { Project } from "./project.js";
 import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
-export const deleteTask = (taskDiv, taskObj, project, taskArray) => {
+export const deleteTask = (taskDiv, taskObj, projectObj, taskArray) => {
     const taskDeleteButton = document.createElement("button");
     taskDeleteButton.className = "task-delete-btn";
     taskDeleteButton.style.background = `url(${deleteImage})`;
@@ -11,8 +12,8 @@ export const deleteTask = (taskDiv, taskObj, project, taskArray) => {
 
     taskDeleteButton.addEventListener("click", () => {
         // removing task from project and the DOM
-        const taskIndex = project.tasks.indexOf(taskObj);
-        project.tasks.splice(taskIndex, 1);
+        const taskIndex = projectObj.tasks.indexOf(taskObj);
+        projectObj.tasks.splice(taskIndex, 1);
         taskDiv.remove();
 
         // removing task from all tasks array
@@ -48,7 +49,7 @@ export const deleteProject = (projectDiv, projectObj, projectArray, taskArray) =
     })
 }
 
-export const editTask = (taskDiv, taskObj, projectArray, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
+export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     editBtn.classList.add("hidden");
     expandBtn.classList.add("hidden");
 
@@ -75,7 +76,7 @@ export const editTask = (taskDiv, taskObj, projectArray, editBtn, expandBtn, tas
         const previousStatus = taskObj.status; // selecting the previous choice as default option
         const statusSelect = document.createElement("select");
         const statusArray = ["Not started", "Ongoing", "Completed"];
-        let statusOptions = statusArray.map(item => `<option value="${item}" ${item === previousStatus ? 'selected' : ''}>${item}</option>`)/* .join(`\n`) */;
+        let statusOptions = statusArray.map(item => `<option value="${item}" ${item === previousStatus ? 'selected' : ''}>${item}</option>`).join(`\n`);
         statusSelect.innerHTML = statusOptions;        
         statusDiv.appendChild(statusSelect);
         taskInitialCharacteristics.appendChild(statusDiv); 
@@ -110,7 +111,7 @@ export const editTask = (taskDiv, taskObj, projectArray, editBtn, expandBtn, tas
         const prioritySelect = document.createElement("select");
         const previousPriority = taskObj.priority; // selecting the previous choice as default option
         const priorityArray = ["Low", "Medium", "High"];
-        let priorityOptions = priorityArray.map(item => `<option value="${item}" ${item === previousPriority ? 'selected' : ''}>${item}</option>`)/* .join(`\n`) */;
+        let priorityOptions = priorityArray.map(item => `<option value="${item}" ${item === previousPriority ? 'selected' : ''}>${item}</option>`).join(`\n`);
         prioritySelect.innerHTML = priorityOptions;        
         priorityDiv.appendChild(prioritySelect);
         taskExpandedCharacteristics.appendChild(priorityDiv);
@@ -122,10 +123,12 @@ export const editTask = (taskDiv, taskObj, projectArray, editBtn, expandBtn, tas
         projectRowDiv.appendChild(projectLabel);
         const projectSelect = document.createElement("select");
         const previousProject = taskObj.project; // selecting the previous choice as default option
-        let projectOptions = projectArray.map(item => `<option value="${item.title}" ${item.title === previousProject ? 'selected' : ''}>${item.title}</option>`)/* .join(`\n`) */;
+        let projectOptions = projectArray.map(item => `<option value="${item.title}" ${item.title === previousProject ? 'selected' : ''}>${item.title}</option>`).join(`\n`);
         projectSelect.innerHTML = projectOptions;        
         projectRowDiv.appendChild(projectSelect);
         taskExpandedCharacteristics.appendChild(projectRowDiv);
+
+        const previousTask = taskObj; // this is needed later when changing the project
 
         // buttons to cancel or confirm edits
         const confirmSection = document.createElement("div");
@@ -196,6 +199,27 @@ export const editTask = (taskDiv, taskObj, projectArray, editBtn, expandBtn, tas
             const taskProject = document.createElement("p");
             taskProject.textContent = `Project: #${taskObj.project}`;
             taskExpandedCharacteristics.appendChild(taskProject);
+
+            // if project was changed -> render the task inside a new project
+            if (previousProject !== newProject) {
+                console.log("hi there");
+                console.log(projectArray);
+
+                // removing tasks from the current project 
+                const previousProjectObj = projectArray.find((item) => item.title === previousProject);
+                previousProjectObj.removeTask(previousTask);
+                taskDiv.remove();
+
+                // adding tasks to the new project
+                const newProjectObj = projectArray.find((item) => item.title === taskObj.project);
+                newProjectObj.addTask(taskObj);
+                const newTaskDiv = document.createElement("div");
+                newTaskDiv.className = "task mini";
+                renderTask(newTaskDiv, taskObj, taskArray, projectArray);
+                deleteTask(newTaskDiv, taskObj, newProjectObj, taskArray);
+                const projectTaskArea = document.querySelector(`#${taskObj.project}-task-area`);
+                projectTaskArea.appendChild(newTaskDiv);
+            }
 
             editMode = false;
             cancelBtn.remove()

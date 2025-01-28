@@ -1,11 +1,7 @@
-import { deleteTask } from "./modifyObjects.js";
-import { editTask } from "./modifyObjects.js";
+import { deleteTask, editTask } from "./modifyObjects.js";
 
 import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
-import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
-import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg";
-
 
 export class Task {
     constructor(title, description, dueDate, priority, status, project) {
@@ -52,7 +48,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     taskInitialCharacteristicsDiv.appendChild(taskDueDate);
 }
 
-export const expandTask = (taskDiv, taskObj, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
+export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     // listener for opening the full task view
     if (taskDiv.className === "task mini") {
         taskDiv.classList.remove("mini");
@@ -75,7 +71,7 @@ export const expandTask = (taskDiv, taskObj, projectArray, expandBtn, editBtn, t
         // add functionality for editing data
         if (!editBtn.dataset.listener) {
             editBtn.addEventListener("click", () => {
-                editTask(taskDiv, taskObj, projectArray, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics)
+                editTask(taskDiv, taskObj, taskArray, projectArray, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics)
             })
 
             editBtn.dataset.listener = "true";
@@ -137,8 +133,8 @@ export const createTask = (taskArray, projectArray) => {
 
             // adding the task to a project
             const projectTaskArea = document.querySelector(`#${taskProject}-task-area`);
-            renderTask(taskDiv, newTask, projectArray);
-            deleteTask(taskDiv, newTask, currentProject);
+            renderTask(taskDiv, newTask, taskArray, projectArray);
+            deleteTask(taskDiv, newTask, currentProject, taskArray);
             currentProject.addTask(newTask);
                     
             projectTaskArea.appendChild(taskDiv);
@@ -159,7 +155,7 @@ export const createTask = (taskArray, projectArray) => {
     }
 }
 
-export const renderTask = (taskDiv, taskObj, projectArray) => {
+export const renderTask = (taskDiv, taskObj, taskArray, projectArray) => {
     const taskInitialCharacteristics = document.createElement("div");
 
     initialTaskCharacteristics(taskObj, taskInitialCharacteristics);
@@ -171,7 +167,6 @@ export const renderTask = (taskDiv, taskObj, projectArray) => {
 
     const taskEditButton = document.createElement("button");
     taskEditButton.className = "task-edit-btn hidden";
-    taskEditButton.style.background = `url(${edit})`;
     taskDiv.appendChild(taskEditButton);
 
     taskDiv.appendChild(taskInitialCharacteristics);
@@ -182,6 +177,6 @@ export const renderTask = (taskDiv, taskObj, projectArray) => {
 
     // listener for opening the full task view
     expandButton.addEventListener("click", () => {
-        expandTask(taskDiv, taskObj, projectArray, expandButton, taskEditButton, taskInitialCharacteristics, taskExpandedCharacteristics)
+        expandTask(taskDiv, taskObj, taskArray, projectArray, expandButton, taskEditButton, taskInitialCharacteristics, taskExpandedCharacteristics)
     })
 }
