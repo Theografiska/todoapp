@@ -90,7 +90,7 @@ export const projectRender = (project, projectArray, taskArray) => {
 
             const currentTask = project.tasks[i];
 
-            renderTask(taskDiv, currentTask);
+            renderTask(taskDiv, currentTask, projectArray);
             deleteTask(taskDiv, currentTask, project, taskArray) // event listener to remove task div from the DOM and allTasks array
 
             taskArea.appendChild(taskDiv);
@@ -140,7 +140,7 @@ export const projectRender = (project, projectArray, taskArray) => {
 
             const currentTask = project.tasks[i];
     
-            renderTask(taskDiv, currentTask);   
+            renderTask(taskDiv, currentTask, projectArray);   
             deleteTask(taskDiv, currentTask, project, taskArray)     
     
             taskArea.appendChild(taskDiv);

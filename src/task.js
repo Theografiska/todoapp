@@ -52,7 +52,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     taskInitialCharacteristicsDiv.appendChild(taskDueDate);
 }
 
-export const expandTask = (taskDiv, taskObj, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
+export const expandTask = (taskDiv, taskObj, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     // listener for opening the full task view
     if (taskDiv.className === "task mini") {
         taskDiv.classList.remove("mini");
@@ -75,7 +75,7 @@ export const expandTask = (taskDiv, taskObj, expandBtn, editBtn, taskInitialChar
         // add functionality for editing data
         if (!editBtn.dataset.listener) {
             editBtn.addEventListener("click", () => {
-                editTask(taskDiv, taskObj, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics)
+                editTask(taskDiv, taskObj, projectArray, editBtn, expandBtn, taskInitialCharacteristics, taskExpandedCharacteristics)
             })
 
             editBtn.dataset.listener = "true";
@@ -137,7 +137,7 @@ export const createTask = (taskArray, projectArray) => {
 
             // adding the task to a project
             const projectTaskArea = document.querySelector(`#${taskProject}-task-area`);
-            renderTask(taskDiv, newTask);
+            renderTask(taskDiv, newTask, projectArray);
             deleteTask(taskDiv, newTask, currentProject);
             currentProject.addTask(newTask);
                     
@@ -159,7 +159,7 @@ export const createTask = (taskArray, projectArray) => {
     }
 }
 
-export const renderTask = (taskDiv, taskObj) => {
+export const renderTask = (taskDiv, taskObj, projectArray) => {
     const taskInitialCharacteristics = document.createElement("div");
 
     initialTaskCharacteristics(taskObj, taskInitialCharacteristics);
@@ -182,6 +182,6 @@ export const renderTask = (taskDiv, taskObj) => {
 
     // listener for opening the full task view
     expandButton.addEventListener("click", () => {
-        expandTask(taskDiv, taskObj, expandButton, taskEditButton, taskInitialCharacteristics, taskExpandedCharacteristics)
+        expandTask(taskDiv, taskObj, projectArray, expandButton, taskEditButton, taskInitialCharacteristics, taskExpandedCharacteristics)
     })
 }
