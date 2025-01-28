@@ -230,12 +230,12 @@ button {
 
 /* task modal */
 
-#task-dialog {
+#task-dialog, #project-dialog {
     flex-direction: column;
     gap: 1rem;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -259,7 +259,7 @@ button {
     text-align: center;
     align-items: center;
     position: relative;
-    /* animation: fadeIn 0.3s; */
+    animation: fadeIn 0.3s;
 }
 
 form h2 {
@@ -289,17 +289,7 @@ select {
     font-size: .9rem;
     position: relative;
     z-index: 1050;
-}
-
-select:focus {
-    overflow: visible;
-}
-
-option {
-    font-size: 0.9rem;
     padding: 0.3rem;
-    background-color: white;
-    color: black;
 }
 
 #task-dialog-confirm-btn {
@@ -367,22 +357,7 @@ option {
 }
 
 
-/* project modal */
-
-#project-dialog {
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    align-self: center;
-    justify-self: center;
-    width: 100vw;
-    height: 50vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-  
+/* project modal */  
 
 #project-dialog form {
     flex-direction: column;
