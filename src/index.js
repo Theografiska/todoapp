@@ -9,7 +9,7 @@ const allProjects = [];
 // populating the page with dummy data
 initialExamples(allTasks, allProjects);
 
-const addTaskButtons = document.querySelectorAll(".add-task-btn-class");
+const addTaskButtons = document.querySelectorAll(".add-task-btn");
 addTaskButtons.forEach((button) => {
     button.addEventListener("click", () => {
         createTask(allTasks, allProjects);

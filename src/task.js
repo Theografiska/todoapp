@@ -1,6 +1,6 @@
 import { deleteTask, editTask } from "./modifyObjects.js";
 
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, isBefore } from 'date-fns';
 
 import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
@@ -50,8 +50,16 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     }
 
     const taskDueDate = document.createElement("p");
-    const formattedDate = format(parseISO(taskObj.dueDate), "MMM dd, yyyy"); // Example: "Jan 29, 2025"
-    taskDueDate.textContent = `Deadline: ${formattedDate}`;
+    const formattedDate = format(parseISO(taskObj.dueDate), "MMM dd, yyyy"); // "Jan 29, 2025"
+    taskDueDate.innerHTML = `Deadline: <span>${formattedDate}</span>`; // Wrap date in a span
+    
+    // Check if the due date has passed
+    const todayDate = new Date();
+    const dueDate = parseISO(taskObj.dueDate); // Convert string to Date object
+    
+    if (isBefore(dueDate, todayDate) && taskObj.status !== "Completed") {
+        taskDueDate.querySelector("span").style.color = "red"; // Apply red color only to the date
+    }
     taskInitialCharacteristicsDiv.appendChild(taskDueDate);
 }
 

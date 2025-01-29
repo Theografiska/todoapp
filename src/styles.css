@@ -114,7 +114,7 @@ button {
     background-color:rgb(187, 186, 215);
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: start;
     padding: 1rem;
     width: 25rem;
@@ -207,16 +207,23 @@ button {
 }
 
 /* add task btn */
-.add-task-btn-class {
+.add-task-btn {
     display: flex;
-    gap: 0.5rem;
+    width: 10rem;
     margin: 0 2rem;
-    padding: 0.5rem 1rem;
-    border-radius: .75rem;
-    border: 1px solid lightgray;
+    padding: 0;
+    gap: .5rem;
+    background: transparent;
+    border: none;
+    color: navy;
+    font-weight: 400;
 }
 
-.project .add-task-btn-class {
+#add-task-btn-sidebar {
+    margin: 0;
+}
+
+.project .add-task-btn {
     margin: 0;    
 }
 

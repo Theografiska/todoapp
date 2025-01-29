@@ -154,7 +154,7 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
 
         // add task button inside project view
         const addTaskBtn = document.createElement("button");
-        addTaskBtn.className = "add-task-btn-class";
+        addTaskBtn.className = "add-task-btn";
         const taskPlusImg = document.createElement("div");
         taskPlusImg.className = "task-plus";
         taskPlusImg.style.background = `url(${taskPlus})`;
