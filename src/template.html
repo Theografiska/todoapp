@@ -29,10 +29,13 @@
                 <h4>Today</h4>
             </div>
             <div>
-                <h4>Past</h4>
+                <h4>Upcoming</h4>
             </div>
             <div>
-                <h4>Upcoming</h4>
+                <h4>Deadline passed</h4>
+            </div>
+            <div>
+                <h4>Archived</h4>
             </div>
         </div>
         <div id="projects-sidebar">
@@ -69,11 +72,8 @@
         <div id="projects-section">
         </div>
             <dialog id="task-dialog" class="hidden">
-                    
                     <form>
-                        <div>
-                            <button class="form-button" id="task-dialog-close-btn" autofocus>X</button>
-                        </div>
+                        <button class="dialog-close-btn" id="task-dialog-close-btn" autofocus>X</button>
                         <h2>Add a new task</h2>
                         <div class="form-row">
                             <label for="task-title-input">Task title: </label>
@@ -111,15 +111,13 @@
                                 <option value="starting-strength">Starting Strength</option>
                             </select>
                         </div>
-                        <button class="form-button" id="task-dialog-confirm-btn" value="default">Confirm</button>
+                        <button class="dialog-confirm-btn" id="task-dialog-confirm-btn" value="default">Confirm</button>
                     </form>
             </dialog>
 
             <dialog id="project-dialog">
                 <form>
-                    <div>
-                        <button class="form-button" id="project-dialog-close-btn" autofocus>X</button>
-                    </div>
+                    <button class="dialog-close-btn" id="project-dialog-close-btn" autofocus>X</button>
                     <h2>Add a new project</h2>
                     <div class="form-row">
                         <label for="project-title-input">Project title: </label>
@@ -139,9 +137,9 @@
                     </div>
                     <div class="form-row">
                         <label for="project-notes-input">Add notes: </label>
-                        <textarea class="input-class" id="project-notes-input" name="project-notes-input" placeholder="Notes" type="text" rows="5" cols="33" required></textarea>
+                        <textarea class="input-class" id="project-notes-input" name="project-notes-input" placeholder="Notes" type="text" rows="5" cols="40" required></textarea>
                     </div>
-                    <button class="form-button" id="project-dialog-confirm-btn" value="default">Confirm</button>
+                    <button class="dialog-confirm-btn" id="project-dialog-confirm-btn" value="default">Confirm</button>
                 </form>
         </dialog>
         
