@@ -339,6 +339,7 @@ select {
 
 .project-title {
     font-size: 1.4rem;
+    margin-bottom: 1rem;
 }
 
 .mini { /* small task inside a project */
