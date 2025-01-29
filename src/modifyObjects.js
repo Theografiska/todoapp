@@ -81,13 +81,16 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
         statusDiv.appendChild(statusSelect);
         taskInitialCharacteristics.appendChild(statusDiv); 
 
+        const previousDueDate = taskObj.dueDate;
+
         const dueDateDiv = document.createElement("div");
         dueDateDiv.className = "edit-row";
         const dueDateLabel = document.createElement("p");
         dueDateLabel.textContent = "Due date: ";
         dueDateDiv.appendChild(dueDateLabel);
         const dueDateInput = document.createElement("input");
-        dueDateInput.value = taskObj.dueDate;
+        dueDateInput.value = previousDueDate;
+        dueDateInput.type = "date";  // to ensure it's a date picker
         dueDateDiv.appendChild(dueDateInput);
         taskInitialCharacteristics.appendChild(dueDateDiv);
 

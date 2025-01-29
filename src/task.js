@@ -1,5 +1,7 @@
 import { deleteTask, editTask } from "./modifyObjects.js";
 
+import { format, parseISO } from 'date-fns';
+
 import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
@@ -11,6 +13,10 @@ export class Task {
         this.priority = priority;
         this.status = status;
         this.project = project;
+    }
+
+    changeStatus(newStatus) {
+        this.status = newStatus;
     }
 }
 
@@ -44,7 +50,8 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     }
 
     const taskDueDate = document.createElement("p");
-    taskDueDate.textContent = `Deadline: ${taskObj.dueDate}`;
+    const formattedDate = format(parseISO(taskObj.dueDate), "MMM dd, yyyy"); // Example: "Jan 29, 2025"
+    taskDueDate.textContent = `Deadline: ${formattedDate}`;
     taskInitialCharacteristicsDiv.appendChild(taskDueDate);
 }
 
