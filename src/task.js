@@ -157,7 +157,7 @@ export const createTask = (taskArray, projectArray) => {
             // adding the task to all tasks array
             taskArray.push(newTask);
             console.log(currentProject);
-            console.log(taskArray)
+            console.log(taskArray) 
 
             taskDialog.style.display = "none";
 
