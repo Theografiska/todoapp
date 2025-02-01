@@ -27,13 +27,6 @@ h2 {
     margin-left: 2rem;
 }
 
-h3 {
-/*     margin: 1rem 0;
- */}
-
-p {
-}
-
 .icon {
     cursor: pointer;
 }
@@ -55,8 +48,10 @@ button {
     margin-bottom: 1rem;
 }
 
-#sidebar h4 {
+#sidebar div > h4 {
     margin-bottom: .25rem;
+    font-weight: 600;
+    font-size: 1rem;
 }
 
 #profile-row {
@@ -92,9 +87,6 @@ button {
 }
 
 /* main content */
-
-#main-content {
-}
 
 /* task styling */
 
@@ -209,30 +201,43 @@ button {
 /* add task btn */
 .add-task-btn {
     display: flex;
+    align-items: center;
     width: 10rem;
     margin: 0 2rem;
     padding: 0;
     gap: .5rem;
     background: transparent;
     border: none;
-    color: navy;
-    font-weight: 400;
+    color: rgb(26, 26, 26);
 }
 
 #add-task-btn-sidebar {
-    margin: 0;
+    margin: .5rem 0;
 }
 
 .project .add-task-btn {
-    margin: 0;    
+    margin: 0;
 }
 
-.task-plus { /* 'plus' icon for adding a task */
+/* 'plus' icon for adding a task */
+.task-plus { 
     width: 16px;
     height: 16px;
     border: none;
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+.add-project-btn {
+    display: flex;
+    align-items: center;
+    width: 10rem;
+    margin: .5rem 0;
+    padding: 0;
+    gap: .5rem;
+    background: transparent;
+    border: none;
+    color: rgb(26, 26, 26);
 }
 
 /* task modal */
