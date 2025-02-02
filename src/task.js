@@ -159,6 +159,9 @@ export const createTask = (taskArray, projectArray) => {
             console.log(currentProject);
             console.log(taskArray) 
 
+            localStorage.setItem("tasksArray", JSON.stringify(taskArray));
+            localStorage.setItem("projectsArray", JSON.stringify(projectArray));
+
             taskDialog.style.display = "none";
 
             // closing the dialog

@@ -5,6 +5,7 @@ import taskPlus from "./assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24
 
 import { createTask, renderTask } from "./task.js";
 import { deleteTask, deleteProject } from "./modifyObjects.js";
+import { saveToStorage, loadFromStorage} from "./utils.js";
 
 export class Project {
     constructor(title, description, status, notes, tasks = []) {
@@ -64,6 +65,10 @@ export const createProject = (projectArray, taskArray) => {
             
             // rendering the new project and adding to the project array
             projectRender(newProject, projectArray, taskArray);
+            // adding the project to all projects array
+            projectArray.push(newProject);
+            console.log(projectArray);
+            saveToStorage("projectsArray", projectArray);
 
             projectDialog.style.display = "none";
 
@@ -77,9 +82,6 @@ export const createProject = (projectArray, taskArray) => {
 }
 
 export const projectRender = (projectObj, projectArray, taskArray) => {
-    // adding the project to all projects array
-    projectArray.push(projectObj);
-    console.log(projectArray);
 
     const projectsSection = document.querySelector("#projects-section");
     // general tasks project (displayed as just general tasks):

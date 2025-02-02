@@ -3,7 +3,7 @@ import { Project } from "./project.js";
 import { projectRender } from "./project.js";
 import { saveToStorage, loadFromStorage} from "./utils.js";
 
-export const initialExamples = (taskArray, projectArray) => {
+export const createInitialExamples = (taskArray, projectArray) => {
     if (taskArray.length < 1 && projectArray.length < 1) {
         // create a few sample tasks
         const makeFire = new Task ("Make fire in the fireplace", "Take wood form the shed", "2025-01-10", "High", "Ongoing", "general-tasks");
@@ -21,8 +21,21 @@ export const initialExamples = (taskArray, projectArray) => {
         saveToStorage("projectsArray", projectArray);
 
     }
+}
+
+export const loadInitialExamples = (taskArray, projectArray) => {
+    // Retrieve from storage and reconstruct instances
+    taskArray = JSON.parse(localStorage.getItem('tasksArray') || '[]').map(
+        task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project)
+    );
+
+    projectArray = JSON.parse(localStorage.getItem('projectsArray') || '[]').map(
+        project => new Project(project.title, project.description, project.status, project.notes, 
+            project.tasks.map(task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project))
+        )
+    );
+
     projectArray.forEach((project) => {
         projectRender(project, projectArray, taskArray);
     })
-
 }
