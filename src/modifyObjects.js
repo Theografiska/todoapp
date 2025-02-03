@@ -13,8 +13,6 @@ export const deleteTask = (taskDiv, taskObj, projectObj, taskArray, projectArray
 
     taskDeleteButton.addEventListener("click", () => {
         // removing task from project and the DOM
-        /* const taskIndex = projectObj.tasks.indexOf(taskObj);
-        projectObj.tasks.splice(taskIndex, 1); */
         projectObj.tasks = projectObj.tasks.filter(task => task !== taskObj);
         taskDiv.remove();
 
@@ -41,20 +39,27 @@ export const deleteProject = (projectDiv, projectObj, projectArray, taskArray) =
     projectDiv.appendChild(projectDeleteButton);
 
     projectDeleteButton.addEventListener("click", () => {
-        // removing all tasks from "all tasks" array
-        const allProjectTasks = projectObj.tasks;
-        allProjectTasks.forEach((task) => {
-            const allTasksIndex = taskArray.indexOf(task);
-            taskArray.splice(allTasksIndex, 1);
-        })
+        // removing the project's tasks from "all tasks" array
+        projectObj.tasks.forEach((task) => {
+            const allTasksIndex = taskArray.findIndex(item => item.title === task.title && item.description === task.description);
+            if (allTasksIndex !== -1) {
+                taskArray.splice(allTasksIndex, 1);
+            }        
+        });
 
         // removing project from project array and the DOM
-        const projectIndex = projectArray.indexOf(projectObj);
-        projectArray.splice(projectIndex, 1);
+        const projectIndex = projectArray.findIndex(item => item.title === projectObj.title);
+        if (projectIndex !== -1) {
+            projectArray.splice(projectIndex, 1);
+        }
         projectDiv.remove();
     
         console.log(projectArray);
         console.log(taskArray);
+
+        // removing the project from memory
+        saveToStorage("tasksArray", taskArray);
+        saveToStorage("projectsArray", projectArray);
     })
 }
 
