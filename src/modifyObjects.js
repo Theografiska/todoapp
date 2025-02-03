@@ -146,6 +146,7 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
         taskExpandedCharacteristics.appendChild(projectRowDiv);
 
         const previousTask = taskObj; // this is needed later when changing the project
+        const previousTitle = taskObj.title;
 
         // buttons to cancel or confirm edits
         const confirmSection = document.createElement("div");
@@ -217,7 +218,16 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             taskProject.textContent = `Project: #${taskObj.project}`;
             taskExpandedCharacteristics.appendChild(taskProject);
 
-            // if project was changed -> render the task inside a new project
+            // Now explicitly update the corresponding task in taskArray
+            const taskIndex = taskArray.findIndex((task) => task.title === previousTitle);
+            console.log("Previous task title:", previousTitle);
+            console.log("Previous task index:", taskIndex);
+            if (taskIndex !== -1) {
+                console.log("hola");
+                Object.assign(taskArray[taskIndex], taskObj); // Updates properties without replacing reference
+            }
+
+            // if task was assigned to a new project -> render the task inside a new project
             if (previousProject !== newProject) {
                 console.log("hi there");
                 console.log(projectArray);
@@ -234,9 +244,13 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
                 newTaskDiv.className = "task mini";
                 renderTask(newTaskDiv, taskObj, taskArray, projectArray);
                 deleteTask(newTaskDiv, taskObj, newProjectObj, taskArray);
+
                 const projectTaskArea = document.querySelector(`#${taskObj.project}-task-area`);
                 projectTaskArea.appendChild(newTaskDiv);
             }
+
+            saveToStorage("tasksArray", taskArray);
+            saveToStorage("projectsArray", projectArray);
 
             editMode = false;
             cancelBtn.remove()
@@ -247,5 +261,4 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
 
         taskDiv.appendChild(confirmSection);
     }
-
 }
