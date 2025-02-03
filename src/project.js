@@ -98,7 +98,7 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
             const currentTask = projectObj.tasks[i];
 
             renderTask(taskDiv, currentTask, taskArray, projectArray);
-            deleteTask(taskDiv, currentTask, projectObj, taskArray) // event listener to remove task div from the DOM and allTasks array
+            deleteTask(taskDiv, currentTask, projectObj, taskArray, projectArray) // event listener to remove task div from the DOM and allTasks array
 
             taskArea.appendChild(taskDiv);
         }
@@ -148,7 +148,7 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
             const currentTask = projectObj.tasks[i];
     
             renderTask(taskDiv, currentTask, taskArray, projectArray);   
-            deleteTask(taskDiv, currentTask, projectObj, taskArray)     
+            deleteTask(taskDiv, currentTask, projectObj, taskArray, projectArray)     
     
             taskArea.appendChild(taskDiv);
         }

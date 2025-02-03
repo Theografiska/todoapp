@@ -1,6 +1,6 @@
 import { deleteTask, editTask } from "./modifyObjects.js";
-
 import { format, parseISO, isBefore } from 'date-fns';
+import { saveToStorage, loadFromStorage } from './utils.js';
 
 import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
@@ -149,7 +149,7 @@ export const createTask = (taskArray, projectArray) => {
             // adding the task to a project
             const projectTaskArea = document.querySelector(`#${taskProject}-task-area`);
             renderTask(taskDiv, newTask, taskArray, projectArray);
-            deleteTask(taskDiv, newTask, currentProject, taskArray);
+            deleteTask(taskDiv, newTask, currentProject, taskArray, projectArray);
             currentProject.addTask(newTask);
                     
             projectTaskArea.appendChild(taskDiv);

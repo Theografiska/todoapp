@@ -1,8 +1,9 @@
 import { initialTaskCharacteristics, expandTask, renderTask } from "./task.js";
+import { saveToStorage, loadFromStorage } from "./utils.js";
 import { Project } from "./project.js";
 import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
-export const deleteTask = (taskDiv, taskObj, projectObj, taskArray) => {
+export const deleteTask = (taskDiv, taskObj, projectObj, taskArray, projectArray) => {
     const taskDeleteButton = document.createElement("button");
     taskDeleteButton.className = "task-delete-btn";
     taskDeleteButton.style.background = `url(${deleteImage})`;
@@ -12,14 +13,22 @@ export const deleteTask = (taskDiv, taskObj, projectObj, taskArray) => {
 
     taskDeleteButton.addEventListener("click", () => {
         // removing task from project and the DOM
-        const taskIndex = projectObj.tasks.indexOf(taskObj);
-        projectObj.tasks.splice(taskIndex, 1);
+        /* const taskIndex = projectObj.tasks.indexOf(taskObj);
+        projectObj.tasks.splice(taskIndex, 1); */
+        projectObj.tasks = projectObj.tasks.filter(task => task !== taskObj);
         taskDiv.remove();
 
         // removing task from all tasks array
-        const allTasksIndex = taskArray.indexOf(taskObj);
-        taskArray.splice(allTasksIndex, 1);
+        const allTasksIndex = taskArray.findIndex(task => task.title === taskObj.title && task.description === taskObj.description);
+        if (allTasksIndex !== -1) {
+            taskArray.splice(allTasksIndex, 1);
+        }
         console.log(taskArray);
+
+        // removing the task from memory
+        saveToStorage("tasksArray", taskArray);
+        saveToStorage("projectsArray", projectArray);
+
     })
 }
 
