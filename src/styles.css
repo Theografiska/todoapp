@@ -7,7 +7,7 @@
 
 body {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 5fr;
     min-width: 100vw;
     min-height: 100vh;
     background-color: rgb(255, 255, 255);
@@ -39,7 +39,7 @@ button {
 #sidebar {
     background-color: rgb(216, 227, 249);
     color: navy;
-    padding: .75rem;
+    padding: 1rem;
 }
 
 #sidebar h3 {
@@ -52,6 +52,10 @@ button {
     margin-bottom: .25rem;
     font-weight: 600;
     font-size: 1rem;
+}
+
+#sidebar h3, #sidebar h4 {
+    cursor: pointer;
 }
 
 #profile-row {

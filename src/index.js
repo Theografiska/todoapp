@@ -14,8 +14,8 @@ const projectsArray = JSON.parse(localStorage.getItem('projectsArray') || '[]').
         project.tasks.map(task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project))
     )
 );
-// populating the page with dummy data
 
+// populating the page with dummy data (if no previous data)
 if (projectsArray.length < 1) {
     createInitialExamples(tasksArray, projectsArray);
 } 
@@ -32,6 +32,6 @@ addTaskButtons.forEach((button) => {
 const addProjectButton = document.querySelectorAll(".add-project-btn");
 addProjectButton.forEach((button) => {
     button.addEventListener("click", () => {
-    createProject(projectsArray, tasksArray);
+        createProject(projectsArray, tasksArray);
     });
 }); 

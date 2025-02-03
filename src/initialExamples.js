@@ -19,17 +19,16 @@ export const createInitialExamples = (taskArray, projectArray) => {
         const startingStrengthProject = new Project("starting-strength", "Keeping up my gym NLP progress", "Ongoing", "Wrist pain has decreased", taskArray.filter(task => task.project === "starting-strength"));
         projectArray.push(generalProject, javaScriptProject, startingStrengthProject);
         saveToStorage("projectsArray", projectArray);
-
     }
 }
 
 export const loadInitialExamples = (taskArray, projectArray) => {
     // Retrieve from storage and reconstruct instances
-    taskArray = JSON.parse(localStorage.getItem('tasksArray') || '[]').map(
+    taskArray = loadFromStorage('tasksArray').map(
         task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project)
     );
 
-    projectArray = JSON.parse(localStorage.getItem('projectsArray') || '[]').map(
+    projectArray = loadFromStorage('projectsArray').map(
         project => new Project(project.title, project.description, project.status, project.notes, 
             project.tasks.map(task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project))
         )
