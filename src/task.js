@@ -101,14 +101,14 @@ export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn,
 }
 
 export const createTask = (taskArray, projectArray) => {
-    // populating the select items through JavaScript
-    let taskProjectSelect = document.querySelector("#task-project-input");
-    let options = projectArray.map(item => `<option value="${item.title}">${item.title}</option>`).join(`\n`);
-    taskProjectSelect.innerHTML = options;
-
     const taskDialog = document.querySelector("#task-dialog");
     taskDialog.showModal();
     taskDialog.style.display = "flex";
+
+    // populating the select items in the form through JavaScript
+    let taskProjectSelect = document.querySelector("#task-project-input");
+    let options = projectArray.map(item => `<option value="${item.title}">${item.title}</option>`).join(`\n`);
+    taskProjectSelect.innerHTML = options;
 
     // resetting the form
     const inputClass = document.querySelectorAll(".input-class");
@@ -159,8 +159,11 @@ export const createTask = (taskArray, projectArray) => {
             console.log(currentProject);
             console.log(taskArray) 
 
-            localStorage.setItem("tasksArray", JSON.stringify(taskArray));
-            localStorage.setItem("projectsArray", JSON.stringify(projectArray));
+            saveToStorage("tasksArray", taskArray);
+            saveToStorage("projectsArray", projectArray);
+
+            /* localStorage.setItem("tasksArray", JSON.stringify(taskArray));
+            localStorage.setItem("projectsArray", JSON.stringify(projectArray)); */
 
             taskDialog.style.display = "none";
 
