@@ -59,6 +59,12 @@ export const createProject = (projectArray, taskArray) => {
             const description = document.querySelector("#project-description-input").value;
             const status = document.querySelector("#project-status-input").value;
             const notes = document.querySelector("#project-notes-input").value;
+
+            // Check if all required fields are filled
+            if (!title || !description || !status || !notes) {
+                alert("Please fill out all required fields.");
+                return; // Stop the function here if any required field is empty
+            }
     
             // creating a new project object
             const newProject = new Project(formattedTitle, description, status, notes);

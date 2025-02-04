@@ -138,7 +138,13 @@ export const createTask = (taskArray, projectArray) => {
             const priority = document.querySelector("#task-priority-input").value;
             const status = document.querySelector("#task-status-input").value;
             const taskProject = document.querySelector("#task-project-input").value;
-    
+            
+            // Check if all required fields are filled
+            if (!title || !description || !dueDate || !taskProject) {
+                alert("Please fill out all required fields.");
+                return; // Stop the function here if any required field is empty
+            }
+            
             // creating a new task object
             const newTask = new Task(title, description, dueDate, priority, status, taskProject);
             const taskDiv = document.createElement("div");
