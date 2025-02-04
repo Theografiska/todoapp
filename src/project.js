@@ -1,11 +1,8 @@
-import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
-import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
-import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg"
 import taskPlus from "./assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
 import { createTask, renderTask } from "./task.js";
 import { deleteTask, deleteProject, editProject } from "./modifyObjects.js";
-import { saveToStorage, loadFromStorage} from "./utils.js";
+import { saveToStorage } from "./utils.js";
 
 export class Project {
     constructor(title, description, status, notes, tasks = []) {

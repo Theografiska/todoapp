@@ -20,7 +20,7 @@ export class Task {
     }
 }
 
-export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDiv) => {
+export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDiv, taskArray, projectArray) => {
     const taskTitle = document.createElement("h3");
     taskTitle.className = "task-title";
     taskTitle.textContent = taskObj.title;
@@ -59,8 +59,68 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     
     if (isBefore(dueDate, todayDate) && taskObj.status !== "Completed") {
         taskDueDate.querySelector("span").style.color = "red"; // Apply red color only to the date
+    } else {
+        taskDueDate.querySelector("span").style.color = "black";
     }
     taskInitialCharacteristicsDiv.appendChild(taskDueDate);
+
+    // task status should be changed by clicking on the symbol
+    taskStatusSymbol.addEventListener("click", () => {
+        taskStatus.textContent = "";
+        taskStatus.className = "edit-row status-change";
+
+        const statusLabel = document.createElement("p");
+        statusLabel.textContent = "Status: ";
+        taskStatus.appendChild(statusLabel);
+
+        const previousStatus = taskObj.status; // selecting the previous choice as default option
+        const statusArray = ["Not started", "Ongoing", "Completed"];
+
+        const statusSelect = document.createElement("select");
+        statusArray.forEach(status => {
+            let option = document.createElement("option");
+            option.value = status;
+            option.textContent = status;
+            if (status === previousStatus) option.selected = true;
+            statusSelect.appendChild(option);
+        });
+    
+        taskStatus.appendChild(statusSelect);
+
+        // When status changes, update text and revert to normal display
+        statusSelect.addEventListener("change", () => {
+            taskObj.status = statusSelect.value;
+            taskStatus.textContent = `Status: ${taskObj.status}`;
+            taskStatus.className = "edit-row"; // Restore original styling
+            taskStatus.appendChild(taskStatusSymbol);
+
+            // changing taskDiv color based on task status
+            switch(taskObj.status) {
+                case 'Not started':
+                    taskStatusSymbol.style.backgroundColor = "lightgray";
+                    break;
+                case 'Ongoing':
+                    taskStatusSymbol.style.backgroundColor = "yellow";
+                    break;
+                case 'Completed':
+                    taskStatusSymbol.style.backgroundColor = "green";
+                    break;
+            }
+
+            if (isBefore(dueDate, todayDate) && taskObj.status !== "Completed") {
+                taskDueDate.querySelector("span").style.color = "red"; // Apply red color only to the date
+            } else {
+                taskDueDate.querySelector("span").style.color = "black";
+            }
+
+            taskObj.changeStatus(taskObj.status);
+            console.log(taskArray, projectArray);
+
+            // updating the memory
+            saveToStorage("tasksArray", taskArray);
+            saveToStorage("projectsArray", projectArray);
+        });
+    })
 }
 
 export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
@@ -144,7 +204,7 @@ export const createTask = (taskArray, projectArray) => {
                 alert("Please fill out all required fields.");
                 return; // Stop the function here if any required field is empty
             }
-            
+
             // creating a new task object
             const newTask = new Task(title, description, dueDate, priority, status, taskProject);
             const taskDiv = document.createElement("div");
@@ -185,7 +245,7 @@ export const createTask = (taskArray, projectArray) => {
 export const renderTask = (taskDiv, taskObj, taskArray, projectArray) => {
     const taskInitialCharacteristics = document.createElement("div");
 
-    initialTaskCharacteristics(taskObj, taskInitialCharacteristics);
+    initialTaskCharacteristics(taskObj, taskInitialCharacteristics, taskArray, projectArray);
 
     const expandButton = document.createElement("button");
     expandButton.style.background = `url(${fullScreen})`;

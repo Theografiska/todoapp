@@ -68,86 +68,86 @@
     <div id="main-content">
         <h1>Dashboard</h1>
         <h2>General Tasks</h2>
-        <!--add the general project here already-->
+        <!--add the general project here (the "All tasks" section) -->
         <div id="tasks-section">
         </div>
-        <!-- <button class="add-task-btn">
-            <img class="icon" src="assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-            <h4>Add task</h4>
-        </button> -->
+
+        <!--other projects go to the main projects section-->
         <h2>Projects</h2>
         <div id="projects-section">
         </div>
-            <dialog id="task-dialog" class="hidden">
-                    <form>
-                        <button class="dialog-close-btn" id="task-dialog-close-btn" autofocus>X</button>
-                        <h2>Add a new task</h2>
-                        <div class="form-row">
-                            <label for="task-title-input">Task title: </label>
-                            <input class="input-class" id="task-title-input" name="task-title-input" placeholder="Task" type="text" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="task-description-input">Task description: </label>
-                            <input class="input-class" id="task-description-input" name="task-description-input" placeholder="Description" type="text" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="task-due-date-input">Due date: </label>
-                            <input class="input-class" id="task-due-date-input" name="task-due-date-input" placeholder="Due date" type="date" min="1900-01-01" max="2200-01-01" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="task-priority-input">Priority: </label>
-                            <select name="task-priority-input" id="task-priority-input">
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
-                            </select>
-                        </div>
-                        <div class="form-row">
-                            <label for="task-status-input">Status: </label>
-                            <select name="task-status-input" id="task-status-input">
-                                <option value="Not started">Not started</option>
-                                <option value="Ongoing">Ongoing</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </div>
-                        <div class="form-row">
-                            <label for="task-project-input">Project: </label>
-                            <select id="task-project-input" name="task-project-input" required>
-                                <option value="general-tasks">General tasks</option>
-                                <option value="javascript-course">JavaScript course</option>
-                                <option value="starting-strength">Starting Strength</option>
-                            </select>
-                        </div>
-                        <button class="dialog-confirm-btn" id="task-dialog-confirm-btn" type="submit">Confirm</button>
-                    </form>
-            </dialog>
 
-            <dialog id="project-dialog">
-                <form>
-                    <button class="dialog-close-btn" id="project-dialog-close-btn" autofocus>X</button>
-                    <h2>Add a new project</h2>
-                    <div class="form-row">
-                        <label for="project-title-input">Project title: </label>
-                        <input class="input-class" id="project-title-input" name="project-title-input" placeholder="Studying Spanish" type="text" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="project-description-input">Project description: </label>
-                        <input class="input-class" id="project-description-input" name="project-description-input" placeholder="Description" type="text" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="project-status-input">Status: </label>
-                        <select name="project-status-input" id="project-status-input">
-                            <option value="project-not-started">Not started</option>
-                            <option value="project-ongoing">Ongoing</option>
-                            <option value="project-completed">Completed</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <label for="project-notes-input">Add notes: </label>
-                        <textarea class="input-class" id="project-notes-input" name="project-notes-input" placeholder="Notes" type="text" rows="5" cols="40" required></textarea>
-                    </div>
-                    <button class="dialog-confirm-btn" id="project-dialog-confirm-btn" value="default" type="submit">Confirm</button>
-                </form>
+        <!--task dialog-->
+        <dialog id="task-dialog" class="hidden">
+            <form>
+                <button class="dialog-close-btn" id="task-dialog-close-btn" autofocus>X</button>
+                <h2>Add a new task</h2>
+                <div class="form-row">
+                    <label for="task-title-input">Task title: </label>
+                    <input class="input-class" id="task-title-input" name="task-title-input" placeholder="Task" type="text" required>
+                </div>
+                <div class="form-row">
+                    <label for="task-description-input">Task description: </label>
+                    <input class="input-class" id="task-description-input" name="task-description-input" placeholder="Description" type="text" required>
+                </div>
+                <div class="form-row">
+                    <label for="task-due-date-input">Due date: </label>
+                    <input class="input-class" id="task-due-date-input" name="task-due-date-input" placeholder="Due date" type="date" min="1900-01-01" max="2200-01-01" required>
+                </div>
+                <div class="form-row">
+                    <label for="task-priority-input">Priority: </label>
+                    <select name="task-priority-input" id="task-priority-input">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="task-status-input">Status: </label>
+                    <select name="task-status-input" id="task-status-input">
+                        <option value="Not started">Not started</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="task-project-input">Project: </label>
+                    <select id="task-project-input" name="task-project-input" required>
+                        <option value="general-tasks">General tasks</option>
+                        <option value="javascript-course">JavaScript course</option>
+                        <option value="starting-strength">Starting Strength</option>
+                    </select>
+                </div>
+                <button class="dialog-confirm-btn" id="task-dialog-confirm-btn" type="submit">Confirm</button>
+            </form>
+        </dialog>
+        <!--project dialog-->
+        <dialog id="project-dialog">
+            <form>
+                <button class="dialog-close-btn" id="project-dialog-close-btn" autofocus>X</button>
+                <h2>Add a new project</h2>
+                <div class="form-row">
+                    <label for="project-title-input">Project title: </label>
+                    <input class="input-class" id="project-title-input" name="project-title-input" placeholder="Studying Spanish" type="text" required>
+                </div>
+                <div class="form-row">
+                    <label for="project-description-input">Project description: </label>
+                    <input class="input-class" id="project-description-input" name="project-description-input" placeholder="Description" type="text" required>
+                </div>
+                <div class="form-row">
+                    <label for="project-status-input">Status: </label>
+                    <select name="project-status-input" id="project-status-input">
+                        <option value="project-not-started">Not started</option>
+                        <option value="project-ongoing">Ongoing</option>
+                        <option value="project-completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="project-notes-input">Add notes: </label>
+                    <textarea class="input-class" id="project-notes-input" name="project-notes-input" placeholder="Notes" type="text" rows="5" cols="40" required></textarea>
+                </div>
+                <button class="dialog-confirm-btn" id="project-dialog-confirm-btn" value="default" type="submit">Confirm</button>
+            </form>
         </dialog>
         
     </div>

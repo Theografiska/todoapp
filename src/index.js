@@ -2,7 +2,6 @@ import "./styles.css";
 import { Task, createTask } from "./task.js";
 import {  Project, createProject } from "./project.js";
 import { createInitialExamples, loadInitialExamples } from "./initialExamples.js";
-import { format } from 'date-fns';
 
 // Retrieve tasks from localStorage and reconstruct them as Task instances
 const tasksArray = JSON.parse(localStorage.getItem('tasksArray') || '[]').map(

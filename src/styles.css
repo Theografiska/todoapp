@@ -140,6 +140,7 @@ button {
     border-radius: .5rem;
     background-color: aliceblue;
     border: none;
+    cursor: pointer;
 }
 
 .task button, .project button {
@@ -200,8 +201,12 @@ button {
     margin-bottom: 0;
 }
 
-.edit-row textarea {
+.edit-row textarea { /* this is for the 1-click status change (from main, not edit view) */
     font-size: .9rem;
+}
+
+.edit-row.status-change {
+    width: 5rem;
 }
 
 .task-edit-confirm-section {

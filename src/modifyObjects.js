@@ -1,4 +1,4 @@
-import { initialTaskCharacteristics, expandTask, renderTask } from "./task.js";
+import { initialTaskCharacteristics, renderTask } from "./task.js";
 import { saveToStorage, loadFromStorage } from "./utils.js";
 import { Project } from "./project.js";
 import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
@@ -168,7 +168,7 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
         // cancel button functionality (sets back to previous view)
         cancelBtn.addEventListener("click", () => {
             taskInitialCharacteristics.textContent = "";
-            initialTaskCharacteristics(taskObj, taskInitialCharacteristics);
+            initialTaskCharacteristics(taskObj, taskInitialCharacteristics, taskArray, projectArray);
 
             taskExpandedCharacteristics.textContent = "";
             const taskDescription = document.createElement("p");
@@ -201,7 +201,7 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             const newDueDate = dueDateInput.value;
             taskObj.dueDate = newDueDate;
 
-            initialTaskCharacteristics(taskObj, taskInitialCharacteristics);
+            initialTaskCharacteristics(taskObj, taskInitialCharacteristics, taskArray, projectArray);
 
             taskExpandedCharacteristics.textContent = "";
 
