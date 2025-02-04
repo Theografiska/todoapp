@@ -4,7 +4,7 @@ import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg"
 import taskPlus from "./assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
 import { createTask, renderTask } from "./task.js";
-import { deleteTask, deleteProject } from "./modifyObjects.js";
+import { deleteTask, deleteProject, editProject } from "./modifyObjects.js";
 import { saveToStorage, loadFromStorage} from "./utils.js";
 
 export class Project {
@@ -113,22 +113,26 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
         newProjectDiv.id = `${projectObj.title}-div`;
 
         // adding the title, description, date, priority, status, notes
+        const projectMainSection = document.createElement("div");
+
         const projectTitle = document.createElement("h3");
         projectTitle.className = "project-title";
         projectTitle.textContent = `#${projectObj.title}`;
-        newProjectDiv.appendChild(projectTitle);
+        projectMainSection.appendChild(projectTitle);
 
         const projectDescription = document.createElement("p");
         projectDescription.textContent = `${projectObj.description}`;
-        newProjectDiv.appendChild(projectDescription);
+        projectMainSection.appendChild(projectDescription);
 
         const projectStatus = document.createElement("p");
         projectStatus.textContent = `Status: ${projectObj.status}`;
-        newProjectDiv.appendChild(projectStatus);
+        projectMainSection.appendChild(projectStatus);
 
         const projectNotes = document.createElement("p");
         projectNotes.textContent = `Notes: ${projectObj.notes}`;
-        newProjectDiv.appendChild(projectNotes);
+        projectMainSection.appendChild(projectNotes);
+
+        newProjectDiv.appendChild(projectMainSection);
 
         const projectTasksTitle = document.createElement("h3");
         projectTasksTitle.textContent = `Tasks:`;
@@ -171,10 +175,7 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
         })
 
         // edit button functionality
-        const editProjectBtn = document.createElement("button");
-        editProjectBtn.className = "edit-project-btn";
-        editProjectBtn.style.background = `url(${edit})`;
-        newProjectDiv.appendChild(editProjectBtn);
+        editProject(newProjectDiv, projectObj, projectArray, taskArray, projectMainSection);
         
         /// delete button functionality
         deleteProject(newProjectDiv, projectObj, projectArray, taskArray);

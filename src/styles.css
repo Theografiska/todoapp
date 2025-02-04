@@ -142,9 +142,9 @@ button {
     border: none;
 }
 
-.task button {
+.task button, .project button {
     max-width: 8rem;
-    margin: 0.25rem 0;
+    margin: 0.75rem 0;
     padding: .2rem .5rem;
 }
 
@@ -184,31 +184,61 @@ button {
 }
 
 /* task edit functionality */
-.task-edit-confirm-section {
-    display: flex;
-    gap: .5rem;
-}
 
 .edit-row {
     display: flex;
-    gap: .5rem;
+    gap: 1rem;
     flex-wrap: nowrap;
     align-items: center;
     overflow: visible;
+    margin: .5rem 0;
 }
 
 .edit-row p {
     width: 5rem;
     font-weight: 600;
+    margin-bottom: 0;
+}
+
+.edit-row textarea {
+    font-size: .9rem;
+}
+
+.task-edit-confirm-section {
+    display: flex;
+    justify-content: center;
+    margin-left: 2rem;
+    gap: 1rem;
+}
+
+.cancel-btn, .confirm-btn {
+    display: flex;
+    align-items: center;
+    width: 8rem;
+    margin: 0 2rem;
+    padding: 0.6rem 0.9rem;
+    background: transparent;
+    border: none;
+    color: navy;
+    border-bottom: 2px solid lightgray;
+    border-radius: .5rem;
+}
+
+.cancel-btn {
+    background-color: coral;
+}
+
+.confirm-btn {
+    background-color: greenyellow;
 }
 
 /* add task btn */
 .add-task-btn {
     display: flex;
     align-items: center;
-    width: 6.5rem;
+    width: 8rem;
     margin: 0 2rem;
-    padding: 0.2rem;
+    padding: 0.3rem 0.9rem;
     gap: .5rem;
     background: transparent;
     border: none;
@@ -224,6 +254,7 @@ button {
 
 .project .add-task-btn {
     margin: 1rem 0;
+    padding: 0.3rem 0.9rem;
 }
 
 /* 'plus' icon for adding a task */
@@ -238,9 +269,9 @@ button {
 .add-project-btn {
     display: flex;
     align-items: center;
-    width: 8rem;
+    width: 9rem;
     margin: .5rem 0;
-    padding: 0.2rem;
+    padding: .3rem .9rem;
     gap: .5rem;
     background: transparent;
     border: none;
@@ -315,7 +346,6 @@ form h2 {
 input {
     padding: .25rem;
     font-size: .9rem;
-    padding: .3rem;
     height: 1.75rem;
     width: 15rem;
     font-size: .9rem;
