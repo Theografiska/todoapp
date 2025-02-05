@@ -2,6 +2,7 @@ import "./styles.css";
 import { Task, createTask } from "./task.js";
 import {  Project, createProject } from "./project.js";
 import { createInitialExamples, loadInitialExamples } from "./initialExamples.js";
+import { filterTasks } from "./filterTasks.js";
 
 // Retrieve tasks from localStorage and reconstruct them as Task instances
 const tasksArray = JSON.parse(localStorage.getItem('tasksArray') || '[]').map(
@@ -21,6 +22,9 @@ if (projectsArray.length < 1) {
 } 
 
 loadInitialExamples(tasksArray, projectsArray);
+
+// ability to filter sidebar tasks
+filterTasks(tasksArray, projectsArray);
 
 const addTaskButtons = document.querySelectorAll(".add-task-btn");
 addTaskButtons.forEach((button) => {

@@ -398,6 +398,17 @@ select {
     max-height: 12rem;
 }
 
+.dynamic {
+    margin-left: 2rem;
+}
+
+.dynamic-task-section {
+    display: flex;
+    max-width: 60rem;
+    flex-wrap: wrap;
+
+}
+
 .project-delete-btn {
     background-size: contain;
     background-repeat: no-repeat;
