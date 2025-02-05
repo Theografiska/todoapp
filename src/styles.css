@@ -27,6 +27,11 @@ h2 {
     margin-left: 2rem;
 }
 
+a {
+    text-decoration: none;
+    color: navy;
+}
+
 .icon {
     cursor: pointer;
 }
@@ -406,7 +411,11 @@ select {
     display: flex;
     max-width: 60rem;
     flex-wrap: wrap;
+}
 
+.dynamic-projects-area {
+    display: flex;
+    flex-direction: column;
 }
 
 .project-delete-btn {
