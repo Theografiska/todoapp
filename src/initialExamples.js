@@ -6,11 +6,12 @@ import { saveToStorage, loadFromStorage} from "./utils.js";
 export const createInitialExamples = (taskArray, projectArray) => {
     if (taskArray.length < 1 && projectArray.length < 1) {
         // create a few sample tasks
-        const makeFire = new Task ("Make fire in the fireplace", "Take wood form the shed", "2025-01-10", "High", "Ongoing", "general-tasks");
-        const takeOutTrash = new Task ("Take out trash", "Take the trash to the curb", "2025-02-03", "Medium", "Not started", "general-tasks");
+        const visitDentist = new Task ("Make a dentist appointment", "Make an appointment to visit dentist during February", "2025-02-28", "High", "Not started", "general-tasks");
+        const ironShirts = new Task ("Iron shirts", "Iron all the collared shirts", "2025-02-10", "low", "Not started", "general-tasks");
+        const researchJobMarket = new Task ("Research job market", "Make a list of interesting companies and their requirements", "2025-03-31", "Medium", "Ongoing", "general-tasks");
         const todoListApp = new Task("Todo List App", "Complete all the project requirements", "2025-02-28", "Medium", "Ongoing", "javascript-course")
-        const threeDaysAWeekToGym = new Task("Go to gym 3 times/week", "Instructions are loud and clear in the title", "2025-03-31", "Medium", "Ongoing", "starting-strength");
-        taskArray.push(makeFire, takeOutTrash, todoListApp, threeDaysAWeekToGym);
+        const threeDaysAWeekToGym = new Task("Go to gym 3 times/week", "On average, go to the gym 3x per week during February", "2025-02-28", "Medium", "Ongoing", "starting-strength");
+        taskArray.push(visitDentist, ironShirts, todoListApp, threeDaysAWeekToGym);
         saveToStorage("tasksArray", taskArray);
 
         // creating a few sample projects

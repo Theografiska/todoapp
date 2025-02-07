@@ -184,7 +184,7 @@ button {
     height: 16px;
     border: none;
     position: absolute;
-    top: .5rem;
+    top: -.25rem;
     right: .5rem;
 }
 
@@ -195,8 +195,8 @@ button {
     height: 16px;
     border: none;
     position: absolute;
-    top: .5rem;
-    right: 2.5rem;
+    top: -.25rem;
+    right: 2rem;
 }
 
 .task-edit-btn {
@@ -208,8 +208,8 @@ button {
     height: 18px;
     border: none;
     position: absolute;
-    top: .5rem;
-    right: 4.5rem;
+    top: -.25rem;
+    right: 3.5rem;
 }
 
 /* task edit functionality */
@@ -441,6 +441,12 @@ select {
     flex-direction: column;
 }
 
+.project-tasks-title {
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin-top: 2.5rem;
+}
+
 .project-delete-btn {
     background-size: contain;
     background-repeat: no-repeat;
@@ -448,7 +454,7 @@ select {
     height: 16px;
     border: none;
     position: absolute;
-    top: 1rem;
+    top: -.25rem;
     right: 1rem;
 }
 
@@ -460,6 +466,6 @@ select {
     height: 18px;
     border: none;
     position: absolute;
-    top: 1rem;
-    right: 3rem;
+    top: -.25rem;
+    right: 2.5rem;
 }

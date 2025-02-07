@@ -213,7 +213,8 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
         newProjectDiv.appendChild(projectMainSection);
 
         const projectTasksTitle = document.createElement("h3");
-        projectTasksTitle.textContent = `Tasks:`;
+        projectTasksTitle.textContent = `Project tasks`;
+        projectTasksTitle.className = "project-tasks-title";
         newProjectDiv.appendChild(projectTasksTitle);
 
         // task area
