@@ -23,6 +23,10 @@ export class Project {
         const taskIndex = this.tasks.indexOf(task);
         this.tasks.splice(taskIndex, 1);
     }
+
+    changeStatus(newStatus) {
+        this.status = newStatus;
+    }
 }
 
 export const createProject = (projectArray, taskArray) => {
@@ -150,6 +154,57 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
             projectStatusSymbol.style.backgroundColor = "green";
             break;
         }
+
+        // project status should be changeable with click:
+        projectStatusSymbol.addEventListener("click", () => {
+            projectStatus.textContent = "";
+            projectStatus.className = "edit-row status-change";
+
+            const statusLabel = document.createElement("p");
+            statusLabel.textContent = "Status: ";
+            projectStatus.appendChild(statusLabel);
+
+            const previousStatus = projectObj.status;
+            const statusArray = ["Not started", "Ongoing", "Completed"];
+
+            const statusSelect = document.createElement("select");
+            statusArray.forEach(status => {
+                let option = document.createElement("option");
+                option.value = status;
+                option.textContent = status;
+                if (status === previousStatus) option.selected = true;
+                statusSelect.appendChild(option);
+            });
+
+            projectStatus.appendChild(statusSelect);
+
+            // When status changes, update text and revert to normal display
+            statusSelect.addEventListener("change", () => {
+                projectObj.status = statusSelect.value;
+                projectStatus.textContent = `Status: ${projectObj.status}`;
+                projectStatus.className = "edit-row"; // Restore original styling
+                projectStatus.appendChild(projectStatusSymbol);
+
+                // changing taskDiv color based on task status
+                switch(projectObj.status) {
+                    case 'Not started':
+                        projectStatusSymbol.style.backgroundColor = "lightgray";
+                        break;
+                    case 'Ongoing':
+                        projectStatusSymbol.style.backgroundColor = "yellow";
+                        break;
+                    case 'Completed':
+                        projectStatusSymbol.style.backgroundColor = "green";
+                        break;
+                }
+            })
+
+            projectObj.changeStatus(projectObj.status);
+            console.log(taskArray, projectArray);
+
+            // updating the memory
+            saveToStorage("projectsArray", projectArray);
+        });
 
         const projectNotes = document.createElement("p");
         projectNotes.textContent = `Notes: ${projectObj.notes}`;
