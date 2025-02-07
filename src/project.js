@@ -1,4 +1,5 @@
 import taskPlus from "./assets/add_circle_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
+import { format, parseISO, isBefore } from 'date-fns';
 
 import { createTask, renderTask } from "./task.js";
 import { deleteTask, deleteProject, editProject } from "./modifyObjects.js";
@@ -127,9 +128,28 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
         projectDescription.textContent = `${projectObj.description}`;
         projectMainSection.appendChild(projectDescription);
 
-        const projectStatus = document.createElement("p");
-        projectStatus.textContent = `Status: ${projectObj.status}`;
+        const projectStatus = document.createElement("div");
+        projectStatus.className = "project-status";
+        const projectStatusText = document.createElement("p");
+        projectStatusText.textContent = `Status: ${projectObj.status}`;
+        projectStatus.appendChild(projectStatusText);
+        const projectStatusSymbol = document.createElement("div");
+        projectStatusSymbol.className = "project-status-symbol";
+        projectStatus.appendChild(projectStatusSymbol);
         projectMainSection.appendChild(projectStatus);
+
+        // changing projectStatusSymbol based on project status
+        switch(projectObj.status) {
+            case 'Not started':
+            projectStatusSymbol.style.backgroundColor = "lightgray";
+            break;
+        case 'Ongoing':
+            projectStatusSymbol.style.backgroundColor = "yellow";
+            break;
+        case 'Completed':
+            projectStatusSymbol.style.backgroundColor = "green";
+            break;
+        }
 
         const projectNotes = document.createElement("p");
         projectNotes.textContent = `Notes: ${projectObj.notes}`;

@@ -129,19 +129,42 @@ button {
 }
 
 .task p {
-    margin: 1rem 0;
+    margin: .5rem 0;
 }
 
 .task-status {
     display: flex;
     flex-wrap: nowrap;
+    align-items: center;
     gap: .5rem;
+    position: relative;
+
 }
 
 .task-status-symbol {
-    margin: 1rem 0;
+    margin: .5rem 0;
     width: 1rem;
     height: 1rem;
+    border-radius: .5rem;
+    background-color: aliceblue;
+    border: none;
+    cursor: pointer;
+}
+
+.project-status {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: .5rem;
+    position: relative;
+}
+
+.project-status-symbol {
+    margin: .5rem 0;
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+    top: -.5rem;
     border-radius: .5rem;
     background-color: aliceblue;
     border: none;

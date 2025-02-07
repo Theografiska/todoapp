@@ -36,7 +36,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     taskStatus.appendChild(taskStatusSymbol);
     taskInitialCharacteristicsDiv.appendChild(taskStatus);
 
-    // changing taskDiv color based on task status
+    // changing taskStatusSymbol color based on task status
     switch(taskObj.status) {
         case 'Not started':
             taskStatusSymbol.style.backgroundColor = "lightgray";
@@ -165,7 +165,7 @@ export const createTask = (taskArray, projectArray) => {
     taskDialog.showModal();
     taskDialog.style.display = "flex";
 
-    // populating the select items in the form through JavaScript
+    // populating the project select items in the form with JavaScript
     let taskProjectSelect = document.querySelector("#task-project-input");
     let options = projectArray.map(item => `<option value="${item.title}">${item.title}</option>`).join(`\n`);
     taskProjectSelect.innerHTML = options;
