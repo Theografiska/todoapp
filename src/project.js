@@ -197,13 +197,13 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
                         projectStatusSymbol.style.backgroundColor = "green";
                         break;
                 }
+
+                projectObj.changeStatus(projectObj.status);
+                console.log(projectArray);
+
+                // updating the memory
+                saveToStorage("projectsArray", projectArray);
             })
-
-            projectObj.changeStatus(projectObj.status);
-            console.log(taskArray, projectArray);
-
-            // updating the memory
-            saveToStorage("projectsArray", projectArray);
         });
 
         const projectNotes = document.createElement("p");
