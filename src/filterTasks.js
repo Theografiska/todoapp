@@ -2,10 +2,8 @@ import { initialTaskCharacteristics, renderTask } from "./task.js";
 import { projectRender } from "./project.js";
 import { deleteTask } from "./modifyObjects.js";
 import { saveToStorage, loadFromStorage } from './utils.js';
-import { format, parseISO, isBefore } from 'date-fns';
+import { parseISO, isBefore } from 'date-fns';
 
-import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
-import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
 export const filterTasks = (taskArray, projectArray) => {
     const mainContent = document.querySelector("#main-content");
@@ -26,7 +24,7 @@ export const filterTasks = (taskArray, projectArray) => {
 
                     taskArray.forEach((task) => {
                         const taskDiv = document.createElement("div");
-                        taskDiv.className = "task mini dynamic";
+                        taskDiv.className = "task dynamic mini";
 
                         const currentProject = projectArray.find((item) => item.title === task.project);
                         renderTask(taskDiv, task, taskArray, projectArray);

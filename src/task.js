@@ -125,7 +125,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
 
 export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     // listener for opening the full task view
-    if (taskDiv.className === "task mini" || taskDiv.className === "task mini dynamic") {
+    if (taskDiv.className === "task mini" || taskDiv.className === "task dynamic mini") {
         taskDiv.classList.remove("mini");
         editBtn.classList.remove("hidden");
 
