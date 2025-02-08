@@ -164,7 +164,7 @@ button {
     width: 1rem;
     height: 1rem;
     position: relative;
-    top: -.5rem;
+    top: -0.25rem;
     border-radius: .5rem;
     background-color: aliceblue;
     border: none;
@@ -412,7 +412,7 @@ select {
 }
 
 .project p {
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
 }
 
 .project-title {
@@ -468,4 +468,10 @@ select {
     position: absolute;
     top: -.25rem;
     right: 2.5rem;
+}
+
+/* filtering tasks */
+
+.zero-tasks-message {
+    margin: 1rem 2rem;
 }

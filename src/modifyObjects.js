@@ -377,17 +377,21 @@ export const editProject = (projectDiv, projectObj, projectArray, taskArray, pro
                 projectMainSectionDiv.textContent = "";
 
                 const newTitle = titleInput.value;
-                projectObj.title = newTitle;
+                const formattedTitle = newTitle.toLowerCase().replace(/\s+/g, '-'); // formating the project #like-this
+                projectObj.title = formattedTitle;
+
                 const newDescription = descriptionInput.value;
                 projectObj.description = newDescription;
+
                 const newStatus = statusSelect.value;
                 projectObj.status = newStatus;
+
                 const newNotes = notesTextarea.value;
                 projectObj.notes = newNotes;
 
                 const projectTitle = document.createElement("h3");
                 projectTitle.className = "project-title";
-                projectTitle.textContent = `#${projectObj.title}`;
+                projectTitle.textContent = `#${formattedTitle}`;
                 projectMainSectionDiv.appendChild(projectTitle);
 
                 const projectDescription = document.createElement("p");
@@ -404,8 +408,6 @@ export const editProject = (projectDiv, projectObj, projectArray, taskArray, pro
 
                 // Now explicitly update the corresponding project in projectArray
                 const projectIndex = projectArray.findIndex((project) => project.title === newTitle);
-                console.log("Previous project title:", previousTitle);
-                console.log("Previous project index:", projectIndex);
                 if (projectIndex !== -1) {
                     Object.assign(projectArray[projectIndex], projectObj); // Updates properties without replacing reference
                 }
@@ -413,7 +415,7 @@ export const editProject = (projectDiv, projectObj, projectArray, taskArray, pro
                 // updating the project names in tasks in taskArray
                 taskArray.forEach((task) => {
                     if (task.project === previousTitle) {
-                        task.project = newTitle;
+                        task.project = formattedTitle;
                     }
                 })
 
