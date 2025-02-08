@@ -60,7 +60,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     if (isBefore(dueDate, todayDate) && taskObj.status !== "Completed") {
         taskDueDate.querySelector("span").style.color = "red"; // Apply red color only to the date
     } else {
-        taskDueDate.querySelector("span").style.color = "black";
+        taskDueDate.querySelector("span").style.color = "white";
     }
     taskInitialCharacteristicsDiv.appendChild(taskDueDate);
 
@@ -110,7 +110,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
             if (isBefore(dueDate, todayDate) && taskObj.status !== "Completed") {
                 taskDueDate.querySelector("span").style.color = "red"; // Apply red color only to the date
             } else {
-                taskDueDate.querySelector("span").style.color = "black";
+                taskDueDate.querySelector("span").style.color = "white";
             }
 
             taskObj.changeStatus(taskObj.status);

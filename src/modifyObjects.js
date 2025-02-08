@@ -14,7 +14,7 @@ export const deleteTask = (taskDiv, taskObj, projectObj, taskArray, projectArray
 
     taskDeleteButton.addEventListener("click", () => {
         // removing task from project and the DOM
-        projectObj.tasks = projectObj.tasks.filter(task => task !== taskObj);
+        projectObj.removeTask(taskObj);
         taskDiv.remove();
 
         // removing task from all tasks array
@@ -27,7 +27,6 @@ export const deleteTask = (taskDiv, taskObj, projectObj, taskArray, projectArray
         // removing the task from memory
         saveToStorage("tasksArray", taskArray);
         saveToStorage("projectsArray", projectArray);
-
     })
 }
 

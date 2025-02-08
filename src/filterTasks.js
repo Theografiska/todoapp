@@ -1,7 +1,6 @@
-import { initialTaskCharacteristics, renderTask } from "./task.js";
+import { renderTask } from "./task.js";
 import { projectRender } from "./project.js";
 import { deleteTask } from "./modifyObjects.js";
-import { saveToStorage, loadFromStorage } from './utils.js';
 import { parseISO, isBefore } from 'date-fns';
 
 
@@ -29,15 +28,19 @@ export const filterTasks = (taskArray, projectArray) => {
             const filteredTasksSection = document.createElement("div");
             filteredTasksSection.className = "dynamic-task-section";
 
+            const zeroTasksFunc = (taskStatus) => {
+                const zeroTasksMessage = document.createElement("p");
+                zeroTasksMessage.className = "zero-tasks-message";
+                zeroTasksMessage.textContent = `There are currently no ${taskStatus} tasks available.`;
+                filteredTasksSection.appendChild(zeroTasksMessage);
+            }
+
             switch(link.id) {
                 case "sidebar-my-tasks": 
                     filteredTasksHeader.textContent = "All tasks";
 
                     if (taskArray.length === 0) {
-                        const zeroTasksMessage = document.createElement("p");
-                        zeroTasksMessage.className = "zero-tasks-message";
-                        zeroTasksMessage.textContent = "There are currently no tasks available.";
-                        filteredTasksSection.appendChild(zeroTasksMessage);
+                        zeroTasksFunc("");
                     } else {
                         taskArray.forEach((task) => {
                             const taskDiv = document.createElement("div");
@@ -56,12 +59,10 @@ export const filterTasks = (taskArray, projectArray) => {
                     filteredTasksHeader.textContent = "Ongoing tasks";
 
                     if (taskArray.length === 0) {
-                        const zeroTasksMessage = document.createElement("p");
-                        zeroTasksMessage.className = "zero-tasks-message";
-                        zeroTasksMessage.textContent = "There are currently no ongoing tasks.";
-                        filteredTasksSection.appendChild(zeroTasksMessage);
+                        zeroTasksFunc("ongoing");
+
                     } else {
-                        let ongoingCount = 0;
+                        let count = 0;
                         taskArray.forEach((task) => {
                             if (task.status === "Ongoing") {
                                 const taskDiv = document.createElement("div");
@@ -72,15 +73,12 @@ export const filterTasks = (taskArray, projectArray) => {
                                 deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
                                 
                                 filteredTasksSection.appendChild(taskDiv);
-                                ongoingCount += 1;
+                                count += 1;
                             }
                         })
 
-                        if (ongoingCount === 0) {
-                                const zeroTasksMessage = document.createElement("p");
-                                zeroTasksMessage.className = "zero-tasks-message";
-                                zeroTasksMessage.textContent = "There are currently no ongoing tasks.";
-                                filteredTasksSection.appendChild(zeroTasksMessage);
+                        if (count === 0) {
+                            zeroTasksFunc("ongoing");
                             }
                     }
                     
@@ -90,12 +88,9 @@ export const filterTasks = (taskArray, projectArray) => {
                     filteredTasksHeader.textContent = "Not started tasks";
 
                     if (taskArray.length === 0) {
-                        const zeroTasksMessage = document.createElement("p");
-                        zeroTasksMessage.className = "zero-tasks-message";
-                        zeroTasksMessage.textContent = "There are currently no unstarted tasks.";
-                        filteredTasksSection.appendChild(zeroTasksMessage);
+                        zeroTasksFunc("not started");
                     } else {
-                        let notStartedCount = 0;
+                        let count = 0;
                         taskArray.forEach((task) => {
                             if (task.status === "Not started") {
                                 const taskDiv = document.createElement("div");
@@ -106,15 +101,12 @@ export const filterTasks = (taskArray, projectArray) => {
                                 deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
                                 
                                 filteredTasksSection.appendChild(taskDiv);
-                                notStartedCount += 1;
+                                count += 1;
                             }
                         })
 
-                        if (notStartedCount === 0) {
-                                const zeroTasksMessage = document.createElement("p");
-                                zeroTasksMessage.className = "zero-tasks-message";
-                                zeroTasksMessage.textContent = "There are currently no unstarted tasks.";
-                                filteredTasksSection.appendChild(zeroTasksMessage);
+                        if (count === 0) {
+                            zeroTasksFunc("not started");
                         }
                     }
 
@@ -124,12 +116,9 @@ export const filterTasks = (taskArray, projectArray) => {
                     filteredTasksHeader.textContent = "Completed tasks";
 
                     if (taskArray.length === 0) {
-                        const zeroTasksMessage = document.createElement("p");
-                        zeroTasksMessage.className = "zero-tasks-message";
-                        zeroTasksMessage.textContent = "There are currently no completed tasks.";
-                        filteredTasksSection.appendChild(zeroTasksMessage);
+                        zeroTasksFunc("completed");
                     } else {
-                        let completedCount = 0;
+                        let count = 0;
                         taskArray.forEach((task) => {
                             if (task.status === "Completed") {
                                 const taskDiv = document.createElement("div");
@@ -140,30 +129,24 @@ export const filterTasks = (taskArray, projectArray) => {
                                 deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
                                 
                                 filteredTasksSection.appendChild(taskDiv);
-                                completedCount += 1;
+                                count += 1;
                             }
                         })
 
-                        if (completedCount === 0) {
-                                const zeroTasksMessage = document.createElement("p");
-                                zeroTasksMessage.className = "zero-tasks-message";
-                                zeroTasksMessage.textContent = "There are currently no completed tasks.";
-                                filteredTasksSection.appendChild(zeroTasksMessage);
+                        if (count === 0) {
+                            zeroTasksFunc("completed");
                         }
                     }
 
                     mainContent.appendChild(filteredTasksSection);
                     break;
                 case "sidebar-deadline-passed-tasks":
-                    filteredTasksHeader.textContent = "Deadline passed tasks";
+                    filteredTasksHeader.textContent = "Overdue tasks";
 
                     if (taskArray.length === 0) {
-                        const zeroTasksMessage = document.createElement("p");
-                        zeroTasksMessage.className = "zero-tasks-message";
-                        zeroTasksMessage.textContent = "There are currently no overdue tasks.";
-                        deadlinePassedTasksSection.appendChild(zeroTasksMessage);
+                        zeroTasksFunc("overdue");
                     } else {
-                        let deadlinePassedCount = 0;
+                        let count = 0;
                         taskArray.forEach((task) => {
                             // Check if the due date has passed
                             const todayDate = new Date();
@@ -177,15 +160,12 @@ export const filterTasks = (taskArray, projectArray) => {
                                 deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
                                 
                                 filteredTasksSection.appendChild(taskDiv);
-                                deadlinePassedCount += 1;
+                                count += 1;
                             }
                         })
 
-                        if (deadlinePassedCount === 0) {
-                                const zeroTasksMessage = document.createElement("p");
-                                zeroTasksMessage.className = "zero-tasks-message";
-                                zeroTasksMessage.textContent = "There are currently no overdue tasks.";
-                                filteredTasksSection.appendChild(zeroTasksMessage);
+                        if (count === 0) {
+                            zeroTasksFunc("overdue");
                         }
                     }
 
@@ -218,15 +198,19 @@ export const filterTasks = (taskArray, projectArray) => {
             filteredProjectsSection.id = "projects-section";
             mainContent.appendChild(filteredProjectsSection);
 
+            const zeroProjectsFunc = (projectStatus) => {
+                const zeroProjectsMessage = document.createElement("p");
+                zeroProjectsMessage.className = "zero-projects-message";
+                zeroProjectsMessage.textContent = `There are currently no ${projectStatus} projects available.`;
+                filteredProjectsSection.appendChild(zeroProjectsMessage);
+            }
+
             switch(link.id) {
                 case "sidebar-all-projects":
                     filteredProjectsHeader.textContent = "All projects";
 
                     if (projectArray.length === 1) { // 1 because general tasks is the non-deleteable project 
-                        const zeroProjectsMessage = document.createElement("p");
-                        zeroProjectsMessage.className = "zero-projects-message";
-                        zeroProjectsMessage.textContent = "There are currently no projects available.";
-                        filteredProjectsSection.appendChild(zeroProjectsMessage);
+                        zeroProjectsFunc("");
                     } else {
                         projectArray.forEach((project) => {
                             if (project.title !== "general-tasks") {
@@ -234,16 +218,12 @@ export const filterTasks = (taskArray, projectArray) => {
                             }
                         })
                     }
-
                     break;
                 case "sidebar-ongoing-projects": 
                     filteredProjectsHeader.textContent = "Ongoing projects";
 
                     if (projectArray.length === 1) {
-                        const zeroProjectsMessage = document.createElement("p");
-                        zeroProjectsMessage.className = "zero-projects-message";
-                        zeroProjectsMessage.textContent = "There are currently no ongoing projects.";
-                        filteredProjectsSection.appendChild(zeroProjectsMessage);
+                        zeroProjectsFunc("ongoing");
                     } else {
                         let ongoingCount = 0;
                         projectArray.forEach((project) => {
@@ -255,10 +235,7 @@ export const filterTasks = (taskArray, projectArray) => {
                         }) 
 
                         if (ongoingCount === 0) {
-                            const zeroProjectsMessage = document.createElement("p");
-                            zeroProjectsMessage.className = "zero-projects-message";
-                            zeroProjectsMessage.textContent = "There are currently no ongoing projects.";
-                            filteredProjectsSection.appendChild(zeroProjectsMessage);
+                            zeroProjectsFunc("ongoing");
                         }
                     }
 
@@ -267,10 +244,7 @@ export const filterTasks = (taskArray, projectArray) => {
                     filteredProjectsHeader.textContent = "Not started projects";
 
                     if (projectArray.length === 1) {
-                        const zeroProjectsMessage = document.createElement("p");
-                        zeroProjectsMessage.className = "zero-projects-message";
-                        zeroProjectsMessage.textContent = "There are currently no unstarted projects.";
-                        filteredProjectsSection.appendChild(zeroProjectsMessage);
+                        zeroProjectsFunc("not started");
                     } else {
                         let unstartedCount = 0;
                         projectArray.forEach((project) => {
@@ -282,10 +256,7 @@ export const filterTasks = (taskArray, projectArray) => {
                         }) 
 
                         if (unstartedCount === 0) {
-                            const zeroProjectsMessage = document.createElement("p");
-                            zeroProjectsMessage.className = "zero-projects-message";
-                            zeroProjectsMessage.textContent = "There are currently no unstarted projects.";
-                            filteredProjectsSection.appendChild(zeroProjectsMessage);
+                            zeroProjectsFunc("not started");
                         }
                     }
 
@@ -294,10 +265,7 @@ export const filterTasks = (taskArray, projectArray) => {
                     filteredProjectsHeader.textContent = "Completed projects";
 
                     if (projectArray.length === 1) {
-                        const zeroProjectsMessage = document.createElement("p");
-                        zeroProjectsMessage.className = "zero-projects-message";
-                        zeroProjectsMessage.textContent = "There are currently no completed projects.";
-                        filteredProjectsSection.appendChild(zeroProjectsMessage);
+                        zeroProjectsFunc("completed");
                     } else {
                         let completedCount = 0;
                         projectArray.forEach((project) => {
@@ -309,10 +277,7 @@ export const filterTasks = (taskArray, projectArray) => {
                         }) 
 
                         if (completedCount === 0) {
-                            const zeroProjectsMessage = document.createElement("p");
-                            zeroProjectsMessage.className = "zero-projects-message";
-                            zeroProjectsMessage.textContent = "There are currently no completed projects.";
-                            filteredProjectsSection.appendChild(zeroProjectsMessage);
+                            zeroProjectsFunc("completed");
                         }
                     }
 

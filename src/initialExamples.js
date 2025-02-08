@@ -11,7 +11,7 @@ export const createInitialExamples = (taskArray, projectArray) => {
         const researchJobMarket = new Task ("Research job market", "Make a list of interesting companies and their requirements", "2025-03-31", "Medium", "Ongoing", "general-tasks");
         const todoListApp = new Task("Todo List App", "Complete all the project requirements", "2025-02-28", "Medium", "Ongoing", "javascript-course")
         const threeDaysAWeekToGym = new Task("Go to gym 3 times/week", "On average, go to the gym 3x per week during February", "2025-02-28", "Medium", "Ongoing", "starting-strength");
-        taskArray.push(visitDentist, ironShirts, todoListApp, threeDaysAWeekToGym);
+        taskArray.push(visitDentist, ironShirts, researchJobMarket, todoListApp, threeDaysAWeekToGym);
         saveToStorage("tasksArray", taskArray);
 
         // creating a few sample projects
