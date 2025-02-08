@@ -219,68 +219,68 @@ export const filterTasks = (taskArray, projectArray) => {
                         })
                     }
                     break;
+                    
                 case "sidebar-ongoing-projects": 
                     filteredProjectsHeader.textContent = "Ongoing projects";
 
                     if (projectArray.length === 1) {
                         zeroProjectsFunc("ongoing");
                     } else {
-                        let ongoingCount = 0;
+                        let count = 0;
                         projectArray.forEach((project) => {
                             if (project.status === "Ongoing" && project.title !== "general-tasks") {
                                 projectRender(project, projectArray, taskArray);
 
-                                ongoingCount += 1;
+                                count += 1;
                             }
                         }) 
 
-                        if (ongoingCount === 0) {
+                        if (count === 0) {
                             zeroProjectsFunc("ongoing");
                         }
                     }
-
                     break;
+
                 case "sidebar-not-started-projects":
                     filteredProjectsHeader.textContent = "Not started projects";
 
                     if (projectArray.length === 1) {
                         zeroProjectsFunc("not started");
                     } else {
-                        let unstartedCount = 0;
+                        let count = 0;
                         projectArray.forEach((project) => {
                             if (project.status === "Not started" && project.title !== "general-tasks") {
                                 projectRender(project, projectArray, taskArray);
 
-                                unstartedCount += 1;
+                                count += 1;
                             }
                         }) 
 
-                        if (unstartedCount === 0) {
+                        if (count === 0) {
                             zeroProjectsFunc("not started");
                         }
                     }
-
                     break;
+
                 case "sidebar-completed-projects":
                     filteredProjectsHeader.textContent = "Completed projects";
 
                     if (projectArray.length === 1) {
                         zeroProjectsFunc("completed");
                     } else {
-                        let completedCount = 0;
+                        let count = 0;
                         projectArray.forEach((project) => {
                             if (project.status === "Completed" && project.title !== "general-tasks") {
                                 projectRender(project, projectArray, taskArray);
 
-                                completedCount += 1;
+                                count += 1;
                             }
                         }) 
 
-                        if (completedCount === 0) {
+                        if (count === 0) {
                             zeroProjectsFunc("completed");
                         }
                     }
-
                     break;
             }
         })

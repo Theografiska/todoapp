@@ -89,7 +89,14 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
 
         // When status changes, update text and revert to normal display
         statusSelect.addEventListener("change", () => {
-            taskObj.status = statusSelect.value;
+            taskObj.changeStatus(statusSelect.value);
+
+            // Explicitly update the task array
+            const taskIndex = taskArray.findIndex(task => task.title === taskObj.title && task.description === taskObj.description);
+            if (taskIndex !== -1) {
+                taskArray[taskIndex] = taskObj;  // Ensure the task is updated in the array
+            }
+
             taskStatus.textContent = `Status: ${taskObj.status}`;
             taskStatus.className = "edit-row"; // Restore original styling
             taskStatus.appendChild(taskStatusSymbol);
@@ -113,7 +120,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
                 taskDueDate.querySelector("span").style.color = "white";
             }
 
-            taskObj.changeStatus(taskObj.status);
+            /* taskObj.changeStatus(taskObj.status); */
             console.log(taskArray, projectArray);
 
             // updating the memory

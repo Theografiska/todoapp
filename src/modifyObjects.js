@@ -1,6 +1,5 @@
 import { initialTaskCharacteristics, renderTask } from "./task.js";
-import { saveToStorage, loadFromStorage } from "./utils.js";
-import { Project } from "./project.js";
+import { saveToStorage } from "./utils.js";
 import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg";
 
@@ -111,11 +110,11 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
         taskExpandedCharacteristics.textContent = "";
 
         const descriptionDiv = document.createElement("div");
-        descriptionDiv.className = "edit-row";
+        descriptionDiv.className = "edit-row text-area";
         const descriptionLabel = document.createElement("p");
         descriptionLabel.textContent = "Description: ";
         descriptionDiv.appendChild(descriptionLabel);
-        const descriptionInput = document.createElement("input");
+        const descriptionInput = document.createElement("textarea");
         descriptionInput.value = taskObj.description;
         descriptionDiv.appendChild(descriptionInput);
         taskExpandedCharacteristics.appendChild(descriptionDiv);
@@ -265,6 +264,91 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
     }
 }
 
+export const projectStatusFunc = (projectObj, projectArray, projectMainSectionDiv) => {
+    const projectStatus = document.createElement("div");
+    projectStatus.className = "project-status";
+
+    const projectStatusText = document.createElement("p");
+    projectStatusText.textContent = `Status: ${projectObj.status}`;
+    projectStatus.appendChild(projectStatusText);
+
+    const projectStatusSymbol = document.createElement("div");
+    projectStatusSymbol.className = "project-status-symbol";
+    projectStatus.appendChild(projectStatusSymbol);
+
+    projectMainSectionDiv.appendChild(projectStatus);
+
+    // changing projectStatusSymbol based on project status
+    switch(projectObj.status) {
+        case 'Not started':
+        projectStatusSymbol.style.backgroundColor = "lightgray";
+        break;
+    case 'Ongoing':
+        projectStatusSymbol.style.backgroundColor = "yellow";
+        break;
+    case 'Completed':
+        projectStatusSymbol.style.backgroundColor = "green";
+        break;
+    }
+
+    // project status should be changeable with click:
+    projectStatusSymbol.addEventListener("click", () => {
+        projectStatus.textContent = "";
+        projectStatus.className = "edit-row status-change";
+
+        const statusLabel = document.createElement("p");
+        statusLabel.textContent = "Status: ";
+        projectStatus.appendChild(statusLabel);
+
+        const previousStatus = projectObj.status;
+        const statusArray = ["Not started", "Ongoing", "Completed"];
+
+        const statusSelect = document.createElement("select");
+        statusArray.forEach(status => {
+            let option = document.createElement("option");
+            option.value = status;
+            option.textContent = status;
+            if (status === previousStatus) option.selected = true;
+            statusSelect.appendChild(option);
+        });
+
+        projectStatus.appendChild(statusSelect);
+
+        // When status changes, update text and revert to normal display
+        statusSelect.addEventListener("change", () => {
+            projectObj.status = statusSelect.value;
+            projectStatus.textContent = `Status: ${projectObj.status}`;
+            projectStatus.className = "edit-row"; // Restore original styling
+            projectStatus.appendChild(projectStatusSymbol);
+
+            // changing taskDiv color based on task status
+            switch(projectObj.status) {
+                case 'Not started':
+                    projectStatusSymbol.style.backgroundColor = "lightgray";
+                    break;
+                case 'Ongoing':
+                    projectStatusSymbol.style.backgroundColor = "yellow";
+                    break;
+                case 'Completed':
+                    projectStatusSymbol.style.backgroundColor = "green";
+                    break;
+            }
+
+            projectObj.changeStatus(projectObj.status);
+            console.log(projectArray);
+
+            // Explicitly update the project array
+            const projectIndex = projectArray.findIndex(project => project.title === projectObj.title && project.description === projectObj.description);
+            if (projectIndex !== -1) {
+                Object.assign(projectArray[projectIndex], projectObj); // Updates properties without replacing reference
+            }
+
+            // updating the memory
+            saveToStorage("projectsArray", projectArray);
+        })
+    });
+}
+
 export const editProject = (projectDiv, projectObj, projectArray, taskArray, projectMainSectionDiv) => {
     const projectEditButton = document.createElement("button");
     projectEditButton.className = "edit-project-btn";
@@ -294,11 +378,11 @@ export const editProject = (projectDiv, projectObj, projectArray, taskArray, pro
             projectMainSectionDiv.appendChild(titleDiv);
 
             const descriptionDiv = document.createElement("div");
-            descriptionDiv.className = "edit-row";
+            descriptionDiv.className = "edit-row text-area";
             const descriptionLabel = document.createElement("p");
             descriptionLabel.textContent = "Description: ";
             descriptionDiv.appendChild(descriptionLabel);
-            const descriptionInput = document.createElement("input");
+            const descriptionInput = document.createElement("textarea");
             descriptionInput.value = projectObj.description;
             descriptionDiv.appendChild(descriptionInput);
             projectMainSectionDiv.appendChild(descriptionDiv);
@@ -354,9 +438,7 @@ export const editProject = (projectDiv, projectObj, projectArray, taskArray, pro
                 projectDescription.textContent = `${projectObj.description}`;
                 projectMainSectionDiv.appendChild(projectDescription);
 
-                const projectStatus = document.createElement("p");
-                projectStatus.textContent = `Status: ${projectObj.status}`;
-                projectMainSectionDiv.appendChild(projectStatus);
+                projectStatusFunc(projectObj, projectArray, projectMainSectionDiv);
 
                 const projectNotes = document.createElement("p");
                 projectNotes.textContent = `Notes: ${projectObj.notes}`;
@@ -397,9 +479,7 @@ export const editProject = (projectDiv, projectObj, projectArray, taskArray, pro
                 projectDescription.textContent = `${projectObj.description}`;
                 projectMainSectionDiv.appendChild(projectDescription);
 
-                const projectStatus = document.createElement("p");
-                projectStatus.textContent = `Status: ${projectObj.status}`;
-                projectMainSectionDiv.appendChild(projectStatus);
+                projectStatusFunc(projectObj, projectArray, projectMainSectionDiv);
 
                 const projectNotes = document.createElement("p");
                 projectNotes.textContent = `Notes: ${projectObj.notes}`;
