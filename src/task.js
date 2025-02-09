@@ -166,7 +166,6 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
 
     taskExpandedCharacteristics.appendChild(taskChecklistFieldset);
     
-
     // Retrieve tasks and projects from localStorage
     const tasksArray = loadFromStorage('tasksArray').map(task => new Task(
         task.title, task.description, task.dueDate, task.priority, task.status, task.project, 
@@ -233,7 +232,7 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
 
         const checklistLabel = document.createElement("label");
         checklistLabel.htmlFor = `checkbox-${checkboxId}`;
-        checklistLabel.textContent = `${item.title}`;
+        checklistLabel.textContent = item.title;
         checklistDiv.appendChild(checklistLabel);
 
         // Create Remove Button (Small "x")
@@ -262,7 +261,6 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
 
             saveToStorage("tasksArray", tasksArray);
             saveToStorage("projectsArray", projectsArray);
-
         });
         checklistDiv.appendChild(removeButton);
 
@@ -271,12 +269,18 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
         checkboxId += 1;
     });
 
-    // Create Add Checklist Item Button
+    // Create input field for new checklist item and add button
+    const newItemInput = document.createElement("input");
+    newItemInput.type = "text";
+    newItemInput.placeholder = "Enter new checklist item";
+    newItemInput.className = "new-checklist-input";
+
     const addChecklistButton = document.createElement("button");
     addChecklistButton.textContent = "Add item";
     addChecklistButton.className = "add-checklist-btn";
+
     addChecklistButton.addEventListener("click", () => {
-        const newItemTitle = prompt("Enter checklist item title:");
+        const newItemTitle = newItemInput.value.trim();
         if (newItemTitle) {
             const newItem = new ChecklistItem(newItemTitle, "Not completed");
             taskObj.addChecklistItem(newItem);
@@ -329,10 +333,16 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
             checklistDiv.appendChild(removeButton);
 
             taskChecklistArea.appendChild(checklistDiv);
+
+            // Clear the input field after adding the item
+            newItemInput.value = '';
         }
     });
+
+    taskChecklistFieldset.appendChild(newItemInput);
     taskChecklistFieldset.appendChild(addChecklistButton);
 };
+
 
 export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     // listener for opening the full task view
@@ -351,7 +361,8 @@ export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn,
         checklistFunc(taskExpandedCharacteristics, taskObj);
 
         const taskProject = document.createElement("p");
-        taskProject.textContent = `Project: #${taskObj.project}`;
+        taskProject.className = "task-project-p";
+        taskProject.textContent = `#${taskObj.project}`;
         taskExpandedCharacteristics.appendChild(taskProject);
 
         expandBtn.style.background = `url(${minimize})`;

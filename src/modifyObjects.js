@@ -78,6 +78,8 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
         titleDiv.appendChild(titleLabel);
         const titleInput = document.createElement("input");
         titleInput.value = taskObj.title;
+        titleInput.setAttribute("minlength", "3");  // Set minimum length
+        titleInput.setAttribute("maxlength", "30"); // Set maximum length
         titleDiv.appendChild(titleInput);
         taskInitialCharacteristics.appendChild(titleDiv);
 
@@ -170,9 +172,6 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
 
             taskExpandedCharacteristics.textContent = "";
 
-            // checklist
-            checklistFunc(taskExpandedCharacteristics, taskObj);
-
             const taskDescription = document.createElement("p");
             taskDescription.textContent = `Description: ${taskObj.description}`;
             taskExpandedCharacteristics.appendChild(taskDescription);
@@ -181,8 +180,10 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             taskPriority.textContent = `Priority: ${taskObj.priority}`;
             taskExpandedCharacteristics.appendChild(taskPriority);
 
+            checklistFunc(taskExpandedCharacteristics, taskObj);
+
             const taskProject = document.createElement("p");
-            taskProject.textContent = `Project: #${taskObj.project}`;
+            taskProject.textContent = `#${taskObj.project}`;
             taskExpandedCharacteristics.appendChild(taskProject);
 
             editMode = false;
@@ -207,9 +208,6 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
 
             taskExpandedCharacteristics.textContent = "";
 
-            // checklist
-            checklistFunc(taskExpandedCharacteristics, taskObj);
-
             const newDescription = descriptionInput.value;
             taskObj.description = newDescription;
             const newPriority = prioritySelect.value;
@@ -225,8 +223,10 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             taskPriority.textContent = `Priority: ${taskObj.priority}`;
             taskExpandedCharacteristics.appendChild(taskPriority);
 
+            checklistFunc(taskExpandedCharacteristics, taskObj);
+
             const taskProject = document.createElement("p");
-            taskProject.textContent = `Project: #${taskObj.project}`;
+            taskProject.textContent = `#${taskObj.project}`;
             taskExpandedCharacteristics.appendChild(taskProject);
 
             // Now explicitly update the corresponding task in taskArray
@@ -381,6 +381,8 @@ export const editProject = (projectDiv, projectObj, projectArray, taskArray, pro
             titleDiv.appendChild(titleLabel);
             const titleInput = document.createElement("input");
             titleInput.value = projectObj.title;
+            titleInput.setAttribute("minlength", "3");  // Set minimum length
+            titleInput.setAttribute("maxlength", "30"); // Set maximum length
             titleDiv.appendChild(titleInput);
             projectMainSectionDiv.appendChild(titleDiv);
 

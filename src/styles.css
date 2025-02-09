@@ -176,6 +176,16 @@ button {
     margin: .5rem 0;
 }
 
+.task-project-p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    height: 2rem;
+    max-width: 15rem;
+    border-radius: .5rem;
+}
+
 .task-status {
     display: flex;
     flex-wrap: nowrap;
@@ -419,7 +429,7 @@ button {
     transform: translate(-50%, -50%);
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);  /* Darker background to blend with the theme */
+    background-color: rgba(0, 0, 0, 0.3);  /* Darker background to blend with the theme */
     z-index: 1000;
     overflow: visible;
 }
@@ -475,6 +485,8 @@ input[type ="checkbox"] {
     width: 22rem;
     padding: 1rem;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    border: 1px dashed gray;
+    border-radius: .5rem;
 }
 
 fieldset > div {
@@ -529,7 +541,6 @@ fieldset > div {
     border-color: #adb5bd;  /* Light border when clicked */
     transform: translateY(1px);
 }
-
 
 textarea {
     width: 15rem;
