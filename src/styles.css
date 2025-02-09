@@ -462,7 +462,9 @@ input, select {
 }
 
 input[type ="checkbox"] {
-    width: 2.5rem;
+    width: 1.75rem;
+    margin-left: -.25rem;
+    margin-right: .5rem;
     height: 1.25rem;
     cursor: pointer;
 }
@@ -471,6 +473,7 @@ input[type ="checkbox"] {
     margin: 1.25rem 0;
     min-height: 12rem;
     width: 22rem;
+    padding: 1rem;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -497,6 +500,36 @@ fieldset > div {
     display: flex;
     align-items: center;
 }
+
+.add-checklist-btn {
+    width: 8rem;
+    height: 2rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    background-color: #343a40;
+    color: #f8f9fa;  /* Light text for contrast */
+    border: 2px solid #adb5bd;  /* Light gray border */
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect */
+.add-checklist-btn:hover {
+    background-color: #495057;  /* Slightly lighter dark gray on hover */
+    border-color: #ced4da;  /* Light border on hover */
+    transform: translateY(-2px);
+}
+
+/* Active State */
+.add-checklist-btn:active {
+    background-color: #6c757d;  /* Lighter gray on click */
+    border-color: #adb5bd;  /* Light border when clicked */
+    transform: translateY(1px);
+}
+
 
 textarea {
     width: 15rem;

@@ -273,7 +273,8 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
 
     // Create Add Checklist Item Button
     const addChecklistButton = document.createElement("button");
-    addChecklistButton.textContent = "Add Checklist Item";
+    addChecklistButton.textContent = "Add item";
+    addChecklistButton.className = "add-checklist-btn";
     addChecklistButton.addEventListener("click", () => {
         const newItemTitle = prompt("Enter checklist item title:");
         if (newItemTitle) {
@@ -318,6 +319,7 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
             removeButton.className = "remove-checklist-item";
             removeButton.addEventListener("click", () => {
                 taskObj.removeChecklistItem(newItem);
+
                 saveToStorage("tasksArray", tasksArray);
                 saveToStorage("projectsArray", projectsArray);
 
