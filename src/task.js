@@ -130,37 +130,50 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     })
 }
 
+export const checklistFunc = (taskExpandedCharacteristics) => {
+    const taskChecklistFieldset = document.createElement("fieldset");
+    taskChecklistFieldset.className = "checkbox-fieldset";
+
+    const taskCheckListLegend = document.createElement("legend");
+    taskCheckListLegend.textContent = "Checklist";
+    taskChecklistFieldset.appendChild(taskCheckListLegend);
+
+    const checklistDivOne = document.createElement("div");
+    const checklistInputOne = document.createElement("input");
+    checklistInputOne.type = "checkbox";
+    checklistInputOne.id = "checkbox-one";
+    checklistDivOne.appendChild(checklistInputOne);
+    const checklistLabelOne = document.createElement("label");
+    checklistLabelOne.for = "checkbox-one";
+    checklistLabelOne.textContent = "First action item...";
+    checklistDivOne.appendChild(checklistLabelOne);
+    taskChecklistFieldset.appendChild(checklistDivOne);
+
+    const checklistDivTwo = document.createElement("div");
+    const checklistInputTwo = document.createElement("input");
+    checklistInputTwo.type = "checkbox";
+    checklistInputTwo.id = "checkbox-two";
+    checklistDivTwo.appendChild(checklistInputTwo);
+    const checklistLabelTwo = document.createElement("label");
+    checklistLabelTwo.for = "checkbox-two";
+    checklistLabelTwo.textContent = "Second action item...";
+    checklistDivTwo.appendChild(checklistLabelTwo);
+    taskChecklistFieldset.appendChild(checklistDivTwo);
+
+    taskExpandedCharacteristics.appendChild(taskChecklistFieldset);
+}
+
 export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     // listener for opening the full task view
     if (taskDiv.className === "task mini" || taskDiv.className === "task dynamic mini") {
         taskDiv.classList.remove("mini");
         editBtn.classList.remove("hidden");
 
-        // checklist starts
-        const taskChecklistFieldset = document.createElement("fieldset");
-        taskChecklistFieldset.className = "checkbox-fieldset";
-        
-        const taskCheckListLegend = document.createElement("legend");
-        taskCheckListLegend.textContent = "Checklist";
-        taskChecklistFieldset.appendChild(taskCheckListLegend);
-
-        const checklistDivOne = document.createElement("div");
-        const checklistInputOne = document.createElement("input");
-        checklistInputOne.type = "checkbox";
-        checklistInputOne.id = "checkbox-one";
-        checklistDivOne.appendChild(checklistInputOne);
-        const checklistLabelOne = document.createElement("label");
-        checklistLabelOne.for = "checkbox-one";
-        checklistLabelOne.textContent = "First action item...";
-        checklistDivOne.appendChild(checklistLabelOne);
-        taskChecklistFieldset.appendChild(checklistDivOne);
-
-        taskExpandedCharacteristics.appendChild(taskChecklistFieldset);
-
-        // checklist ends
+        // checklist
+        checklistFunc(taskExpandedCharacteristics);
 
         const taskDescription = document.createElement("p");
-        taskDescription.textContent = taskObj.description;
+        taskDescription.textContent = `Description: ${taskObj.description}`;
         taskExpandedCharacteristics.appendChild(taskDescription);
 
         const taskPriority = document.createElement("p");

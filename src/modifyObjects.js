@@ -1,4 +1,4 @@
-import { initialTaskCharacteristics, renderTask } from "./task.js";
+import { initialTaskCharacteristics, renderTask, checklistFunc } from "./task.js";
 import { saveToStorage } from "./utils.js";
 import deleteImage from "./assets/close_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import edit from "./assets/edit_16dp_666666_FILL0_wght400_GRAD0_opsz20.svg";
@@ -169,8 +169,12 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             initialTaskCharacteristics(taskObj, taskInitialCharacteristics, taskArray, projectArray);
 
             taskExpandedCharacteristics.textContent = "";
+
+            // checklist
+            checklistFunc(taskExpandedCharacteristics);
+
             const taskDescription = document.createElement("p");
-            taskDescription.textContent = taskObj.description;
+            taskDescription.textContent = `Description: ${taskObj.description}`;
             taskExpandedCharacteristics.appendChild(taskDescription);
 
             const taskPriority = document.createElement("p");
@@ -203,6 +207,9 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
 
             taskExpandedCharacteristics.textContent = "";
 
+            // checklist
+            checklistFunc(taskExpandedCharacteristics);
+
             const newDescription = descriptionInput.value;
             taskObj.description = newDescription;
             const newPriority = prioritySelect.value;
@@ -211,7 +218,7 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             taskObj.project = newProject;
 
             const taskDescription = document.createElement("p");
-            taskDescription.textContent = taskObj.description;
+            taskDescription.textContent = `Description: ${taskObj.description}`;
             taskExpandedCharacteristics.appendChild(taskDescription);
 
             const taskPriority = document.createElement("p");

@@ -462,7 +462,7 @@ input, select {
 }
 
 input[type ="checkbox"] {
-    width: 5rem;
+    width: 2.5rem;
     height: 1.25rem;
     cursor: pointer;
 }
@@ -470,6 +470,12 @@ input[type ="checkbox"] {
 .checkbox-fieldset {
     height: 14rem;
     width: 22rem;
+}
+
+fieldset > div {
+    display: flex;
+    align-items: center;
+    margin: .5rem 0;
 }
 
 textarea {
