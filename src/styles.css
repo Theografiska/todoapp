@@ -470,6 +470,7 @@ input[type ="checkbox"] {
 .checkbox-fieldset {
     height: 14rem;
     width: 22rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 fieldset > div {

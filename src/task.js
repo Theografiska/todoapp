@@ -28,8 +28,6 @@ export class Task {
         const itemIndex = this.checklist.indexOf(item);
         this.checklist.splice(itemIndex, 1);
     }
-
-    
 }
 
 export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDiv, taskArray, projectArray) => {
@@ -142,7 +140,7 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
     })
 }
 
-export const checklistFunc = (taskExpandedCharacteristics) => {
+export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
     const taskChecklistFieldset = document.createElement("fieldset");
     taskChecklistFieldset.className = "checkbox-fieldset";
 
@@ -150,7 +148,23 @@ export const checklistFunc = (taskExpandedCharacteristics) => {
     taskCheckListLegend.textContent = "Checklist";
     taskChecklistFieldset.appendChild(taskCheckListLegend);
 
-    const checklistDivOne = document.createElement("div");
+    let checkboxId = 1;
+    taskObj.checklist.forEach((item) => {
+        const checklistDiv = document.createElement("div");
+        const checklistInput = document.createElement("input");
+        checklistInput.type = "checkbox";
+        checklistInput.id = `checkbox-${checkboxId}`;
+        checklistDiv.appendChild(checklistInput);
+        const checklistLabel = document.createElement("label");
+        checklistLabel.for = `checkbox-${checkboxId}`;
+        checklistLabel.textContent = `${item}`;
+        checklistDiv.appendChild(checklistLabel);
+        taskChecklistFieldset.appendChild(checklistDiv);
+
+        checkboxId += 1;
+    })
+
+    /* const checklistDivOne = document.createElement("div");
     const checklistInputOne = document.createElement("input");
     checklistInputOne.type = "checkbox";
     checklistInputOne.id = "checkbox-one";
@@ -170,7 +184,7 @@ export const checklistFunc = (taskExpandedCharacteristics) => {
     checklistLabelTwo.for = "checkbox-two";
     checklistLabelTwo.textContent = "Second action item...";
     checklistDivTwo.appendChild(checklistLabelTwo);
-    taskChecklistFieldset.appendChild(checklistDivTwo);
+    taskChecklistFieldset.appendChild(checklistDivTwo); */
 
     taskExpandedCharacteristics.appendChild(taskChecklistFieldset);
 }
@@ -182,7 +196,7 @@ export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn,
         editBtn.classList.remove("hidden");
 
         // checklist
-        checklistFunc(taskExpandedCharacteristics);
+        checklistFunc(taskExpandedCharacteristics, taskObj);
 
         const taskDescription = document.createElement("p");
         taskDescription.textContent = `Description: ${taskObj.description}`;
@@ -253,6 +267,7 @@ export const createTask = (taskArray, projectArray) => {
             const priority = document.querySelector("#task-priority-input").value;
             const status = document.querySelector("#task-status-input").value;
             const taskProject = document.querySelector("#task-project-input").value;
+            const checklist = [];
             
             // Check if all required fields are filled
             if (!title || !description || !dueDate || !taskProject) {
@@ -261,7 +276,7 @@ export const createTask = (taskArray, projectArray) => {
             }
 
             // creating a new task object
-            const newTask = new Task(title, description, dueDate, priority, status, taskProject);
+            const newTask = new Task(title, description, dueDate, priority, status, taskProject, checklist);
             const taskDiv = document.createElement("div");
             taskDiv.className = "task mini";
 

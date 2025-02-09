@@ -7,13 +7,13 @@ import { loadFromStorage } from "./utils.js";
 
 // Retrieve tasks from localStorage and reconstruct them as Task instances
 const tasksArray = loadFromStorage('tasksArray').map(
-    task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project)
+    task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project, task.checklist)
 );
 
 // Retrieve projects from localStorage and reconstruct them as Project instances
 const projectsArray = loadFromStorage('projectsArray').map(
     project => new Project(project.title, project.description, project.status, project.notes, 
-        project.tasks.map(task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project))
+        project.tasks.map(task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project, task.checklist))
     )
 );
 

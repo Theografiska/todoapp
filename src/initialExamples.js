@@ -6,11 +6,11 @@ import { saveToStorage, loadFromStorage} from "./utils.js";
 export const createInitialExamples = (taskArray, projectArray) => {
     if (taskArray.length < 1 && projectArray.length < 1) {
         // create a few sample tasks
-        const visitDentist = new Task ("Make a dentist appointment", "Make an appointment to visit dentist during February", "2025-02-28", "High", "Not started", "general-tasks");
-        const ironShirts = new Task ("Iron shirts", "Iron all the collared shirts", "2025-02-03", "low", "Not started", "general-tasks");
-        const researchJobMarket = new Task ("Research job market", "Make a list of interesting companies and their requirements", "2025-03-31", "Medium", "Ongoing", "general-tasks");
-        const todoListApp = new Task("Todo List App", "Complete all the project requirements", "2025-02-28", "Medium", "Completed", "javascript-course")
-        const threeDaysAWeekToGym = new Task("Go to gym 3 times/week", "On average, go to the gym 3x per week during February", "2025-02-28", "Medium", "Ongoing", "starting-strength");
+        const visitDentist = new Task ("Make a dentist appointment", "Make an appointment to visit dentist during February", "2025-02-28", "High", "Not started", "general-tasks", ["Pick a dentist", "Block time in calendar"]);
+        const ironShirts = new Task ("Iron shirts", "Iron all the collared shirts", "2025-02-03", "low", "Not started", "general-tasks", ["Iron all the shirts"]);
+        const researchJobMarket = new Task ("Research job market", "Make a list of interesting companies and their requirements", "2025-03-31", "Medium", "Ongoing", "general-tasks", ["Search Linkedin", "Search top startups homepages"]);
+        const todoListApp = new Task("Todo List App", "Complete all the project requirements", "2025-02-28", "Medium", "Completed", "javascript-course", ["Build main logic", "Make it responsive to mobile", "Refactor code – get rid of repetitive stuff"]);
+        const threeDaysAWeekToGym = new Task("Go to gym 3 times/week", "On average, go to the gym 3x per week during February", "2025-02-28", "Medium", "Ongoing", "starting-strength", []);
         taskArray.push(visitDentist, ironShirts, researchJobMarket, todoListApp, threeDaysAWeekToGym);
         saveToStorage("tasksArray", taskArray);
 
@@ -26,12 +26,12 @@ export const createInitialExamples = (taskArray, projectArray) => {
 export const loadInitialExamples = (taskArray, projectArray) => {
     // Retrieve from storage and reconstruct instances
     taskArray = loadFromStorage('tasksArray').map(
-        task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project)
+        task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project, task.checklist)
     );
 
     projectArray = loadFromStorage('projectsArray').map(
         project => new Project(project.title, project.description, project.status, project.notes, 
-            project.tasks.map(task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project))
+            project.tasks.map(task => new Task(task.title, task.description, task.dueDate, task.priority, task.status, task.project, task.checklist))
         )
     );
 

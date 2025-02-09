@@ -171,7 +171,7 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             taskExpandedCharacteristics.textContent = "";
 
             // checklist
-            checklistFunc(taskExpandedCharacteristics);
+            checklistFunc(taskExpandedCharacteristics, taskObj);
 
             const taskDescription = document.createElement("p");
             taskDescription.textContent = `Description: ${taskObj.description}`;
@@ -208,7 +208,7 @@ export const editTask = (taskDiv, taskObj, taskArray, projectArray, editBtn, exp
             taskExpandedCharacteristics.textContent = "";
 
             // checklist
-            checklistFunc(taskExpandedCharacteristics);
+            checklistFunc(taskExpandedCharacteristics, taskObj);
 
             const newDescription = descriptionInput.value;
             taskObj.description = newDescription;
