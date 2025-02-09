@@ -1,6 +1,7 @@
 import { deleteTask, editTask } from "./modifyObjects.js";
+import { Project } from "./project.js";
 import { format, parseISO, isBefore } from 'date-fns';
-import { saveToStorage, loadFromStorage } from './utils.js';
+import { loadFromStorage, saveToStorage } from './utils.js';
 
 import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
@@ -27,6 +28,17 @@ export class Task {
     removeChecklistItem(item) {
         const itemIndex = this.checklist.indexOf(item);
         this.checklist.splice(itemIndex, 1);
+    }
+}
+
+export class ChecklistItem {
+    constructor(title, status) {
+        this.title = title;
+        this.status = status;
+    }
+
+    changeStatus(newStatus) {
+        this.status = newStatus;
     }
 }
 
@@ -148,55 +160,183 @@ export const checklistFunc = (taskExpandedCharacteristics, taskObj) => {
     taskCheckListLegend.textContent = "Checklist";
     taskChecklistFieldset.appendChild(taskCheckListLegend);
 
+    const taskChecklistArea = document.createElement("div");
+    taskChecklistArea.className = "task-checklist-area";
+    taskChecklistFieldset.appendChild(taskChecklistArea);
+
+    taskExpandedCharacteristics.appendChild(taskChecklistFieldset);
+    
+
+    // Retrieve tasks and projects from localStorage
+    const tasksArray = loadFromStorage('tasksArray').map(task => new Task(
+        task.title, task.description, task.dueDate, task.priority, task.status, task.project, 
+        task.checklist.map(item => new ChecklistItem(item.title, item.status))
+    ));
+
+    const projectsArray = loadFromStorage('projectsArray').map(project => new Project(
+        project.title, project.description, project.status, project.notes, 
+        project.tasks.map(task => new Task(
+            task.title, task.description, task.dueDate, task.priority, task.status, task.project, 
+            task.checklist.map(item => new ChecklistItem(item.title, item.status))
+        ))
+    ));
+
     let checkboxId = 1;
+
+    // Clear existing checklist items to avoid duplication when adding new ones
+    const existingChecklistDivs = taskChecklistFieldset.querySelectorAll(".checklist-item");
+    existingChecklistDivs.forEach(item => item.remove());
+
+    // Create existing checklist items
     taskObj.checklist.forEach((item) => {
         const checklistDiv = document.createElement("div");
+        checklistDiv.className = "checklist-item"; // Optional: style for individual checklist items
+        
         const checklistInput = document.createElement("input");
         checklistInput.type = "checkbox";
         checklistInput.id = `checkbox-${checkboxId}`;
+        
+        checklistInput.checked = item.status === "Completed";
+
+        checklistInput.addEventListener("change", () => {
+            item.status = checklistInput.checked ? "Completed" : "Not completed";
+            console.log(`Updated status of "${item.title}": ${item.status}`);
+
+            // Update tasksArray and projectsArray accordingly
+            const taskIndex = tasksArray.findIndex(task => task.title === taskObj.title);
+            if (taskIndex !== -1) {
+                const task = tasksArray[taskIndex];
+                const checklistItemIndex = task.checklist.findIndex(checklistItem => checklistItem.title === item.title);
+                if (checklistItemIndex !== -1) {
+                    task.checklist[checklistItemIndex].status = item.status;
+                }
+            }
+
+            const projectIndex = projectsArray.findIndex(project => project.tasks.some(task => task.title === taskObj.title));
+            if (projectIndex !== -1) {
+                const project = projectsArray[projectIndex];
+                const taskInProjectIndex = project.tasks.findIndex(task => task.title === taskObj.title);
+                if (taskInProjectIndex !== -1) {
+                    const taskInProject = project.tasks[taskInProjectIndex];
+                    const checklistItemIndex = taskInProject.checklist.findIndex(checklistItem => checklistItem.title === item.title);
+                    if (checklistItemIndex !== -1) {
+                        taskInProject.checklist[checklistItemIndex].status = item.status;
+                    }
+                }
+            }
+
+            saveToStorage("tasksArray", tasksArray);
+            saveToStorage("projectsArray", projectsArray);
+        });
+
         checklistDiv.appendChild(checklistInput);
+
         const checklistLabel = document.createElement("label");
-        checklistLabel.for = `checkbox-${checkboxId}`;
-        checklistLabel.textContent = `${item}`;
+        checklistLabel.htmlFor = `checkbox-${checkboxId}`;
+        checklistLabel.textContent = `${item.title}`;
         checklistDiv.appendChild(checklistLabel);
-        taskChecklistFieldset.appendChild(checklistDiv);
+
+        // Create Remove Button (Small "x")
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "x";
+        removeButton.className = "remove-checklist-item"; // Optional: style for the button
+        removeButton.addEventListener("click", () => {
+            // Remove item from the task's checklist
+            taskObj.removeChecklistItem(item);
+            checklistDiv.remove();
+
+            // Update tasksArray and projectsArray
+            const taskIndex = tasksArray.findIndex(task => task.title === taskObj.title);
+            if (taskIndex !== -1) {
+                tasksArray[taskIndex].removeChecklistItem(item);
+            }
+
+            const projectIndex = projectsArray.findIndex(project => project.tasks.some(task => task.title === taskObj.title));
+            if (projectIndex !== -1) {
+                const project = projectsArray[projectIndex];
+                const taskInProjectIndex = project.tasks.findIndex(task => task.title === taskObj.title);
+                if (taskInProjectIndex !== -1) {
+                    project.tasks[taskInProjectIndex].removeChecklistItem(item);
+                }
+            }
+
+            saveToStorage("tasksArray", tasksArray);
+            saveToStorage("projectsArray", projectsArray);
+
+        });
+        checklistDiv.appendChild(removeButton);
+
+        taskChecklistArea.appendChild(checklistDiv);
 
         checkboxId += 1;
-    })
+    });
 
-    /* const checklistDivOne = document.createElement("div");
-    const checklistInputOne = document.createElement("input");
-    checklistInputOne.type = "checkbox";
-    checklistInputOne.id = "checkbox-one";
-    checklistDivOne.appendChild(checklistInputOne);
-    const checklistLabelOne = document.createElement("label");
-    checklistLabelOne.for = "checkbox-one";
-    checklistLabelOne.textContent = "First action item...";
-    checklistDivOne.appendChild(checklistLabelOne);
-    taskChecklistFieldset.appendChild(checklistDivOne);
+    // Create Add Checklist Item Button
+    const addChecklistButton = document.createElement("button");
+    addChecklistButton.textContent = "Add Checklist Item";
+    addChecklistButton.addEventListener("click", () => {
+        const newItemTitle = prompt("Enter checklist item title:");
+        if (newItemTitle) {
+            const newItem = new ChecklistItem(newItemTitle, "Not completed");
+            taskObj.addChecklistItem(newItem);
 
-    const checklistDivTwo = document.createElement("div");
-    const checklistInputTwo = document.createElement("input");
-    checklistInputTwo.type = "checkbox";
-    checklistInputTwo.id = "checkbox-two";
-    checklistDivTwo.appendChild(checklistInputTwo);
-    const checklistLabelTwo = document.createElement("label");
-    checklistLabelTwo.for = "checkbox-two";
-    checklistLabelTwo.textContent = "Second action item...";
-    checklistDivTwo.appendChild(checklistLabelTwo);
-    taskChecklistFieldset.appendChild(checklistDivTwo); */
+            // Update tasksArray and projectsArray
+            const taskIndex = tasksArray.findIndex(task => task.title === taskObj.title);
+            if (taskIndex !== -1) {
+                tasksArray[taskIndex].addChecklistItem(newItem);
+            }
 
-    taskExpandedCharacteristics.appendChild(taskChecklistFieldset);
-}
+            const projectIndex = projectsArray.findIndex(project => project.tasks.some(task => task.title === taskObj.title));
+            if (projectIndex !== -1) {
+                const project = projectsArray[projectIndex];
+                const taskInProjectIndex = project.tasks.findIndex(task => task.title === taskObj.title);
+                if (taskInProjectIndex !== -1) {
+                    project.tasks[taskInProjectIndex].addChecklistItem(newItem);
+                }
+            }
+
+            saveToStorage("tasksArray", tasksArray);
+            saveToStorage("projectsArray", projectsArray);
+
+            // Directly append the new item to the existing fieldset without reloading the entire list
+            const checklistDiv = document.createElement("div");
+            checklistDiv.className = "checklist-item";
+            
+            const checklistInput = document.createElement("input");
+            checklistInput.type = "checkbox";
+            checklistInput.checked = false;
+
+            checklistDiv.appendChild(checklistInput);
+
+            const checklistLabel = document.createElement("label");
+            checklistLabel.textContent = newItemTitle;
+            checklistDiv.appendChild(checklistLabel);
+
+            // Create the remove button for the new item
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "x";
+            removeButton.className = "remove-checklist-item";
+            removeButton.addEventListener("click", () => {
+                taskObj.removeChecklistItem(newItem);
+                saveToStorage("tasksArray", tasksArray);
+                saveToStorage("projectsArray", projectsArray);
+
+                // Directly remove the item from the fieldset
+                checklistDiv.remove();
+            });
+            checklistDiv.appendChild(removeButton);
+
+            taskChecklistArea.appendChild(checklistDiv);
+        }
+    });
+    taskChecklistFieldset.appendChild(addChecklistButton);
+};
 
 export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn, editBtn, taskInitialCharacteristics, taskExpandedCharacteristics) => {
     // listener for opening the full task view
     if (taskDiv.className === "task mini" || taskDiv.className === "task dynamic mini") {
         taskDiv.classList.remove("mini");
         editBtn.classList.remove("hidden");
-
-        // checklist
-        checklistFunc(taskExpandedCharacteristics, taskObj);
 
         const taskDescription = document.createElement("p");
         taskDescription.textContent = `Description: ${taskObj.description}`;
@@ -205,6 +345,8 @@ export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn,
         const taskPriority = document.createElement("p");
         taskPriority.textContent = `Priority: ${taskObj.priority}`;
         taskExpandedCharacteristics.appendChild(taskPriority);
+
+        checklistFunc(taskExpandedCharacteristics, taskObj);
 
         const taskProject = document.createElement("p");
         taskProject.textContent = `Project: #${taskObj.project}`;

@@ -151,7 +151,7 @@ button {
     justify-content: space-between;
     align-items: start;
     padding: 1.25rem;
-    height: 30rem;
+    min-height: 30rem;
     width: 25rem;
     border-radius: 1rem;
     margin: 1rem 0rem;
@@ -468,7 +468,8 @@ input[type ="checkbox"] {
 }
 
 .checkbox-fieldset {
-    height: 14rem;
+    margin: 1.25rem 0;
+    min-height: 12rem;
     width: 22rem;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -477,6 +478,24 @@ fieldset > div {
     display: flex;
     align-items: center;
     margin: .5rem 0;
+}
+
+.remove-checklist-item {
+    margin-left: 2rem;
+    background-color: transparent;
+    border: none;
+    color: gray;
+}
+
+.task-checklist-area {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.task-checklist-area > div {
+    display: flex;
+    align-items: center;
 }
 
 textarea {
