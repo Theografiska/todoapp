@@ -126,6 +126,7 @@ button {
 }
 
 #general-tasks-task-area { /* this is defined in projectRender() */
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -136,8 +137,9 @@ button {
 }
 
 .task-area {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;  
+    flex-wrap: wrap;
+    max-width: 80rem;
     gap: 1rem;
 }
 
@@ -301,7 +303,7 @@ button {
     padding: 0.6rem 0.9rem;
     background: transparent;
     border: none;
-    color: navy;
+    color: white;
     border-bottom: 2px solid lightgray;
     border-radius: .5rem;
 }
@@ -311,7 +313,7 @@ button {
 }
 
 .confirm-btn {
-    background-color: greenyellow;
+    background-color: rgb(30, 92, 35);
 }
 
 /* add task btn */
@@ -459,6 +461,17 @@ input, select {
     border-radius: .5rem;
 }
 
+input[type ="checkbox"] {
+    width: 5rem;
+    height: 1.25rem;
+    cursor: pointer;
+}
+
+.checkbox-fieldset {
+    height: 14rem;
+    width: 22rem;
+}
+
 textarea {
     width: 15rem;
     height: 10rem;
@@ -502,8 +515,8 @@ textarea {
     background-color: #333D47;
     color: #F0F0F0;
     padding: 2rem;
-    min-width: 20rem;
-    max-width: 40rem;
+    min-width: 50rem;
+    max-width: 80rem;
     border: 1px solid #5A6570;
     border-radius: 2rem;
     margin: 1rem 0rem;

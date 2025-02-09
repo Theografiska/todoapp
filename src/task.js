@@ -136,6 +136,29 @@ export const expandTask = (taskDiv, taskObj, taskArray, projectArray, expandBtn,
         taskDiv.classList.remove("mini");
         editBtn.classList.remove("hidden");
 
+        // checklist starts
+        const taskChecklistFieldset = document.createElement("fieldset");
+        taskChecklistFieldset.className = "checkbox-fieldset";
+        
+        const taskCheckListLegend = document.createElement("legend");
+        taskCheckListLegend.textContent = "Checklist";
+        taskChecklistFieldset.appendChild(taskCheckListLegend);
+
+        const checklistDivOne = document.createElement("div");
+        const checklistInputOne = document.createElement("input");
+        checklistInputOne.type = "checkbox";
+        checklistInputOne.id = "checkbox-one";
+        checklistDivOne.appendChild(checklistInputOne);
+        const checklistLabelOne = document.createElement("label");
+        checklistLabelOne.for = "checkbox-one";
+        checklistLabelOne.textContent = "First action item...";
+        checklistDivOne.appendChild(checklistLabelOne);
+        taskChecklistFieldset.appendChild(checklistDivOne);
+
+        taskExpandedCharacteristics.appendChild(taskChecklistFieldset);
+
+        // checklist ends
+
         const taskDescription = document.createElement("p");
         taskDescription.textContent = taskObj.description;
         taskExpandedCharacteristics.appendChild(taskDescription);
