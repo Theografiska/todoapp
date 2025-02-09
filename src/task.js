@@ -6,18 +6,30 @@ import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 
 export class Task {
-    constructor(title, description, dueDate, priority, status, project) {
+    constructor(title, description, dueDate, priority, status, project, checklist = []) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.status = status;
         this.project = project;
+        this.checklist = checklist;
     }
 
     changeStatus(newStatus) {
         this.status = newStatus;
     }
+
+    addChecklistItem(item) {
+        this.checklist.push(item);
+    }
+
+    removeChecklistItem(item) {
+        const itemIndex = this.checklist.indexOf(item);
+        this.checklist.splice(itemIndex, 1);
+    }
+
+    
 }
 
 export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDiv, taskArray, projectArray) => {
