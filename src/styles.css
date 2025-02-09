@@ -115,21 +115,29 @@ button {
 /* task styling */
 
 #tasks-section, #projects-section {
-    display: flex;
-    flex-wrap: wrap;
     margin: 1rem 2rem;
 }
 
 #tasks-section {
     gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 40rem;
+}
+
+#general-tasks-task-area { /* this is defined in projectRender() */
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 #projects-section {
     gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .task-area {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
 
@@ -138,9 +146,10 @@ button {
     color: #F0F0F0; /* Ensures readability */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: start;
-    padding: 1rem;
+    padding: 1.25rem;
+    height: 30rem;
     width: 25rem;
     border-radius: 1rem;
     margin: 1rem 0rem;
