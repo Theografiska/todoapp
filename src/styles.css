@@ -181,12 +181,10 @@ button {
 .task-title {
     margin: 1rem 0;
     text-transform: uppercase;
+    min-height: 3rem;
 }
 
 .task-initial-char {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .task > div, .task p {

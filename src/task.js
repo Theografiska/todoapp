@@ -51,12 +51,12 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
 
     const taskStatus = document.createElement("div");
     taskStatus.className = "task-status";
-    const taskStatusText = document.createElement("p");
-    taskStatusText.textContent = `Status: ${taskObj.status}`;
-    taskStatus.appendChild(taskStatusText);
     const taskStatusSymbol = document.createElement("div");
     taskStatusSymbol.className = "task-status-symbol";
     taskStatus.appendChild(taskStatusSymbol);
+    const taskStatusText = document.createElement("p");
+    taskStatusText.textContent = `${taskObj.status}`;
+    taskStatus.appendChild(taskStatusText);
     taskInitialCharacteristicsDiv.appendChild(taskStatus);
 
     // changing taskStatusSymbol color based on task status
