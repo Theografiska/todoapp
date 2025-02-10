@@ -118,7 +118,7 @@ button {
     margin: 1rem 2rem;
 }
 
-#tasks-section {
+#main-tasks-area {
     gap: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -618,7 +618,7 @@ textarea {
 }
 
 .dynamic {
-    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 .dynamic-task-section {
@@ -626,6 +626,7 @@ textarea {
     max-width: 60rem;
     flex-wrap: wrap;
 }
+
 
 .dynamic-projects-area {
     display: flex;

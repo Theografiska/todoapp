@@ -94,7 +94,9 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
     const projectsSection = document.querySelector("#projects-section");
     // general tasks project (displayed as just general tasks):
     if (projectObj.title === "general-tasks") {
-        const tasksSection = document.querySelector("#tasks-section");
+        /* const tasksSection = document.querySelector("#tasks-section"); */
+        const mainTasksArea = document.querySelector("#main-tasks-area");
+
         const taskArea = document.createElement("div");
         taskArea.id = `${projectObj.title}-task-area`
         taskArea.className = "task-area";
@@ -111,7 +113,7 @@ export const projectRender = (projectObj, projectArray, taskArray) => {
             taskArea.appendChild(taskDiv);
         }
 
-        tasksSection.appendChild(taskArea);
+        mainTasksArea.appendChild(taskArea);
         console.log(projectObj);
 
 

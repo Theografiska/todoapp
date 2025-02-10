@@ -6,24 +6,42 @@ import { parseISO, isBefore } from 'date-fns';
 
 export const filterTasks = (taskArray, projectArray) => {
     const mainContent = document.querySelector("#main-content");
+    const headingsSection = document.querySelector("#headings-section");
+
+    const tasksSection = document.querySelector("#tasks-section");
+    const mainTasksArea = document.querySelector("#main-tasks-area");
+    const ongoingTasks = document.querySelector("#ongoing-tasks");
+    const notStartedTasks = document.querySelector("#not-started-tasks");
+    const completedTasks = document.querySelector("#completed-tasks");
+    const overdueTasks = document.querySelector("#overdue-tasks");
+
+    const projectsHeader = document.querySelector("#projects-header");
+    const projectsSection = document.querySelector("#projects-section");
+    const mainProjectsArea = document.querySelector("#main-projects-area");
+    const ongoingProjects = document.querySelector("#ongoing-projects");
+    const notStartedProjects = document.querySelector("#not-started-projects");
+    const completedProjects = document.querySelector("#completed-projects");
+
     const sidebarTaskLinks = document.querySelectorAll(".sidebar-task-link");
 
+    const clearHtml = () => {
+        headingsSection.textContent = "";
+        mainTasksArea.textContent = "";
+        ongoingTasks.textContent = ""
+        notStartedTasks.textContent = ""
+        completedTasks.textContent = ""
+        overdueTasks.textContent = ""
+
+        projectsHeader.textContent = "";
+        projectsSection.textContent = "";
+    }
+
+    // filtering tasks
     sidebarTaskLinks.forEach((link) => {
         link.addEventListener("click", () => {
-            const addTaskBtns = document.querySelectorAll(".add-task-btn");
-            addTaskBtns.forEach((button) => {
-                button.className = "add-task-btn hidden";
-            })
-
-            const addProjectBtns = document.querySelectorAll(".add-project-btn");
-            addProjectBtns.forEach((button) => {
-                button.className = "add-project-btn hidden";
-            })
-
-            mainContent.textContent = "";
-
+            clearHtml();
             const filteredTasksHeader = document.createElement("h2");
-            mainContent.appendChild(filteredTasksHeader);
+            headingsSection.appendChild(filteredTasksHeader);
 
             const filteredTasksSection = document.createElement("div");
             filteredTasksSection.className = "dynamic-task-section";
@@ -36,8 +54,29 @@ export const filterTasks = (taskArray, projectArray) => {
             }
 
             switch(link.id) {
-                case "sidebar-my-tasks": 
+                case "sidebar-my-tasks":  // showing all tasks by section
                     filteredTasksHeader.textContent = "All tasks";
+
+                    const ongoingHeader = document.createElement("h3");
+                    ongoingHeader.textContent = "Ongoing tasks";
+                    ongoingTasks.appendChild(ongoingHeader);
+                    const ongoingContainer = document.createElement("div");
+                    ongoingContainer.className = "dynamic-task-section";
+                    ongoingTasks.appendChild(ongoingContainer);
+
+                    const notStartedHeader = document.createElement("h3");
+                    notStartedHeader.textContent = "Not started tasks";
+                    notStartedTasks.appendChild(notStartedHeader);
+                    const notStartedContainer = document.createElement("div");
+                    notStartedContainer.className = "dynamic-task-section";
+                    notStartedTasks.appendChild(notStartedContainer);
+
+                    const completedHeader = document.createElement("h3");
+                    completedHeader.textContent = "Completed tasks";
+                    completedTasks.appendChild(completedHeader);
+                    const completedContainer = document.createElement("div");
+                    completedContainer.className = "dynamic-task-section";
+                    completedTasks.appendChild(completedContainer);
 
                     if (taskArray.length === 0) {
                         zeroTasksFunc("");
@@ -45,18 +84,33 @@ export const filterTasks = (taskArray, projectArray) => {
                         taskArray.forEach((task) => {
                             const taskDiv = document.createElement("div");
                             taskDiv.className = "task dynamic mini";
-    
-                            const currentProject = projectArray.find((item) => item.title === task.project);
-                            renderTask(taskDiv, task, taskArray, projectArray);
-                            deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
+
+                            if (task.status === "Ongoing") {
+                                const currentProject = projectArray.find((item) => item.title === task.project);
+                                renderTask(taskDiv, task, taskArray, projectArray);
+                                deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
+
+                                ongoingContainer.appendChild(taskDiv);
                             
-                            filteredTasksSection.appendChild(taskDiv);
+                            } else if (task.status === "Not started") {
+                                const currentProject = projectArray.find((item) => item.title === task.project);
+                                renderTask(taskDiv, task, taskArray, projectArray);
+                                deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
+
+                                notStartedContainer.appendChild(taskDiv);
+                            
+                            } else if (task.status === "Completed") {
+                                const currentProject = projectArray.find((item) => item.title === task.project);
+                                renderTask(taskDiv, task, taskArray, projectArray);
+                                deleteTask(taskDiv, task, currentProject, taskArray, projectArray);
+
+                                completedContainer.appendChild(taskDiv);
+                            }                            
                         })
                     }
-                    mainContent.appendChild(filteredTasksSection);
                     break;
                 case "sidebar-ongoing-tasks":
-                    filteredTasksHeader.textContent = "Ongoing tasks";
+                    filteredTasksHeader.textContent = "Tasks > Ongoing";
 
                     if (taskArray.length === 0) {
                         zeroTasksFunc("ongoing");
@@ -81,11 +135,10 @@ export const filterTasks = (taskArray, projectArray) => {
                             zeroTasksFunc("ongoing");
                             }
                     }
-                    
-                    mainContent.appendChild(filteredTasksSection);
+                    mainTasksArea.appendChild(filteredTasksSection);
                     break;
                 case "sidebar-not-started-tasks":
-                    filteredTasksHeader.textContent = "Not started tasks";
+                    filteredTasksHeader.textContent = "Tasks > Not started";
 
                     if (taskArray.length === 0) {
                         zeroTasksFunc("not started");
@@ -110,10 +163,10 @@ export const filterTasks = (taskArray, projectArray) => {
                         }
                     }
 
-                    mainContent.appendChild(filteredTasksSection);
+                    mainTasksArea.appendChild(filteredTasksSection);
                     break;
                 case "sidebar-completed-tasks":
-                    filteredTasksHeader.textContent = "Completed tasks";
+                    filteredTasksHeader.textContent = "Tasks > Completed";
 
                     if (taskArray.length === 0) {
                         zeroTasksFunc("completed");
@@ -138,10 +191,10 @@ export const filterTasks = (taskArray, projectArray) => {
                         }
                     }
 
-                    mainContent.appendChild(filteredTasksSection);
+                    mainTasksArea.appendChild(filteredTasksSection);
                     break;
                 case "sidebar-deadline-passed-tasks":
-                    filteredTasksHeader.textContent = "Overdue tasks";
+                    filteredTasksHeader.textContent = "Tasks > Overdue";
 
                     if (taskArray.length === 0) {
                         zeroTasksFunc("overdue");
@@ -169,45 +222,28 @@ export const filterTasks = (taskArray, projectArray) => {
                         }
                     }
 
-                    mainContent.appendChild(filteredTasksSection);
+                    mainTasksArea.appendChild(filteredTasksSection);
                     break;
             }
         })
     })
 
+    // filtering projects
     const sidebarProjectLinks = document.querySelectorAll(".sidebar-project-link");
     sidebarProjectLinks.forEach((link) => {
         link.addEventListener("click", () => {
-            const addTaskBtns = document.querySelectorAll(".add-task-btn");
-            addTaskBtns.forEach((button) => {
-                button.className = "add-task-btn hidden";
-            })
-
-            const addProjectBtns = document.querySelectorAll(".add-project-btn");
-            addProjectBtns.forEach((button) => {
-                button.className = "add-project-btn hidden";
-            })
-
-            mainContent.textContent = "";
-
-            const filteredProjectsHeader = document.createElement("h2");
-            mainContent.appendChild(filteredProjectsHeader);
-
-            const filteredProjectsSection = document.createElement("div");
-            filteredProjectsSection.className = "dynamic-projects-area";
-            filteredProjectsSection.id = "projects-section";
-            mainContent.appendChild(filteredProjectsSection);
+            clearHtml();
 
             const zeroProjectsFunc = (projectStatus) => {
                 const zeroProjectsMessage = document.createElement("p");
                 zeroProjectsMessage.className = "zero-projects-message";
                 zeroProjectsMessage.textContent = `There are currently no ${projectStatus} projects available.`;
-                filteredProjectsSection.appendChild(zeroProjectsMessage);
+                projectsSection.appendChild(zeroProjectsMessage);
             }
 
             switch(link.id) {
                 case "sidebar-all-projects":
-                    filteredProjectsHeader.textContent = "All projects";
+                    projectsHeader.textContent = "All projects";
 
                     if (projectArray.length === 1) { // 1 because general tasks is the non-deleteable project 
                         zeroProjectsFunc("");
@@ -219,9 +255,9 @@ export const filterTasks = (taskArray, projectArray) => {
                         })
                     }
                     break;
-                    
+
                 case "sidebar-ongoing-projects": 
-                    filteredProjectsHeader.textContent = "Ongoing projects";
+                projectsHeader.textContent = "Projects > Ongoing";
 
                     if (projectArray.length === 1) {
                         zeroProjectsFunc("ongoing");
@@ -242,7 +278,7 @@ export const filterTasks = (taskArray, projectArray) => {
                     break;
 
                 case "sidebar-not-started-projects":
-                    filteredProjectsHeader.textContent = "Not started projects";
+                    projectsHeader.textContent = "Projects > Not started";
 
                     if (projectArray.length === 1) {
                         zeroProjectsFunc("not started");
@@ -263,7 +299,7 @@ export const filterTasks = (taskArray, projectArray) => {
                     break;
 
                 case "sidebar-completed-projects":
-                    filteredProjectsHeader.textContent = "Completed projects";
+                    projectsHeader.textContent = "Projects > Completed";
 
                     if (projectArray.length === 1) {
                         zeroProjectsFunc("completed");
