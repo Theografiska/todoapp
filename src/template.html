@@ -63,14 +63,28 @@
     </div>
 
     <div id="main-content">
-        <h1>Dashboard</h1>
-        <h2>General Tasks</h2>
+        <div id="headings-section">
+            <h1>Dashboard</h1>
+            <h2>General Tasks</h2>
+        </div>
         <!--add the general project here (the "All tasks" section) -->
         <div id="tasks-section">
+            <div id="main-tasks-area"></div>
+            <div class="hidden" id="ongoing-tasks">
+                <h3>Ongoing tasks</h3>
+            </div>
+            <div class="hidden" id="not-completed-tasks">
+                <h3>Not completed tasks</h3>
+            </div>
+            <div class="hidden" id="completed-tasks">
+                <h3>Completed tasks</h3>
+            </div>
         </div>
 
         <!--other projects go to the main projects section-->
-        <h2>Projects</h2>
+        <div id="projects-header">
+            <h2>Projects</h2>
+        </div>
         <div id="projects-section">
         </div>
     </div>
