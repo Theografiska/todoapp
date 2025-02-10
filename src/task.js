@@ -5,6 +5,7 @@ import { loadFromStorage, saveToStorage } from './utils.js';
 
 import fullScreen from "./assets/fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
 import minimize from "./assets/close_fullscreen_24dp_666666_FILL0_wght400_GRAD0_opsz24.svg";
+import calendar from "./assets/calendar_month_20dp_F0F0F0_FILL0_wght400_GRAD0_opsz20.svg";
 
 export class Task {
     constructor(title, description, dueDate, priority, status, project, checklist = []) {
@@ -70,21 +71,29 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
             taskStatusSymbol.style.backgroundColor = "green";
             break;
     }
+    const taskDueDateDiv = document.createElement("div");
+    taskDueDateDiv.className = "task-duedate-div";
 
-    const taskDueDate = document.createElement("p");
+    const taskCalElement = document.createElement("div");
+    taskCalElement.className = "task-calendar-image";
+    taskCalElement.style.background = `url(${calendar})`;
+
+    const taskDueDatePara = document.createElement("p");
     const formattedDate = format(parseISO(taskObj.dueDate), "MMM dd, yyyy"); // "Jan 29, 2025"
-    taskDueDate.innerHTML = `Deadline: <span>${formattedDate}</span>`; // Wrap date in a span
+    taskDueDatePara.innerHTML = `<span>${formattedDate}</span>`; // Wrap date in a span
     
     // Check if the due date has passed
     const todayDate = new Date();
     const dueDate = parseISO(taskObj.dueDate); // Convert string to Date object
     
     if (isBefore(dueDate, todayDate) && taskObj.status !== "Completed") {
-        taskDueDate.querySelector("span").style.color = "red"; // Apply red color only to the date
+        taskDueDatePara.querySelector("span").style.color = "red"; // Apply red color only to the date
     } else {
-        taskDueDate.querySelector("span").style.color = "white";
+        taskDueDatePara.querySelector("span").style.color = "white";
     }
-    taskInitialCharacteristicsDiv.appendChild(taskDueDate);
+    taskDueDateDiv.appendChild(taskCalElement);
+    taskDueDateDiv.appendChild(taskDueDatePara);
+    taskInitialCharacteristicsDiv.appendChild(taskDueDateDiv);
 
     // task status should be changed by clicking on the symbol
     taskStatusSymbol.addEventListener("click", () => {
@@ -137,9 +146,9 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
             }
 
             if (isBefore(dueDate, todayDate) && taskObj.status !== "Completed") {
-                taskDueDate.querySelector("span").style.color = "red"; // Apply red color only to the date
+                taskDueDatePara.querySelector("span").style.color = "red"; // Apply red color only to the date
             } else {
-                taskDueDate.querySelector("span").style.color = "white";
+                taskDueDatePara.querySelector("span").style.color = "white";
             }
 
             /* taskObj.changeStatus(taskObj.status); */
@@ -466,6 +475,7 @@ export const createTask = (taskArray, projectArray) => {
 
 export const renderTask = (taskDiv, taskObj, taskArray, projectArray) => {
     const taskInitialCharacteristics = document.createElement("div");
+    taskInitialCharacteristics.className = "task-initial-char";
 
     initialTaskCharacteristics(taskObj, taskInitialCharacteristics, taskArray, projectArray);
 

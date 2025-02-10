@@ -49,6 +49,12 @@ button {
     padding: 2rem;
 }
 
+#dashboard-link {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
 #sidebar h3 {
     font-size: 1.2rem;
     text-transform: uppercase;
@@ -118,6 +124,11 @@ button {
     margin: 1rem 2rem;
 }
 
+#tasks-section > div > h3 { /* this is the heading for filtering by all tasks */
+    margin: 1.5rem 0;
+    font-size: 1.25rem;
+}
+
 #main-tasks-area {
     gap: 1rem;
     display: grid;
@@ -172,6 +183,12 @@ button {
     text-transform: uppercase;
 }
 
+.task-initial-char {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .task > div, .task p {
     margin: .5rem 0;
 }
@@ -221,6 +238,18 @@ button {
     background-color: aliceblue;
     border: none;
     cursor: pointer;
+}
+
+.task-calendar-image {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.task-duedate-div {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
 }
 
 .task button, .project button {
@@ -611,8 +640,8 @@ textarea {
 
 .mini { /* small task inside a project */
     width: 12rem;
-    min-height: 8rem;
-    max-height: 12rem;
+    min-height: 10rem;
+    max-height: 14rem;
 }
 
 .dynamic {
