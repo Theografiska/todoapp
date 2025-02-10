@@ -133,7 +133,7 @@ button {
 #projects-section {
     gap: 2rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .task-area {
@@ -172,17 +172,15 @@ button {
     text-transform: uppercase;
 }
 
-.task p {
+.task > div, .task p {
     margin: .5rem 0;
 }
 
 .task-project-p {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: gray;
+    justify-content: left;
+    color: gray;
     height: 2rem;
-    max-width: 15rem;
     border-radius: .5rem;
 }
 
@@ -585,8 +583,8 @@ textarea {
     background-color: #333D47;
     color: #F0F0F0;
     padding: 2rem;
-    min-width: 50rem;
-    max-width: 80rem;
+    min-width: 20rem;
+    max-width: 60rem;
     border: 1px solid #5A6570;
     border-radius: 2rem;
     margin: 1rem 0rem;
