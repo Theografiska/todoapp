@@ -97,12 +97,9 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
 
     // task status should be changed by clicking on the symbol
     taskStatusSymbol.addEventListener("click", () => {
-        taskStatus.textContent = "";
+        taskStatusText.textContent = "Status: ";
+        taskStatusSymbol.className = "task-status-symbol hidden";
         taskStatus.className = "edit-row status-change";
-
-        const statusLabel = document.createElement("p");
-        statusLabel.textContent = "Status: ";
-        taskStatus.appendChild(statusLabel);
 
         const previousStatus = taskObj.status; // selecting the previous choice as default option
         const statusArray = ["Not started", "Ongoing", "Completed"];
@@ -127,10 +124,10 @@ export const initialTaskCharacteristics = (taskObj, taskInitialCharacteristicsDi
             if (taskIndex !== -1) {
                 taskArray[taskIndex] = taskObj;  // Ensure the task is updated in the array
             }
-
-            taskStatus.textContent = `Status: ${taskObj.status}`;
+            statusSelect.remove();
+            taskStatusSymbol.className = "task-status-symbol";
+            taskStatusText.textContent = `${taskObj.status}`;
             taskStatus.className = "edit-row"; // Restore original styling
-            taskStatus.appendChild(taskStatusSymbol);
 
             // changing taskDiv color based on task status
             switch(taskObj.status) {

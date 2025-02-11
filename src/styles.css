@@ -155,7 +155,7 @@ button {
 }
 
 .task {
-    background-color: #4A5568;
+    background-color: #3E4A56;  /* Slight darkening larger task view */
     color: #F0F0F0; /* Ensures readability */
     display: flex;
     flex-direction: column;
@@ -209,13 +209,14 @@ button {
 }
 
 .task-status-symbol {
-    margin: .5rem 0;
+    margin: 0;
     width: 1rem;
     height: 1rem;
     border-radius: .5rem;
     background-color: aliceblue;
     border: none;
     cursor: pointer;
+    position: relative;
 }
 
 .project-status {
@@ -302,17 +303,14 @@ button {
 
 .edit-row {
     display: flex;
-    gap: 1rem;
+    gap: .5rem;
     flex-wrap: nowrap;
     align-items: center;
-    overflow: visible;
     margin: .5rem 0;
 }
 
 .edit-row p {
     width: 5rem;
-    font-weight: 600;
-    margin-bottom: 0;
 }
 
 .edit-row textarea { /* this is for the 1-click status change (from main, not edit view) */
@@ -637,6 +635,7 @@ textarea {
 }
 
 .mini { /* small task inside a project */
+    background-color: #4A5568;
     width: 12rem;
     min-height: 10rem;
     max-height: 14rem;
