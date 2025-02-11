@@ -19,10 +19,11 @@
             </div>
         </div>
         <div>
-            <a href="#" onclick="location.reload();"><h3>Dashboard</h3></a>
+            <a id="dashboard-link" href="#" onclick="location.reload();"><img src="dcce98586689314612d4.svg" height="20px"><h3>Dashboard</h3></a>
         </div>
         <div id="tasks-sidebar">
             <div id="sidebar-my-tasks" class="sidebar-task-link">
+                <img src="a5ab11ee00031a84fc4b.svg" alt="">
                 <h3>Tasks</h3>
             </div>
             <div id="sidebar-ongoing-tasks" class="sidebar-task-link">
@@ -44,6 +45,7 @@
         </div>
         <div id="projects-sidebar">
             <div id="sidebar-all-projects" class="sidebar-project-link">
+                <img src="29c1cc8a715b7a6081d6.svg" alt="">
                 <h3>Projects</h3>
             </div>
             <div id="sidebar-ongoing-projects" class="sidebar-project-link">
@@ -63,15 +65,27 @@
     </div>
 
     <div id="main-content">
-        <h1>Dashboard</h1>
-        <h2>General Tasks</h2>
+        <div id="headings-section">
+            <h1>Dashboard</h1>
+            <h2>General Tasks</h2>
+        </div>
         <!--add the general project here (the "All tasks" section) -->
         <div id="tasks-section">
+            <div id="main-tasks-area"></div>
+            <div id="ongoing-tasks"></div>
+            <div id="not-started-tasks"></div>
+            <div  id="completed-tasks"></div>
+            <div id="overdue-tasks"></div>
         </div>
 
         <!--other projects go to the main projects section-->
-        <h2>Projects</h2>
+        <h2 id="projects-header">Projects</h2>
         <div id="projects-section">
+            <!-- <div class="hidden" id="main-projects-area"></div>
+            <div class="hidden" id="ongoing-projects"></div>
+            <div class="hidden" id="not-started-projects"></div>
+            <div class="hidden" id="completed-projects"></div>
+            <div class="hidden" id="overdue-projects"></div> -->
         </div>
     </div>
       <!--task dialog-->
