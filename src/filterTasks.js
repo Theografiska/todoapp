@@ -34,11 +34,17 @@ export const filterTasks = (taskArray, projectArray) => {
 
         projectsHeader.textContent = "";
         projectsSection.textContent = "";
-    }
+    }    
 
     // filtering tasks
     sidebarTaskLinks.forEach((link) => {
         link.addEventListener("click", () => {
+            // temporary fix for the add task and project buttons
+            const addTaskBtn = document.querySelector("#add-task-btn-sidebar");
+            addTaskBtn.className = "hidden";
+            const addProjectBtn = document.querySelector("#add-project-btn-sidebar");
+            addProjectBtn.className = "hidden";
+
             clearHtml();
             const filteredTasksHeader = document.createElement("h2");
             headingsSection.appendChild(filteredTasksHeader);
@@ -232,6 +238,12 @@ export const filterTasks = (taskArray, projectArray) => {
     const sidebarProjectLinks = document.querySelectorAll(".sidebar-project-link");
     sidebarProjectLinks.forEach((link) => {
         link.addEventListener("click", () => {
+            // temporary fix for the add task and project buttons
+            const addTaskBtn = document.querySelector("#add-task-btn-sidebar");
+            addTaskBtn.className = "hidden";
+            const addProjectBtn = document.querySelector("#add-project-btn-sidebar");
+            addProjectBtn.className = "hidden";
+
             clearHtml();
 
             const zeroProjectsFunc = (projectStatus) => {

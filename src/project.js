@@ -92,10 +92,10 @@ export const createProject = (projectArray, taskArray) => {
 export const projectRender = (projectObj, projectArray, taskArray) => {
 
     const projectsSection = document.querySelector("#projects-section");
+    const mainTasksArea = document.querySelector("#main-tasks-area");
+
     // general tasks project (displayed as just general tasks):
     if (projectObj.title === "general-tasks") {
-        const mainTasksArea = document.querySelector("#main-tasks-area");
-
         const taskArea = document.createElement("div");
         taskArea.id = `${projectObj.title}-task-area`
         taskArea.className = "task-area";

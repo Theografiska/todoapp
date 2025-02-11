@@ -459,9 +459,13 @@ export const createTask = (taskArray, projectArray) => {
             saveToStorage("tasksArray", taskArray);
             saveToStorage("projectsArray", projectArray);
 
-            taskDialog.style.display = "none";
+             // Refresh the page *before* the modal closes
+            setTimeout(() => {
+                location.reload();
+            }, 100); // Delay to ensure UI updates are seen
 
             // closing the dialog
+            taskDialog.style.display = "none";
             taskDialog.close();
         });
 
